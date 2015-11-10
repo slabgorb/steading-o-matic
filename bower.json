@@ -1,0 +1,10 @@
+{
+  "name": "el-charro",
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "bootstrap": "~3.3.5",
+    "jquery": "~2.1.4",
+    "underscore": "~1.8.2",
+    "bootstrap-select": "~1.7.4"
+  }
+}
