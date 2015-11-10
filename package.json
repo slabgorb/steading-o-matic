@@ -2,9 +2,11 @@
   "name": "steading-o-matic",
   "version": "1.0.0",
   "description": "Tool for Dungeon World GMs",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/nodemon/bin/nodemon.js --watch dist ./dist/app.js",
+    "postinstall": "./node_modules/bower/bin/bower install && grunt copy concat jst coffee"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,7 @@
   "homepage": "https://github.com/slabgorb/steading-o-matic#readme",
   "dependencies": {
     "bower": "^1.6.5",
+    "express": "^4.13.3",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-coffee": "^0.13.0",
@@ -36,6 +39,7 @@
     "grunt-contrib-watch": "^0.6.1",
     "mongoose": "^4.2.5",
     "nodemon": "^1.8.1",
+    "serve-favicon": "^2.3.0",
     "underscore": "^1.8.3"
   }
 }
