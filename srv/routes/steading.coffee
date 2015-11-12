@@ -1,6 +1,9 @@
 Steading = require('../models/steading')
 
 exports.register_routes = (app) ->
+  app.get('/steadings') ->
+    res.render 'steadings'
+
   app.route('/api/steadings')
     .post (req, res) ->
       Steading.create
@@ -11,6 +14,8 @@ exports.register_routes = (app) ->
         defenses: req.body.defenses
         colors: req.body.colors
         icon: req.body.icon
+        tags: req.body.tags
+        description: req.body.description
         (err, data) ->
           res.status(500).send err if err
           res.send data
@@ -18,6 +23,10 @@ exports.register_routes = (app) ->
       Steading.find {}, (err, steadings) ->
         res.status(500).send err if err
         res.json steadings
+    .delete (req, res) ->
+      Steading.remove {}, (err) ->
+        res.status(500).send err if err
+        res.json {success: true} unless err
 
   app.route('/api/steadings/:id')
     .get (req,res) ->
@@ -36,6 +45,8 @@ exports.register_routes = (app) ->
         defenses: req.body.defenses
         colors: req.body.colors
         icon: req.body.icon
+        tags: req.body.tags
+        description: req.body.description
         (err, steading) ->
           res.status(500).send err if err
           if steading

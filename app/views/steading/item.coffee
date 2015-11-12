@@ -1,1 +1,1 @@
-class SteadingOMatic.Views.Steading.Item extends SteadingOMatic.Views.Base
+class SteadingOMatic.Views.SteadingItem extends SteadingOMatic.Views.Base
