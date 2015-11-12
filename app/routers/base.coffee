@@ -1,13 +1,15 @@
 class SteadingOMatic.Routers.Base extends Backbone.Router
+
+  initialize: (options) ->
+    @bind 'all', (trigger, args) ->
+      [func, name] = trigger.split(':')
+      if func == 'route' and name?
+        $('.ntabs').removeClass('active')
+        $("#tab-#{name}").addClass('active')
+
   routes:
     "": "index"
     "steadings": "steadings"
-
-  execute: (callback, args,name) ->
-    console.log route, name, callback
-    $('.ntabs').removeClass('active')
-    $("#tab-#{name}").addClass('active')
-    super(callback, args,name)
 
   index: ->
     _.noop()
