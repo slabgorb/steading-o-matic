@@ -15,3 +15,4 @@ class SteadingOMatic.Views.SteadingList extends SteadingOMatic.Views.Base
   render: (options) ->
     super(options)
     @collection.fetch()
+    @

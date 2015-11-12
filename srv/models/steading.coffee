@@ -26,7 +26,7 @@ SteadingSchema = new Schema
   defenses:
     type: String
     enum: ['None', 'Militia', 'Watch', 'Guard', 'Garrison', 'Battalion', 'Legion']
-  tags: [String]
+  tags: [ {tag: String, details: String } ]
   colors:
     main: String
     secondary: String
