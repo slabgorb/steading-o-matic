@@ -1,7 +1,7 @@
 Steading = require('../models/steading')
 
 exports.register_routes = (app) ->
-  app.get('/steadings') ->
+  app.get '/steadings', (req, res) ->
     res.render 'steadings'
 
   app.route('/api/steadings')

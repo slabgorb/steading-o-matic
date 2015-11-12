@@ -17,7 +17,7 @@ html, body {
   }
   .jumbotron {
     &.home {
-      background: url('/images/matador.jpg');
+      background-color: $color_4;
       min-height: 70%;
       background-size:     cover;
       background-repeat:   no-repeat;
@@ -55,10 +55,11 @@ html, body {
   .navbar {
     background-color: $navbar_background_color;
     border: 0px;
-    border-bottom: 2px solid $color_3;
+    border-bottom: 1px solid $color_2;
+    border-radius: 0px;
     margin-bottom: -10px;
     a {
-      color: $color_3;
+      color: $color_2;
     }
     &.navbar-fixed-bottom {
       border-top: 1px solid $color_3;
