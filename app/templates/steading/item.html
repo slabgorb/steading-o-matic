@@ -1,23 +1,21 @@
 <div class="media">
-  <div class="media-left" style="background-color: <%= colors.main %>">
-    <span style="color: <%= colors.secondary %>" class="steading-icon-list icon-<%= icon %>"></span>
+  <div class="media-left media-top steading-icon-list icon-<%= icon %>" style="color: <%= colors.secondary %>; background-color: <%= colors.main %>;">
   </div>
   <div class="media-body">
     <div class="media-heading">
       <h3><%= name %></h3>
-      <dl>
-        <dt>Size</dt>
-        <dd><%= size %></dd>
-        <dt>Population</dt>
-        <dd><%= population %></dd>
-        <dt>Prosperity</dt>
-        <dd><%= prosperity %></dd>
-        <dt>Defenses</dt>
-        <dd><%= defenses %></dd>
-        <dt>Additional Tags</dt>
-        <dd><%= tags.join(', ') %></dd>
-      </dl>
     </div>
-
+    <dl class="dl-horizontal">
+      <dt>Size</dt>
+      <dd><%= size %></dd>
+      <dt>Population</dt>
+      <dd><%= population %></dd>
+      <dt>Prosperity</dt>
+      <dd><%= prosperity %></dd>
+      <dt>Defenses</dt>
+      <dd><%= defenses %></dd>
+      <dt>Additional Tags</dt>
+      <dd><%= tags.join(', ') %></dd>
+    </dl>
   </div>
 </div>

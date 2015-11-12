@@ -3,7 +3,15 @@ class SteadingOMatic.Routers.Base extends Backbone.Router
     "": "index"
     "steadings": "steadings"
 
+  execute: (callback, args,name) ->
+    console.log route, name, callback
+    $('.ntabs').removeClass('active')
+    $("#tab-#{name}").addClass('active')
+    super(callback, args,name)
+
+  index: ->
+    _.noop()
+
 
   steadings: ->
-    $('#tab-steadings').addClass('active')
     $('.app').html new SteadingOMatic.Views.SteadingList().render().el

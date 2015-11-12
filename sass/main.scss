@@ -84,59 +84,15 @@ html, body {
       }
 
     }
-    .navbar-brand {
-      margin-top: -15px;
-    }
   }
   .navbar-brand {
     font-family: $font-header;
   }
-  .group-header-wrapper {
-    text-align: center;
-    border-bottom: 2px solid $color_3;
-    margin-bottom: 20px;
-    h3 {
-      position: relative;
-      top: 12px;
-      display: inline-block;
-      background: $background_color;
-      padding: 0px 12px;
-      margin: 0px;
+  .steading-icon-list {
+    &:before {
+      width: 64px;
+      height: 64px;
+      font-size: 64px;
     }
   }
-
-  ul.hours {
-    li {
-      list-style-type: none;
-      &:first-child {
-        font-size: 120%;
-      }
-    }
-  }
-
-  .item-group {
-    margin-bottom: 20px;
-  }
-  .item {
-    margin-top: 10px;
-    span.name {
-      font-size: 1.75rem;
-      padding-bottom:0px;
-      line-height: 1.8 rem;
-      display: inline-block;
-      margin-bottom: 10px;
-      font-family: $font_header;
-    }
-    span.description {
-      display: block;
-    }
-  }
-
-  .footer {
-    height: 60px;
-    padding-top: 5px;
-    background-color: $navbar_background_color;
-    color: $color_1;
-  }
-
 }
