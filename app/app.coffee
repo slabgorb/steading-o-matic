@@ -8,7 +8,7 @@ SteadingOMatic.Routers = {}
 class SteadingOMatic.App
   constructor: ->
     @router = new SteadingOMatic.Routers.Base()
-    Backbone.history.start()
+    Backbone.history.start({pushState: true})
 
 $ ->
   window.app = new SteadingOMatic.App()

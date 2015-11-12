@@ -6,4 +6,4 @@ class SteadingOMatic.Routers.Base extends Backbone.Router
 
   steadings: ->
     $('#tab-steadings').addClass('active')
-    $('.app').html new SteadOMatic.Views.SteadingListView().render().el
+    $('.app').html new SteadingOMatic.Views.SteadingList().render().el

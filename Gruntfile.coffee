@@ -52,7 +52,7 @@ module.exports = (grunt) ->
         files:
           'public/js/app.js': [
             'app/app.coffee'
-            'app/lib/extensions.coffee'
+            'app/lib/**/*.coffee'
             'app/models/**/*.coffee'
             'app/collections/**/*.coffee'
             'app/views/**/*.coffee'
@@ -82,7 +82,7 @@ module.exports = (grunt) ->
         options:
           livereload: true
       coffeeapp:
-        files: ['app/**/*.coffee','lib/**/*.coffee']
+        files: ['app/**/*.coffee','app/lib/**/*.coffee']
         tasks: 'coffee:app'
         options:
           livereload: true

@@ -1,6 +1,7 @@
 #
 # this class should be used for debugging purposes
 #
+#
 class SteadingOMatic.Logger
   constructor: (logLevel = 'info', trace = false, color='Black', bgcolor='White') ->
     @logLevel = logLevel
