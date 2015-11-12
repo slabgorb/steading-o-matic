@@ -50,7 +50,7 @@ exports.register_routes = (app) ->
         (err, steading) ->
           res.status(500).send err if err
           if steading
-            res.json steading
+            res.json {success: true}
           else
             res.status(404).json {error: 'not found'}
     .delete (req, res) ->
