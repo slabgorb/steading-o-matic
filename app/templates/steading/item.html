@@ -24,8 +24,10 @@
       <dd><%= prosperity %></dd>
       <dt>Defenses</dt>
       <dd><%= defenses %></dd>
-      <dt>Additional Tags</dt>
-      <dd><%= tags.join(', ') %></dd>
+      <% _.each(tags, function(tag) { %>
+      <dt><%= tag.tag %></dt>
+      <dd><%= tag.details %></dd>
+      <% }); %>
     </dl>
   </div>
 </div>
