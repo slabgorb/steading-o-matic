@@ -1,4 +1,5 @@
 class SteadingOMatic.Views.Form extends SteadingOMatic.Views.Base
-  el: '.app'
+  tagName: 'div'
+
   render: (options) ->
-    @$el.html @template(@model.attributes)
+    @setElement @template(@model.attributes)

@@ -9,7 +9,6 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
   comparator: 'name'
 
   duplicate: (model) ->
-    @logger.debug 'Triggered duplicate', model
     duplicate = new @model(model.toJSON())
     duplicate.unset('_id')
     duplicate.save().done =>
@@ -17,6 +16,5 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
         @add(duplicate)
 
   delete: (model) ->
-    @logger.debug 'Triggered delete', model
     @remove(model)
     model.destroy()
