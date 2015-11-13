@@ -1,1 +1,2 @@
-class SteadingOMatic.Views.SteadingDetail extends SteadingOMatic.Views.Base
+class SteadingOMatic.Views.SteadingDetail extends SteadingOMatic.Views.Detail
+  template: JST['/app/templates/steading/detail.html']

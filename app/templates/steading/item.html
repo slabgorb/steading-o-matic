@@ -3,8 +3,18 @@
   </div>
   <div class="media-body">
     <div class="media-heading">
-      <h3><%= name %></h3>
+      <h3>
+        <%= name %>
+      </h3>
+      <div class="btn-toolbar">
+        <button class="btn btn-default glyphicon glyphicon-eye-open"></button>
+        <button class="btn btn-default glyphicon glyphicon-pencil"></button>
+        <button class="btn btn-default glyphicon glyphicon-duplicate"></button>
+        <button class="btn btn-danger glyphicon glyphicon-remove"></button>
+      </div>
     </div>
+
+
     <dl class="dl-horizontal">
       <dt>Size</dt>
       <dd><%= size %></dd>
