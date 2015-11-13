@@ -9,7 +9,7 @@ module.exports = (grunt) ->
           {
             expand: true
             cwd: 'srv/'
-            src: [ 'views/*' ]
+            src: [ 'views/**/*.jade' ]
             dest: 'dist/'
             filter: 'isFile'
           }
@@ -61,7 +61,7 @@ module.exports = (grunt) ->
           ]
     watch:
       views:
-        files: 'srv/views/*'
+        files: 'srv/views/**/*'
         tasks: 'copy'
         options:
           livereload: true
