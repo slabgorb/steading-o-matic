@@ -1,7 +1,2 @@
-class SteadingOMatic.Views.SteadingItem extends SteadingOMatic.Views.Base
-  initialize: (options) ->
-    @template = JST['app/templates/steading/item.html']
-
-  render: ->
-    @setElement @template(@model.attributes)
-    @
+class SteadingOMatic.Views.SteadingItem extends SteadingOMatic.Views.Item
+  template: JST['app/templates/steading/item.html']

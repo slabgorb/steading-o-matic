@@ -44,7 +44,7 @@ exports.register_routes = (app) ->
         if steading
           res.json steading
         else
-          res.status(404).json {error: 'not found'}
+          res.status(404)
     .put (req, res) ->
       Steading.findOneAndUpdate {_id: req.params.id },
         name: req.body.name
@@ -61,11 +61,11 @@ exports.register_routes = (app) ->
           if steading
             res.json {success: true}
           else
-            res.status(404).json {error: 'not found'}
+            res.status(404)
     .delete (req, res) ->
       Steading.findOneAndRemove {_id: req.params.id }, (err, steading) ->
         res.status(500).send err if err
         if steading
           res.json {success: true}
         else
-          res.status(404).json {error: 'not found'}
+          res.status(404)

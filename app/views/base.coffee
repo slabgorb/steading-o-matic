@@ -9,7 +9,8 @@ class SteadingOMatic.Views.Base extends Backbone.View
       render()
       @postRender()
 
-  preRender: -> _.noop()
-  postRender: -> _.noop()
+  preRender: -> return @
+  postRender: -> return @
+
 
   events: -> {}
