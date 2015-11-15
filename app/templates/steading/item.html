@@ -34,9 +34,13 @@
         </dd>
         <% _.each(tags, function(tag) { %>
         <dt><%= tag.tag %></dt>
-        <dd><%= tag.details %></dd>
+        <dd>
+          <%= tag.details %>
+          <p><%= _.find(enums.tags, function(e) { return e.key == tag.tag }).description %></p>
+        </dd>
         <% }); %>
       </dl>
+      <div class="well"><%= description %></div>
     </div>
   </div>
 </div>

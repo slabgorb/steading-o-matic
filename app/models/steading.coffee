@@ -13,7 +13,7 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
         when 'keep' then @defaultsForKeep()
       baseAttributes.icon = @randomIcon()
       background = @randomColor()
-      baseAttributes.description = @randomDescription()
+      baseAttributes.description = @randomDescription(options.type)
       baseAttributes.colors = {
         background: background
         icon: @contrastingColor(background)
@@ -35,8 +35,8 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     population: 'Steady'
     defenses: 'Militia'
     tags:
-      tag: 'resource', details: ''
-      tag: 'oath', details: ''
+      tag: 'Resource', details: ''
+      tag: 'Oath', details: ''
 
   #
   # sets defaults for a new town
@@ -47,7 +47,7 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     population: 'Steady'
     defenses: 'Watch'
     tags:
-      tag: 'trade', details: ''
+      tag: 'Trade', details: ''
 
   #
   # sets defaults for a new keep
@@ -58,8 +58,8 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     population: 'Shrinking'
     defenses: 'Guard'
     tags:
-      tag: 'trade', details: ''
-      tag: 'oath', details: ''
+      tag: 'Trade', details: ''
+      tag: 'Oath', details: ''
 
   #
   # sets defaults for a new city
@@ -70,9 +70,9 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     population: 'Steady'
     defenses: 'Guard'
     tags:
-      tag: 'oath', details: ''
-      tag: 'guild', details: ''
-      tag: 'market', details: ''
+      tag: 'Oath', details: ''
+      tag: 'Guild', details: ''
+      tag: 'Market', details: ''
 
   #
   # selects a random icon
@@ -92,8 +92,8 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   randomName: ->
     _.sample( SteadingOMatic.Models.Steading.namesList )
 
-  randomDescription: ->
-    "A randomly generated  #{@get('size')}"
+  randomDescription: (type) ->
+    "A randomly generated  #{type}"
 
   #
   # chooses a contrasting color for the icon
@@ -385,7 +385,108 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
         description:"The steading is defended by thousands of armed soldiers (or equivalent). The steading’s defenses are intimidating. "
       }
     ]
-
+    tags: [
+      {
+        value:0,
+        key:"Safe",
+        description:"Outside trouble doesn't come here until the players bring it. Idyllic and often hidden, if the steading would lose or degrade another beneficial tag get rid of safe instead."
+      },
+      {
+        value:0,
+        key:"Religion",
+        description:"The listed deity is revered here."
+      },
+      {
+        value:0,
+        key:"Exotic",
+        description:"There are goods and services available here that aren't available anywhere else nearby. List them."
+      },
+      {
+        value:0,
+        key:"Resource",
+        description:"The steading has easy access to the listed resource (e.g., a spice, a type of ore, fish, grapes). That resource is significantly cheaper."
+      },
+      {
+        value:0,
+        key:"Need",
+        description:"The steading has an acute or ongoing need for the listed resource. That resource sells for considerably more."
+      },
+      {
+        value:0,
+        key:"Oath",
+        description:"The steading has sworn oaths to the listed steadings. These oaths are generally of fealty or support, but may be more specific."
+      },
+      {
+        value:0,
+        key:"Trade",
+        description:"The steading regularly trades with the listed steadings."
+      },
+      {
+        value:0,
+        key:"Market",
+        description:"Everyone comes here to trade. On any given day the available items may be far beyond their prosperity. +1 to supply."
+      },
+      {
+        value:0,
+        key:"Enmity",
+        description:"The steading holds a grudge against the listed steadings."
+      },
+      {
+        value:0,
+        key:"History",
+        description:"Something important once happened here, choose one and detail or make up your own: battle, miracle, myth, romance, tragedy."
+      },
+      {
+        value:0,
+        key:"Arcane",
+        description:"Someone in town can cast arcane spells for a price. This tends to draw more arcane casters, +1 to recruit when you put out word you're looking for an adept."
+      },
+      {
+        value:0,
+        key:"Divine",
+        description:"There is a major religious presence, maybe a cathedral or monastery. They can heal and maybe even raise the dead for a donation or resolution of a quest. Take +1 to recruit priests here."
+      },
+      {
+        value:0,
+        key:"Guild",
+        description:"The listed type of guild has a major presence (and usually a fair amount of influence). If the guild is closely associated with a type of hireling, +1 to recruit that type of hireling."
+      },
+      {
+        value:0,
+        key:"Personage",
+        description:"There's a notable person who makes their home here. Give them a name and a short note on why they're notable."
+      },
+      {
+        value:0,
+        key:"Dwarven",
+        description:"The steading is significantly or entirely dwarves. Dwarven goods are more common and less expensive than they typically are."
+      },
+      {
+        value:0,
+        key:"Elven",
+        description:"The steading is significantly or entirely elves. Elven goods are more common and less expensive than they typically are."
+      },
+      {
+        value:0,
+        key:"Craft",
+        description:"The steading is known for excellence in the listed craft. Items of their chosen craft are more readily available here or of higher quality than found elsewhere."
+      },
+      {
+        value:0,
+        key:"Lawless",
+        description:"Crime is rampant; authority is weak."
+      },
+      {
+        value:0,
+        key:"Blight",
+        description:"The steading has a recurring problem, usually a type of monster."
+      },
+      {
+        value:0,
+        key:"Power",
+        description:"The steading holds sway of some type. Typically political, divine, or arcane."
+      }
+    ]
 
   @colorList = {
     Black:"#000000",

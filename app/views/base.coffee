@@ -12,6 +12,7 @@ class SteadingOMatic.Views.Base extends Backbone.View
   preRender: -> return @
   postRender: ->
     $(".selectpicker").selectpicker()
+    #$(".checkbox").checkbox()
     return @
 
 

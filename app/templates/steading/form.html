@@ -49,6 +49,21 @@
         <label for="colors.icon">Icon Color</label>
         <input type="color" id="colors.icon" name="colors.icon" value="<%= colors.icon %>">
       </div>
+      <div class="form-group" id="tag-list">
+        <% _.each(enums.tags, function(tag) { %>
+        <% selectedTag = _.find(tags, function(t) { return t.tag == tag.key }) %>
+          <div role="tab" id="panel<%= tag.key %>">
+            <label for="<%= tag.key %>">
+              <input type="checkbox" <%= selectedTag ? 'checked' : '' %> name="<%= tag.key %>.tag" value="<%= tag.key %>">
+              <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= tag.key %>"> <%= tag.key %></a>
+            </label>
+            <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= tag.key %>">
+              <p><%= tag.description %></p>
+              <textarea class="form-control" name="tag.<%= tag.key %>.details" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
+            </div>
+          </div>
+        <% }); %>
+      </div>
       <div class="form-group">
         <label for="description">Description</label>
         <textarea class="form-control" name="description"><%= description %></textarea>
