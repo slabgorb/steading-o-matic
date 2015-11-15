@@ -12,9 +12,11 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
         when 'city' then @defaultsForCity()
         when 'keep' then @defaultsForKeep()
       baseAttributes.icon = @randomIcon()
+      background = @randomColor()
+      baseAttributes.description = @randomDescription()
       baseAttributes.colors = {
-        background: @randomColor()
-        icon: @randomColor()
+        background: background
+        icon: @contrastingColor(background)
       }
       baseAttributes.name = @randomName()
       @logger.debug "Base attributes", baseAttributes
@@ -91,6 +93,34 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   #
   randomName: ->
     _.sample( SteadingOMatic.Models.Steading.namesList )
+
+  randomDescription: ->
+    "A randomly generated  #{@get('size')}"
+
+  #
+  # chooses a contrasting color for the icon
+  #
+  contrastingColor: (color) ->
+    if @luma(color) >= 165 then '#000000' else '#FFFFFF'
+
+  #
+  #  helper function for @contrastingColor
+  #
+  luma: (color) ->
+    rgb = if typeof color == 'string' then @hexToRGBArray(color) else color
+    0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2]
+
+  #
+  # helper function for @luma
+  #
+  hexToRGBArray: (color) ->
+    color = color.replace('#','')
+    rgb = []
+    i = 0
+    while i <= 2
+      rgb[i] = parseInt(color.substr(i * 2, 2), 16)
+      i++
+    rgb
 
   #
   # static list of icons
