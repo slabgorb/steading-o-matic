@@ -29,7 +29,12 @@ html, body {
   h1, h2, h3, h4, h5, h6 {
     font-family: $font_header;
   }
-
+  .media {
+    border: 1px solid $color_3;
+    .media-heading {
+      margin-left: 10px;
+    }
+  }
   .navbar-default {
     .navbar-collapse {
       border: 0;
@@ -93,6 +98,9 @@ html, body {
       width: 64px;
       height: 64px;
       font-size: 64px;
+      position: relative;
+      top: 20px;
+      left: 5px;
     }
   }
 }

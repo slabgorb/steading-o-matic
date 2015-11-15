@@ -1,33 +1,58 @@
-<div class="container"  id="item-<%= _id %>" >
-  <form>
-    <% if (typeof _id !=='undefined') { %>
-    <input type="hidden" name="id" value="<%= _id %>"/>
-    <% } %>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input class="form-control" name="name" value="<%=name %>">
-    </div>
-    <div class="form-group">
-      <label for="population">population</label>
+<div class="media" id="item-<%= _id %>">
+  <div class="media-left media-top steading-icon-list icon-<%= icon %>" style="color: <%= colors.icon %>; background-color: <%= colors.background %>;">
+  </div>
 
-    </div>
-    <div class="form-group">
-      <label for="icon">icon</label>
-      <select id="iconList" name="icon" class="selectpicker">
-        <% _.each(iconList, function(i, char) { %>
-        <option <%= icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
-        <% }); %>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="colors">Colors</label>
-      <input type="color" name="colors.background" value="<%= colors.background %>">
-      <input type="color" name="colors.icon" value="<%= colors.icon %>">
-    </div>
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea class="form-control" name="description"><%= description %></textarea>
-    </div>
-  </form>
-  <button class="btn btn-default action-done">Done</button>
+  <div class="media-body container">
+    <form>
+      <% if (typeof _id !=='undefined') { %>
+      <input type="hidden" name="id" value="<%= _id %>"/>
+      <% } %>
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" value="<%=name %>">
+      </div>
+      <div class="form-group">
+        <label for="population">Population</label>
+        <select id="population" name="population" class="selectpicker form-control">
+          <% _.each(enums.population, function(p) { %>
+          <option <%= p.key == population ? 'selected' : '' %> value="<%= p.key %>"><%= p.key %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="prosperity">Prosperity</label>
+        <select id="prosperity" name="prosperity" class="selectpicker form-control">
+          <% _.each(enums.prosperity, function(p) { %>
+          <option <%= p.key == prosperity ? 'selected' : '' %> value="<%= p.key %>"><%= p.key %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="defenses">Defenses</label>
+        <select id="defenses" name="defenses" class="selectpicker form-control">
+          <% _.each(enums.defenses, function(p) { %>
+          <option <%= p.key == defenses ? 'selected' : '' %> value="<%= p.key %>"><%= p.key %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="icon">Icon</label>
+        <select id="iconList" name="icon" class="selectpicker form-control">
+          <% _.each(iconList, function(i, char) { %>
+          <option <%= icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="colors">Colors</label>
+        <input type="color" name="colors.background" value="<%= colors.background %>">
+        <input type="color" name="colors.icon" value="<%= colors.icon %>">
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description"><%= description %></textarea>
+      </div>
+    </form>
+    <button class="btn btn-default action-done">Done</button>
+  </div>
 </div>

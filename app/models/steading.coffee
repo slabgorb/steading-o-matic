@@ -24,6 +24,7 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
       @logger.debug "model", @toJSON()
     @set('iconList', SteadingOMatic.Models.Steading.iconList)
     @set('enums', SteadingOMatic.Models.Steading.enums)
+    @logger.debug 'Enums', @get('enums').population
     @set('colorList', SteadingOMatic.Models.Steading.colorList)
 
 

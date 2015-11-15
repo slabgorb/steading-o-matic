@@ -5,28 +5,29 @@
     <div class="media-heading">
       <h3>
         <%= name %>
+        <small><%= size %></small>
       </h3>
+    </div>
+    <div class="col-md-2 pull-left">
       <div class="btn-toolbar">
         <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
         <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
         <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
       </div>
     </div>
-
-
-    <dl class="dl-horizontal">
-      <dt>Size</dt>
-      <dd><%= size %></dd>
-      <dt>Population</dt>
-      <dd><%= population %></dd>
-      <dt>Prosperity</dt>
-      <dd><%= prosperity %></dd>
-      <dt>Defenses</dt>
-      <dd><%= defenses %></dd>
-      <% _.each(tags, function(tag) { %>
-      <dt><%= tag.tag %></dt>
-      <dd><%= tag.details %></dd>
-      <% }); %>
-    </dl>
+    <div class="col-md-2  pull-left">
+      <dl class="dl-horizontal">
+        <dt>Population</dt>
+        <dd><%= population %></dd>
+        <dt>Prosperity</dt>
+        <dd><%= prosperity %></dd>
+        <dt>Defenses</dt>
+        <dd><%= defenses %></dd>
+        <% _.each(tags, function(tag) { %>
+        <dt><%= tag.tag %></dt>
+        <dd><%= tag.details %></dd>
+        <% }); %>
+      </dl>
+    </div>
   </div>
 </div>
