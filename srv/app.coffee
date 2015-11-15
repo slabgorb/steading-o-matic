@@ -31,7 +31,7 @@ fs.readdirSync( __dirname + '/routes').forEach (file) ->
   require(__dirname + '/routes/' + name).register_routes(app)
 
 app.use (req, res, next) ->
-  console.log req.url, req.method
+  console.log req.params
   next()
 
 

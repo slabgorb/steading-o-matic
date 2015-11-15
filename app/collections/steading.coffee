@@ -10,4 +10,4 @@ class SteadingOMatic.Collections.Steading extends SteadingOMatic.Collections.Bas
     model = new @model({}, {type: type})
     model.save()
     model.fetch().done =>
-      @add model
+      _.defer => @add model

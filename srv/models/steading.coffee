@@ -28,8 +28,8 @@ SteadingSchema = new Schema
     enum: ['None', 'Militia', 'Watch', 'Guard', 'Garrison', 'Battalion', 'Legion']
   tags: [ {tag: String, details: String } ]
   colors:
-    main: String
-    secondary: String
+    background: String
+    icon: String
   description: String
 
 module.exports = mongoose.model 'Steading', SteadingSchema
