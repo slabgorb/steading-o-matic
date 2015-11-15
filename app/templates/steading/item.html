@@ -3,26 +3,35 @@
   </div>
   <div class="media-body">
     <div class="media-heading">
+      <div class="col-md-2 pull-right">
+        <div class="btn-group pull-right">
+          <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
+          <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
+          <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
+        </div>
+      </div>
       <h3>
         <%= name %>
         <small><%= size %></small>
       </h3>
     </div>
-    <div class="col-md-2 pull-left">
-      <div class="btn-toolbar">
-        <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
-        <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
-        <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
-      </div>
-    </div>
-    <div class="col-md-2  pull-left">
+    <div class="pull-left">
       <dl class="dl-horizontal">
         <dt>Population</dt>
-        <dd><%= population %></dd>
+        <dd>
+          <%= population %>
+          <p><%= _.find(enums.population, function(e) { return e.key == population }).description %></p>
+        </dd>
         <dt>Prosperity</dt>
-        <dd><%= prosperity %></dd>
+        <dd>
+          <%= prosperity %>
+          <p><%= _.find(enums.prosperity, function(e) { return e.key == prosperity }).description %></p>
+        </dd>
         <dt>Defenses</dt>
-        <dd><%= defenses %></dd>
+        <dd>
+          <%= defenses %>
+          <p><%= _.find(enums.defenses, function(e) { return e.key == defenses }).description %></p>
+        </dd>
         <% _.each(tags, function(tag) { %>
         <dt><%= tag.tag %></dt>
         <dd><%= tag.details %></dd>

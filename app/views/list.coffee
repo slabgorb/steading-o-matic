@@ -19,6 +19,7 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
     @collection.fetch()
     @
 
+
   addOne: (model) ->
     view = new SteadingOMatic.Views[@itemView]({ model: model })
     @childViews[model.cid] = view
