@@ -14,6 +14,7 @@ class SteadingOMatic.Views.Form extends SteadingOMatic.Views.Base
   actionEditDone: (event) ->
     event.preventDefault()
     form = $(event.target).parent('form')
+    @logger.debug form
     serialization = $(form).serializeObject()
     @logger.debug 'form submission', serialization
     @model.set(serialization)

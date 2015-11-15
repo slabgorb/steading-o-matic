@@ -19,12 +19,9 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
         icon: @contrastingColor(background)
       }
       baseAttributes.name = @randomName()
-      @logger.debug "Base attributes", baseAttributes
       @set(baseAttributes)
-      @logger.debug "model", @toJSON()
     @set('iconList', SteadingOMatic.Models.Steading.iconList)
     @set('enums', SteadingOMatic.Models.Steading.enums)
-    @logger.debug 'Enums', @get('enums').population
     @set('colorList', SteadingOMatic.Models.Steading.colorList)
 
 
