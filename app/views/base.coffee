@@ -10,7 +10,10 @@ class SteadingOMatic.Views.Base extends Backbone.View
       @postRender()
 
   preRender: -> return @
-  postRender: -> return @
+  postRender: ->
+    @logger.debug 'in post render'
+    $(".selectpicker").selectpicker()
+    return @
 
 
   events: -> {}

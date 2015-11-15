@@ -33,14 +33,17 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
     view = new SteadingOMatic.Views[@formView]({ model: model })
     @logger.debug "form", view
     @replaceView(model, view)
+    _.defer -> view.postRender()
 
   showOne: (model) ->
-    @replaceWith(model, new SteadingOMatic.Views[@itemView]({ model: model }))
+    @replaceView(model, new SteadingOMatic.Views[@itemView]({ model: model }))
 
   replaceView: (model, view) ->
     oldChild = @childViews[model.cid]
     @childViews[model.cid] = view
-    @$("item-#{model.get('_id')}").replaceWith(view.render().el)
+    @logger.debug 'rendered view', view.render().el
+    @logger.debug "replacing  #item-#{model.get('_id')}"
+    @$("#item-#{model.get('_id')}").replaceWith(view.render().el)
     oldChild.remove()
 
   removeOne: (model) ->
