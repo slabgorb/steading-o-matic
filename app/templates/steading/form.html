@@ -50,16 +50,16 @@
         <input type="color" id="colors.icon" name="colors.icon" value="<%= colors.icon %>">
       </div>
       <div class="form-group" id="tag-list">
-        <% _.each(enums.tags, function(tag) { %>
+        <% _.each(enums.tags, function(tag, index) { %>
         <% selectedTag = _.find(tags, function(t) { return t.tag == tag.key }) %>
           <div role="tab" id="panel<%= tag.key %>">
             <label for="<%= tag.key %>">
-              <input type="checkbox" <%= selectedTag ? 'checked' : '' %> name="<%= tag.key %>.tag" value="<%= tag.key %>">
-              <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= tag.key %>"> <%= tag.key %></a>
+              <input type="checkbox" <%= selectedTag ? 'checked' : '' %> name="tags[<%= index %>][tag]" value="<%= tag.key %>">
+              <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= index %>"> <%= tag.key %></a>
             </label>
-            <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= tag.key %>">
+            <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
               <p><%= tag.description %></p>
-              <textarea class="form-control" name="tag.<%= tag.key %>.details" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
+              <textarea class="form-control" name="tags[<%= index %>][details]" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>
         <% }); %>

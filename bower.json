@@ -6,6 +6,7 @@
     "jquery": "~2.1.4",
     "underscore": "~1.8.2",
     "bootstrap-select": "~1.7.4",
-    "jquery-serialize-object": "~2.5.0"
+    "jquery-serialize-object": "~2.5.0",
+    "jquery.serializeJSON": "~2.6.2"
   }
 }
