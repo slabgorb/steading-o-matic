@@ -9,6 +9,10 @@ mongoose.set('debug', true)
 mongoose.connect config.creds.mongodb_uri
 _ = require 'underscore'
 fs = require 'fs'
+LocalStrategy = require 'passport-local'
+TwitterStrategy = require 'passport-twitter'
+GoogleStrategy = require 'passport-google'
+FacebookStrategy = require 'passport-facebook'
 
 app = express()
 
@@ -31,9 +35,17 @@ fs.readdirSync( __dirname + '/routes').forEach (file) ->
   require(__dirname + '/routes/' + name).register_routes(app)
 
 app.use (req, res, next) ->
-  console.log req.params
-  next()
+  err = req.session.error
+  msg = req.session.notice
+  success = req.session.success
+  delete req.session.error
+  delete req.session.success
+  delete req.session.notice
 
+  if err then res.locals.error = err
+  if msg then res.locals.notice = msg
+  if success then res.locals.success = success
+  next()
 
 app.get '/', (req, res) ->
   res.render 'index'
