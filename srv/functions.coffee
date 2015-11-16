@@ -20,13 +20,6 @@ exports.localReg = (username, password) ->
         deferred.resolve(user)
   deferred.promise
 
-#
-# check if user exists
-# if user exists check if passwords match (use bcrypt.compareSync(password, hash); // true where 'hash' is password in DB)
-# if password matches take into website
-# if user doesn't exist or password doesn't match tell them it failed
-#
-
 exports.localAuth = (username, password) ->
   console.log "logging in #{username}"
   deferred = Q.defer()

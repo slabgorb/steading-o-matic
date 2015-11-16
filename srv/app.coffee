@@ -64,18 +64,16 @@ app.use (req, res, next) ->
   next()
 
 app.get '/', (req, res) ->
-  res.render 'index'
+  res.render 'index', { user: req.user, foo: 'bar' }
 
 app.route('/api')
   .get (req, res) =>
     res.json { routes:_.map (_.filter(app._router.stack, (stack) -> 'route' of stack)), (route) -> route }
 
 passport.serializeUser (user, done) ->
-  console.log 'serializing ' + user.username
   done null, user
 
 passport.deserializeUser (obj, done) ->
-  console.log 'deserializing ' + obj
   done null, obj
 
 
