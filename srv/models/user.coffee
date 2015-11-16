@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
 Schema = mongoose.Schema
-bcrypt = require 'bcrypt'
+bcrypt = require 'bcryptjs'
 
 SALT_WORK_FACTOR = 10
 
@@ -13,7 +13,7 @@ UserSchema = new Schema(
     type: String
     required: true)
 
-UserSchema.pre save, (next) ->
+UserSchema.pre 'save', (next) ->
   user = this
   # only hash the password if it has been modified (or is new)
   if !user.isModified('password')
@@ -41,4 +41,4 @@ UserSchema.methods.comparePassword = (candidatePassword, cb) ->
     return
   return
 
-module.exports = mongoose.model User, UserSchema
+module.exports = mongoose.model 'User', UserSchema

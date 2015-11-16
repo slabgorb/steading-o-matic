@@ -16,7 +16,7 @@ GoogleStrategy = require 'passport-google'
 FacebookStrategy = require 'passport-facebook'
 session = require 'express-session'
 logger = require 'morgan'
-funct = require 'functions'
+funct = require './functions'
 
 app = express()
 

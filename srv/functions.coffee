@@ -2,8 +2,7 @@ bcrypt = require('bcryptjs')
 Q = require('q')
 config = require('./config.js')
 mongoose = require 'mongoose'
-User = require('../models/user')
-mongoose.connect config.creds.mongodb_uri
+User = require('./models/user')
 
 exports.localReg = (username, password) ->
   deferred = Q.defer()

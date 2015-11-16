@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/slabgorb/steading-o-matic#readme",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
     "cookie-parser": "^1.4.0",

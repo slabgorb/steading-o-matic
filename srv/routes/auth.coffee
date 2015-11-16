@@ -25,7 +25,12 @@ exports.register_routes = (app) ->
   # sign in page
   #
   app.get '/signin', (req, res) ->
-    res.render('sign-in')
+    res.render('signin')
+  #
+  # sign in page
+  #
+  app.get '/register', (req, res) ->
+    res.render('localreg')
 
   #
   # logs user out of site, deleting them from the session, and returns
