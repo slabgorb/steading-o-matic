@@ -59,7 +59,7 @@
             </label>
             <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
               <p><%= tag.description %></p>
-              <textarea class="form-control" name="tags[<%= index %>][details]" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
+              <textarea class="form-control" name="tags[<%= index %>][details]" placeholder="details"><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>
         <% }); %>
