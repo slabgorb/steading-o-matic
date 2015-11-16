@@ -2,7 +2,6 @@ express = require 'express'
 http = require 'http'
 path = require 'path'
 favicon = require 'serve-favicon'
-config = require './config'
 bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
 methodOverride = require 'method-override'
@@ -12,16 +11,17 @@ fs = require 'fs'
 passport = require 'passport'
 LocalStrategy = require 'passport-local'
 TwitterStrategy = require 'passport-twitter'
-GoogleStrategy = require 'passport-google'
+GoogleStrategy = require 'passport-google-oauth'
 FacebookStrategy = require 'passport-facebook'
 session = require 'express-session'
 logger = require 'morgan'
 funct = require './functions'
+envs = require 'envs'
 
 app = express()
 
 mongoose.set('debug', true)
-mongoose.connect config.creds.mongodb_uri
+mongoose.connect envs('MONGODB_URI')
 
 logFile = fs.createWriteStream(__dirname + '/development.log', { flags: 'a' })
 morganOptions = {
