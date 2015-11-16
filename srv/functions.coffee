@@ -6,34 +6,18 @@ User = require('./models/user')
 
 exports.localReg = (username, password) ->
   deferred = Q.defer()
-  hash = bcrypt.hashSync(password, 8)
-  user =
-    'username': username
-    'password': hash
-    'avatar': 'http://placepuppy.it/images/homepage/Beagle_puppy_6_weeks.JPG'
   # check if username is already assigned in our database
-  db.get('local-users', username).then((result) ->
-    # case in which user already exists in db
-    console.log 'username already exists'
-    deferred.resolve false
-    # username already exists
-    return
-  ).fail (result) ->
-    # case in which user does not already exist in db
-    console.log result.body
-    if result.body.message == 'The requested items could not be found.'
-      console.log 'Username is free for use'
-      db.put('local-users', username, user).then(->
-        console.log 'USER: ' + user
-        deferred.resolve user
-        return
-      ).fail (err) ->
-        console.log 'PUT FAIL:' + err.body
-        deferred.reject new Error(err.body)
-        return
-    else
-      deferred.reject new Error(result.body)
-    return
+  User.findOne {username: username}, (err, result) ->
+    console.log 'found user?', result
+    if err
+      console.log err
+      deferred.resolve false
+    unless result
+      User.create {username: username, password: password}, (err, user) ->
+        console.log 'created user'
+        if err
+          deferred.reject new Error(err)
+        deferred.resolve(user)
   deferred.promise
 
 #
@@ -45,18 +29,27 @@ exports.localReg = (username, password) ->
 
 exports.localAuth = (username, password) ->
   deferred = Q.defer()
-  User.findOne({username: username}) (err, result) ->
-    if err
+  User.findOne({username: username}) (err, user) ->
+    unless user
       console.log 'COULD NOT FIND USER IN DB FOR SIGNIN'
       deferred.resolve false
 
     console.log 'FOUND USER'
-    hash = result.body.password
-    console.log hash
-    console.log bcrypt.compareSync(password, hash)
-    if bcrypt.compareSync(password, hash)
-      deferred.resolve result.body
-    else
-      console.log 'PASSWORDS DO NOT MATCH'
-      deferred.resolve false
+    user.comparePassword password, (err, isMatch) ->
+      if err
+        deferred.reject new Error(err)
+      unless isMatch
+        deferred.resolve false
+      else
+        deferred.resolve result.body
   deferred.promise
+
+  #   hash = result.body.password
+  #   console.log hash
+  #   console.log bcrypt.compareSync(password, hash)
+  #   if bcrypt.compareSync(password, hash)
+  #     deferred.resolve result.body
+  #   else
+  #     console.log 'PASSWORDS DO NOT MATCH'
+  #     deferred.resolve false
+  # deferred.promise
