@@ -28,8 +28,9 @@ exports.localReg = (username, password) ->
 #
 
 exports.localAuth = (username, password) ->
+  console.log "logging in #{username}"
   deferred = Q.defer()
-  User.findOne({username: username}) (err, user) ->
+  User.findOne {username: username}, (err, user) ->
     unless user
       console.log 'COULD NOT FIND USER IN DB FOR SIGNIN'
       deferred.resolve false
@@ -41,15 +42,5 @@ exports.localAuth = (username, password) ->
       unless isMatch
         deferred.resolve false
       else
-        deferred.resolve result.body
+        deferred.resolve user
   deferred.promise
-
-  #   hash = result.body.password
-  #   console.log hash
-  #   console.log bcrypt.compareSync(password, hash)
-  #   if bcrypt.compareSync(password, hash)
-  #     deferred.resolve result.body
-  #   else
-  #     console.log 'PASSWORDS DO NOT MATCH'
-  #     deferred.resolve false
-  # deferred.promise
