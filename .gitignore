@@ -4,6 +4,7 @@
 # ignore compiled/concatenated assets
 
 public/js
+public/stylesheets/*.css
 
 # Created by https://www.gitignore.io/api/osx,emacs,node,sass
 
