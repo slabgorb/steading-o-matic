@@ -21,6 +21,11 @@ exports.register_routes = (app) ->
     successRedirect: '/'
     failureRedirect: '/signin'
 
+  #
+  # sign in page
+  #
+  app.get '/signin', (req, res) ->
+    res.render('sign-in')
 
   #
   # logs user out of site, deleting them from the session, and returns

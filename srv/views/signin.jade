@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  .jumbotron
+    h1 Sign In
+    
+  form 
+    .form-group
+      label(for:'username') Username
+      input.form-control(type: 'text', name: 'username')
+    .form-group
+      label(for:'password') Password
+      input.form-control(type: 'password', name: 'password')
+    button(type:'submit')

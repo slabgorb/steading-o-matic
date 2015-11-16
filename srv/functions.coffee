@@ -2,6 +2,7 @@ bcrypt = require('bcryptjs')
 Q = require('q')
 config = require('./config.js')
 mongoose = require 'mongoose'
+User = require('../models/user')
 mongoose.connect config.creds.mongodb_uri
 
 exports.localReg = (username, password) ->
@@ -45,7 +46,11 @@ exports.localReg = (username, password) ->
 
 exports.localAuth = (username, password) ->
   deferred = Q.defer()
-  db.get('local-users', username).then((result) ->
+  User.findOne({username: username}) (err, result) ->
+    if err
+      console.log 'COULD NOT FIND USER IN DB FOR SIGNIN'
+      deferred.resolve false
+
     console.log 'FOUND USER'
     hash = result.body.password
     console.log hash
@@ -53,14 +58,6 @@ exports.localAuth = (username, password) ->
     if bcrypt.compareSync(password, hash)
       deferred.resolve result.body
     else
-      console.log 'PASSWORDS NOT MATCH'
+      console.log 'PASSWORDS DO NOT MATCH'
       deferred.resolve false
-    return
-  ).fail (err) ->
-    if err.body.message == 'The requested items could not be found.'
-      console.log 'COULD NOT FIND USER IN DB FOR SIGNIN'
-      deferred.resolve false
-    else
-      deferred.reject new Error(err)
-    return
   deferred.promise
