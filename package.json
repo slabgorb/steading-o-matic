@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/nodemon/bin/nodemon.js --watch dist ./dist/app.js",
-    "postinstall": "./node_modules/bower/bin/bower install && grunt copy concat jst sass coffee"
+    "postinstall": "./node_modules/bower/bin/bower install && grunt copy concat jst coffee"
   },
   "repository": {
     "type": "git",
