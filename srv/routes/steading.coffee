@@ -2,16 +2,16 @@ Steading = require('../models/steading')
 
 exports.register_routes = (app) ->
   app.get '/steadings', (req, res) ->
-    res.render 'steadings/list'
+    res.render 'steadings/list', { user: req.user }
 
   app.get '/steadings/:id', (req, res) ->
-    res.render 'steadings/detail'
+    res.render 'steadings/detail', { user: req.user }
 
   app.get '/steadings/new', (req, res) ->
-    res.render 'steadings/form'
+    res.render 'steadings/form', { user: req.user }
 
   app.get '/steadings/:id/edit', (req, res) ->
-    res.render 'steadings/form'
+    res.render 'steadings/form', { user: req.user }
 
   app.route('/api/steadings')
     .post (req, res) ->
