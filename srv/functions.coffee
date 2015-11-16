@@ -1,6 +1,5 @@
 bcrypt = require('bcryptjs')
 Q = require('q')
-config = require('./config.js')
 mongoose = require 'mongoose'
 User = require('./models/user')
 
