@@ -99,5 +99,4 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-contrib-watch'
   grunt.loadNpmTasks 'grunt-contrib-jst'
   grunt.registerTask 'default', [ 'copy', 'concat', 'jst', 'sass', 'coffee', 'watch' ]
-  grunt.registerTask 'heroku',  [ 'copy', 'concat', 'jst', 'sass', 'coffee' ]
   return
