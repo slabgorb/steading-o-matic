@@ -52,14 +52,14 @@
       <div class="form-group" id="tag-list">
         <% _.each(enums.tags, function(tag) { %>
         <% selectedTag = _.find(tags, function(t) { return t.tag == tag.key }) %>
-          <div role="tab" id="panel<%= tag.key %>">
+          <div role="tab" class="tag-panel" id="panel<%= tag.key %>">
             <label for="<%= tag.key %>">
-              <input type="checkbox" <%= selectedTag ? 'checked' : '' %> name="<%= tag.key %>.tag" value="<%= tag.key %>">
+              <input class="tag-checkbox" type="checkbox" <%= selectedTag ? 'checked' : '' %> name="<%= tag.key %>.tag" value="<%= tag.key %>">
               <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= tag.key %>"> <%= tag.key %></a>
             </label>
             <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= tag.key %>">
               <p><%= tag.description %></p>
-              <textarea class="form-control" name="tag.<%= tag.key %>.details" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
+              <textarea class="tag-details form-control" name="tag.<%= tag.key %>.details" placeholder="details"/><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>
         <% }); %>
