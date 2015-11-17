@@ -17,3 +17,6 @@ class SteadingOMatic.Views.SteadingForm extends SteadingOMatic.Views.Form
     $target = $(event.target)
     if $target.prop('checked')
       $target.parent().parent().find('div.collapse').collapse('show')
+  cleanup: (formData) ->
+    formData.tags = _.filter(formData.tags, (tag) -> tag.tag?)
+    formData

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "./node_modules/nodemon/bin/nodemon.js --watch dist ./dist/app.js",
-    "postinstall": "./node_modules/bower/bin/bower install && grunt copy concat jst coffee"
+    "postinstall": "./node_modules/bower/bin/bower install && grunt copy concat jst sass coffee"
   },
   "repository": {
     "type": "git",
@@ -24,9 +24,14 @@
   },
   "homepage": "https://github.com/slabgorb/steading-o-matic#readme",
   "dependencies": {
+    "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
+    "cookie-parser": "^1.4.0",
+    "envs": "^0.1.6",
     "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "foreman": "1.4.1",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
     "grunt-contrib-coffee": "^0.13.0",
@@ -39,8 +44,16 @@
     "grunt-contrib-uglify": "^0.10.0",
     "grunt-contrib-watch": "^0.6.1",
     "jade": "^1.11.0",
+    "method-override": "^2.3.5",
     "mongoose": "^4.2.5",
+    "morgan": "^1.6.1",
     "nodemon": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.0.0",
+    "passport-google-oauth": "^0.2.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.3",
+    "q": "^1.4.1",
     "serve-favicon": "^2.3.0",
     "underscore": "^1.8.3"
   }

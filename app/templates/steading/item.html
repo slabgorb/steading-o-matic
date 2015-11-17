@@ -36,7 +36,7 @@
         <dt><%= tag.tag %></dt>
         <dd>
           <%= tag.details %>
-          <p><%= _.find(enums.tags, function(e) { return e.key == tag.tag }).description %></p>
+          <p><%= _.find(enums.tags, function(e) { return e.key == tag.tag }).details %></p>
         </dd>
         <% }); %>
       </dl>
