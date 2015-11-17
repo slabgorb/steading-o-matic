@@ -53,6 +53,10 @@ module.exports = (grunt) ->
           'public/js/app.js': [
             'app/app.coffee'
             'app/lib/**/*.coffee'
+            'app/models/*.coffee'
+            'app/views/*.coffee'
+            'app/collections/*.coffee'
+            'app/routers/base.coffee'
             'app/models/**/*.coffee'
             'app/collections/**/*.coffee'
             'app/views/**/*.coffee'

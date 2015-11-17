@@ -10,9 +10,7 @@ class SteadingOMatic.Routers.Base extends Backbone.Router
   routes:
     "": "index"
     "steadings": "steadings"
-    "steadings/:id": "steading"
-    "steadings/:id/edit": "editSteading"
-
+    "fronts": "fronts"
 
   index: ->
     _.noop()
@@ -21,6 +19,5 @@ class SteadingOMatic.Routers.Base extends Backbone.Router
   steadings: ->
     new SteadingOMatic.Views.SteadingList().render()
 
-  steading: (id) ->
-    model = new SteadingOMatic.Models.Steading({id: id})
-    new SteadingOMatic.Views.SteadingDetail({model: model}).render()
+  fronts: ->
+    new SteadingOMatic.Views.FrontList().render()

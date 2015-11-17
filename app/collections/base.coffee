@@ -5,6 +5,7 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
     @logger = new SteadingOMatic.Logger('info', true)
     @listenTo @, 'actionDuplicate', @duplicate
     @listenTo @, 'actionDelete', @delete
+    @listenTo @, 'addNew', @addNew
 
   comparator: 'name'
 
@@ -18,3 +19,9 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
   delete: (model) ->
     @remove(model)
     model.destroy()
+
+  addNew: (type) ->
+    model = new @model({}, {type: type})
+    model.save()
+    model.fetch().done =>
+      _.defer => @add model

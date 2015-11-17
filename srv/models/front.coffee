@@ -4,11 +4,12 @@ mongoose.set('debug', true)
 
 Schema = mongoose.Schema
 FrontSchema = new Schema
+  name: String
   type: {type: String, enum: ['Adventure', 'Campaign'] }
   dangers:
     [
       {
-        type: {type: String, enum: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places'], doom: String}
+        type: {type: String, enum: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places'], doom: String, name: String, description: String}
       }
     ]
   portents: [String]

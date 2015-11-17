@@ -45,10 +45,6 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(logger('combined', morganOptions))
 
-fs.readdirSync( __dirname + '/routes').forEach (file) ->
-  name = file.substr(0, file.indexOf('.'))
-  return if name == 'index'
-  require(__dirname + '/routes/' + name).register_routes(app)
 
 app.use (req, res, next) ->
   err = req.session.error
@@ -69,6 +65,12 @@ app.get '/', (req, res) ->
 app.route('/api')
   .get (req, res) =>
     res.json { routes:_.map (_.filter(app._router.stack, (stack) -> 'route' of stack)), (route) -> route }
+
+fs.readdirSync( __dirname + '/routes').forEach (file) ->
+  name = file.substr(0, file.indexOf('.'))
+  return if name == 'index'
+  require(__dirname + '/routes/' + name).register_routes(app)
+
 
 passport.serializeUser (user, done) ->
   done null, user
