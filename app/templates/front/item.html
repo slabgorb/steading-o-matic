@@ -3,7 +3,71 @@
     <%= name %>
     <small><%= type %></small>
   </h3>
+  <p><%= description %></p>
   <div class="front-details">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h4>Dangers</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% _.each(dangers, function(danger) { %>
+            <li class="list-group-item">
+              <p><%= danger.name %></p>
+              <p><%= danger.type %></p>
+              <p><%= danger.impulse %></p>
+              <p><%= danger.doom %></p>
+              <p><%= danger.description %></p>
+            </li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h4>Portents</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% _.each(portents, function(portent) { %>
+            <li class="list-group-item"><%= portent %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h4>Stakes</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% _.each(stakes, function(stake) { %>
+            <li class="list-group-item"><%= stake %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <div class="panel-title">
+          <h4>Cast</h4>
+        </div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% _.each(cast, function(castMember) { %>
+            <li class="list-group-item"><%= castMember %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>

@@ -9,7 +9,11 @@ FrontSchema = new Schema
   dangers:
     [
       {
-        type: {type: String, enum: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places'], doom: String, name: String, description: String}
+        type: {type: String, enum: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']}
+        doom: String
+        name: String
+        impulse: String
+        description: String
       }
     ]
   portents: [String]

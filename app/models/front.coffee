@@ -1,6 +1,6 @@
 class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
-  url: -> if @get('_id') then "/api/steadings/#{@get('_id')}" else "/api/steadings"
+  url: -> if @get('_id') then "/api/fronts/#{@get('_id')}" else "/api/fronts"
 
   initialize: (attributes, options = {}) ->
     options.type ?= 'adventure'
@@ -10,48 +10,121 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         when 'adventure' then @defaultsForAdventure()
         when 'campaign' then @defaultsForCampaign()
       baseAttributes.description = @randomDescription(options.type)
+      baseAttributes.dangers = _.uniq(_.times(_.random(1,4), => @randomDanger()))
+      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent()))
+      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake()))
+      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
       baseAttributes.name = @randomName()
       @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
 
+  titleCase: (title) ->
+      small = '(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)'
+      punct = '([!"#$%&\'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)'
 
+      lower = (word) ->
+        word.toLowerCase()
+
+      upper = (word) ->
+        word.substr(0, 1).toUpperCase() + word.substr(1)
+
+      parts = []
+      split = /[:.;?!] |(?: |^)["Ò]/g
+      index = 0
+      loop
+        m = split.exec(title)
+        parts.push title.substring(index, if m then m.index else title.length).replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, (all) ->
+          if /[A-Za-z]\.[A-Za-z]/.test(all) then all else upper(all)
+        ).replace(RegExp('\\b' + small + '\\b', 'ig'), lower).replace(RegExp('^' + punct + small + '\\b', 'ig'), (all, punct, word) ->
+          punct + upper(word)
+        ).replace(RegExp('\\b' + small + punct + '$', 'ig'), upper)
+        index = split.lastIndex
+        if m
+          parts.push m[0]
+        else
+          break
+      parts.join('').replace(RegExp(' V(s?)\\. ', 'gi'), ' v$1. ').replace(/(['Õ])S\b/ig, '$1s').replace /\b(AT&T|Q&A)\b/ig, (all) ->
+        all.toUpperCase()
 
   #
-  # sets defaults for a new village
+  # sets defaults for a new adventure front
   #
   defaultsForAdventure: ->
-    size: 'Village'
-    prosperity: 'Poor'
-    population: 'Steady'
-    defenses: 'Militia'
-    tags:
-      tag: 'Resource', details: ''
-      tag: 'Oath', details: ''
+    type: 'Adventure'
 
   #
-  # sets defaults for a new town
+  # sets defaults for a new campaign front
   #
   defaultsForCampaign: ->
-    size: 'Town'
-    prosperity: 'Moderate'
-    population: 'Steady'
-    defenses: 'Watch'
-    tags:
-      tag: 'Trade', details: ''
+    type: 'Campaign'
 
-  # [Front][Rear] the [Adj 1] [Adj 2] [hyphen compound]-["the" Noun] of ["of" noun]
+  randomDanger: ->
+    type: _.sample(SteadingOMatic.Models.Front.enums.dangers.type)
+    name: @randomName()
+    impulse: @randomImpulse()
+    description: ''
+    doom: @randomDoom()
+
+
+
+  randomImpulse: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.impulses)
+
+  randomDoom: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms)
+
+  randomPortent: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents)
+
+  randomStake: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes)
 
   #
   # selects a random name
   #
   randomName: ->
+    phrase = ""
+    phrase = phrase + @randomClause()
+    if Math.random() < 0.2 then phrase = phrase + @randomClause('of')
+    return phrase
 
+  addThe: ->
+    if Math.random() < 0.3 then 'the ' else ''
+
+  addPrefix: ->
+    if Math.random() < 0.2 then _.sample(SteadingOMatic.Models.Front.prefixes) else ''
+
+  randomClause: (preposition) ->
+    clause = " #{@addThe()}#{@addPrefix()}#{@addAdjective()} #{@addNoun()}"
+    if preposition?
+      clause = " #{preposition}#{clause}"
+    return @titleCase(clause)
 
   randomDescription: (type) ->
     "A randomly generated  #{type}"
 
+  addAdjective: ->
+    _.sample(SteadingOMatic.Models.Front.adjectives)
+
+  addNoun: ->
+    _.sample(SteadingOMatic.Models.Front.nouns)
+
   @enums =
-    type: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']
+    dangers:
+      type: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']
+      impulses: ['To feed.', 'To corrupt.']
+      dooms: ['Doooooom!', 'Kill them all!']
+      portents: [
+        'Refugees appear'
+        'The weather gets hotter and hotter'
+        'The weather gets colder and colder'
+        'Tornados appear randomly'
+        'Snakes everywhere'
+        'Frogs everywhere'
+      ]
+      stakes: [
+        'Who will rise to the occasion?'
+        'Who will be slay the BBEG?'
+        'What will be the cure for the disease?'
+        'What is your favorite color?'
+      ]
+
 
   @prefixes = ["after-", "arch-", "dozen-", "ecto-", "ever-", "many-",
              "necro-", "neo-", "never-", "one-", "over-", "three-", "two-",
@@ -226,7 +299,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         "brilliance", "brim", "bristle", "bronze", "brother", "brunch",
         "brush", "brute", "buck", "buckle", "bud", "bug", "bulb", "bulwark",
         "bunch", "bunion", "bunny", "burden", "burn", "burial", "bush",
-        "bushel", "business", "bust", "buster", "business", "butcher",
+        "bushel", "business", "bust", "buster", "butcher",
         "butter", "butterfly", "button", "buzzard", "cactus", "cad", "cage",
         "cake", "calamity", "call", "callus", "calm", "camp", "cancer",
         "candle", "candy", "canker", "canyon", "carnage", "carnality",
