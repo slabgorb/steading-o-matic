@@ -59,21 +59,22 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     type: 'Campaign'
 
   randomDanger: ->
-    type: _.sample(SteadingOMatic.Models.Front.enums.dangers.type)
+    type = _.sample(SteadingOMatic.Models.Front.enums.dangers.type)
+    type: type
     name: @randomName()
-    impulse: @randomImpulse()
+    impulse: @randomImpulse(type)
     description: ''
-    doom: @randomDoom()
+    doom: @randomDoom(type)
 
 
 
-  randomImpulse: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.impulses)
+  randomImpulse: (type)-> _.sample(SteadingOMatic.Models.Front.enums.dangers.impulses[type])
 
-  randomDoom: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms)
+  randomDoom: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms[type])
 
-  randomPortent: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents)
+  randomPortent: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents[type])
 
-  randomStake: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes)
+  randomStake: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes[type])
 
   #
   # selects a random name
@@ -108,22 +109,32 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   @enums =
     dangers:
       type: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']
-      impulses: ['To feed.', 'To corrupt.']
-      dooms: ['Doooooom!', 'Kill them all!']
-      portents: [
-        'Refugees appear'
-        'The weather gets hotter and hotter'
-        'The weather gets colder and colder'
-        'Tornados appear randomly'
-        'Snakes everywhere'
-        'Frogs everywhere'
-      ]
-      stakes: [
-        'Who will rise to the occasion?'
-        'Who will be slay the BBEG?'
-        'What will be the cure for the disease?'
-        'What is your favorite color?'
-      ]
+      impulses:
+        'Ambitious Organizations': ['To take over the world.', 'To invade.', 'To crush their rivals.']
+        'Planar Forces': ['To change the environment.', 'To invade.', 'To gain converts.']
+        'Arcane Enemies': ['To collect souls.']
+        'Hordes': ['To drive foreigners away from their lands', 'To cleanse the land', 'To war']
+        'Cursed Places': ['To extend the curse.', 'To fulfill the curse', 'To corrupt', 'To cleanse']
+      dooms:
+        'Ambitious Organizations': []
+        'Planar Forces': []
+        'Arcane Enemies': []
+        'Hordes': []
+        'Cursed Places': []
+      portents:
+        'Ambitious Organizations': ['Refugees appear','Diplomacy breaks down']
+        'Planar Forces':['Dimensional portals appear', 'A rift opens to another plane', 'The weather gets hotter and hotter','The weather gets colder and colder', 'Tornados appear randomly','Snakes everywhere','Frogs everywhere']
+        'Arcane Enemies':['Magical emanations', 'Mutant animals']
+        'Hordes':['Refugees appear', 'Scouts are sighted', 'The rumors of war']
+        'Cursed Places':['A gloom upon the land', 'Children disappear']
+      stakes:
+        'Ambitious Organizations': ['Who will be the new leader?','Who will rival this organization?']
+        'Planar Forces':['Who will close the rift?']
+        'Arcane Enemies':['What will stop this?']
+        'Hordes':['Who will lead the battle against the horde?']
+        'Cursed Places':['Who will sacrifice to stop the curse?', 'What will fulfill the curse?']
+
+
 
 
   @prefixes = ["after-", "arch-", "dozen-", "ecto-", "ever-", "many-",
