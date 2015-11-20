@@ -116,11 +116,11 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         'Hordes': ['To drive foreigners away from their lands', 'To cleanse the land', 'To war']
         'Cursed Places': ['To extend the curse.', 'To fulfill the curse', 'To corrupt', 'To cleanse']
       dooms:
-        'Ambitious Organizations': []
-        'Planar Forces': []
-        'Arcane Enemies': []
-        'Hordes': []
-        'Cursed Places': []
+        'Ambitious Organizations': ['Tyranny', 'Usurpation', 'Impoverishment']
+        'Planar Forces': ['Tyranny', 'Destruction', 'Rampant Chaos']
+        'Arcane Enemies': ['Destruction', 'Pestilence']
+        'Hordes': ['Destruction', 'Rampant Chaos']
+        'Cursed Places': ['Pestilence', 'Destruction', 'Rampant Chaos']
       portents:
         'Ambitious Organizations': ['Refugees appear','Diplomacy breaks down']
         'Planar Forces':['Dimensional portals appear', 'A rift opens to another plane', 'The weather gets hotter and hotter','The weather gets colder and colder', 'Tornados appear randomly','Snakes everywhere','Frogs everywhere']
@@ -131,8 +131,8 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         'Ambitious Organizations': ['Who will be the new leader?','Who will rival this organization?']
         'Planar Forces':['Who will close the rift?']
         'Arcane Enemies':['What will stop this?']
-        'Hordes':['Who will lead the battle against the horde?']
-        'Cursed Places':['Who will sacrifice to stop the curse?', 'What will fulfill the curse?']
+        'Hordes':['Who will lead the battle against the horde?', 'Is there a way to redirect the Horde?']
+        'Cursed Places':['What will be sacrificed to stop the curse?', 'What will fulfill the curse?']
 
 
 
