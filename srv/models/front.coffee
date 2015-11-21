@@ -1,6 +1,6 @@
 mongoose = require 'mongoose'
-
-mongoose.set('debug', true)
+iconList = require '../icon_list'
+_ = require 'underscore'
 
 Schema = mongoose.Schema
 FrontSchema = new Schema
@@ -14,6 +14,12 @@ FrontSchema = new Schema
         name: String
         impulse: String
         description: String
+        icon:
+          type: String
+          enum: _.values(iconList)
+        colors:
+          background: String
+          icon: String
       }
     ]
   portents: [String]

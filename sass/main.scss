@@ -103,4 +103,14 @@ html, body {
       left: 5px;
     }
   }
+  .danger-icon-list {
+    &:before {
+      width: 32px;
+      height: 32px;
+      font-size: 64px;
+      position: relative;
+      top: 10px;
+      left: 3px;
+    }
+  }
 }

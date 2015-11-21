@@ -10,13 +10,15 @@ exports.localReg = (username, password) ->
     console.log 'found user?', result
     if err
       console.log err
-      deferred.resolve false
+      deferred.reject new Error(err)
     unless result
       User.create {username: username, password: password}, (err, user) ->
         console.log 'created user'
         if err
           deferred.reject new Error(err)
         deferred.resolve(user)
+    else
+      deferred.resolve false
   deferred.promise
 
 exports.localAuth = (username, password) ->

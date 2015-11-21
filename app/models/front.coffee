@@ -10,41 +10,13 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         when 'adventure' then @defaultsForAdventure()
         when 'campaign' then @defaultsForCampaign()
       baseAttributes.description = @randomDescription(options.type)
-      baseAttributes.dangers = _.uniq(_.times(_.random(1,4), => @randomDanger()))
-      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent()))
-      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake()))
-      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
-      baseAttributes.name = @randomName()
+      baseAttributes.dangers = _.uniq(_.times(_.random(1,4), => @randomDanger(options.type)))
+      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(options.type)))
+      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(options.type)))
+      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName(options.type)))
+      baseAttributes.name = @randomName(options.type)
       @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
-
-  titleCase: (title) ->
-      small = '(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)'
-      punct = '([!"#$%&\'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)'
-
-      lower = (word) ->
-        word.toLowerCase()
-
-      upper = (word) ->
-        word.substr(0, 1).toUpperCase() + word.substr(1)
-
-      parts = []
-      split = /[:.;?!] |(?: |^)["Ò]/g
-      index = 0
-      loop
-        m = split.exec(title)
-        parts.push title.substring(index, if m then m.index else title.length).replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, (all) ->
-          if /[A-Za-z]\.[A-Za-z]/.test(all) then all else upper(all)
-        ).replace(RegExp('\\b' + small + '\\b', 'ig'), lower).replace(RegExp('^' + punct + small + '\\b', 'ig'), (all, punct, word) ->
-          punct + upper(word)
-        ).replace(RegExp('\\b' + small + punct + '$', 'ig'), upper)
-        index = split.lastIndex
-        if m
-          parts.push m[0]
-        else
-          break
-      parts.join('').replace(RegExp(' V(s?)\\. ', 'gi'), ' v$1. ').replace(/(['Õ])S\b/ig, '$1s').replace /\b(AT&T|Q&A)\b/ig, (all) ->
-        all.toUpperCase()
 
   #
   # sets defaults for a new adventure front
@@ -65,16 +37,16 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     impulse: @randomImpulse(type)
     description: ''
     doom: @randomDoom(type)
-
-
+    icon: @randomIcon()
+    colors: @randomColorSet()
 
   randomImpulse: (type)-> _.sample(SteadingOMatic.Models.Front.enums.dangers.impulses[type])
 
-  randomDoom: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms[type])
+  randomDoom: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms[type])
 
-  randomPortent: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents[type])
+  randomPortent: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents[type])
 
-  randomStake: -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes[type])
+  randomStake: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes[type])
 
   #
   # selects a random name

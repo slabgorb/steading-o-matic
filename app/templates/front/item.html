@@ -5,24 +5,38 @@
   </h3>
   <p><%= description %></p>
   <div class="front-details">
-
+    <div class="col-md-2 pull-right">
+      <div class="btn-group pull-right">
+        <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
+        <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
+        <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
+      </div>
+    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="panel-title">
           <h4>Dangers</h4>
         </div>
         <div class="panel-body">
-          <ul class="list-group">
-            <% _.each(dangers, function(danger) { %>
-            <li class="list-group-item">
-              <p><%= danger.name %></p>
-              <p><%= danger.type %></p>
-              <p><%= danger.impulse %></p>
-              <p><%= danger.doom %></p>
+          <% _.each(dangers, function(danger) { %>
+          <div class="media">
+            <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
+            </div>
+            <div class="media-body">
+              <div class="media-heading">
+                <h5>
+                  <%= danger.name %>
+                  <small><%= danger.type %></small>
+                </h5>
+              </div>
+              <dl class="dl-horizontal">
+                <dt>Impulse</dt><dd><%= danger.impulse %></dd>
+                <dt>Impending Doom</dt><dd><%= danger.doom %></dd>
+              </dl>
               <p><%= danger.description %></p>
-            </li>
-            <% }) %>
-          </ul>
+            </div>
+          </div>
+          <% }) %>
         </div>
       </div>
     </div>
