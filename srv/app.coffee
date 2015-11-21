@@ -79,15 +79,15 @@ passport.deserializeUser (obj, done) ->
   done null, obj
 
 
-passport.use 'local-signin', new LocalStrategy({ passReqToCallback: true }, (req, username, password, done) ->
-  funct.localAuth(username, password).then((user) ->
+passport.use 'local-signin', new LocalStrategy({ passReqToCallback: true }, (req, email, password, done) ->
+  funct.localAuth(email, password).then((user) ->
     if user
-      console.log 'LOGGED IN AS: ' + user.username
-      req.session.success = 'You are successfully logged in ' + user.username + '!'
+      console.log 'LOGGED IN AS: ' + user.email
+      req.session.success = 'You are successfully logged in ' + user.email + '!'
       done null, user
     if !user
       console.log 'COULD NOT LOG IN'
-      req.session.error = 'Could not log user in. Please try again.'
+      req.session.error = 'Sorry, could not log you in with that email and password.'
       #inform user could not log them in
       done null, user
     return
@@ -97,16 +97,15 @@ passport.use 'local-signin', new LocalStrategy({ passReqToCallback: true }, (req
   return
 )
   # Use the LocalStrategy within Passport to register/"signup" users.
-passport.use 'local-signup', new LocalStrategy({ passReqToCallback: true }, (req, username, password, done) ->
-  funct.localReg(username, password).then((user) ->
+passport.use 'local-signup', new LocalStrategy({ passReqToCallback: true }, (req, email, password, done) ->
+  funct.localReg(email, password).then((user) ->
     if user
       console.log 'REGISTERED: ' + user.username
-      req.session.success = 'You are successfully registered and logged in ' + user.username + '!'
+      req.session.success = 'You are successfully registered and logged in ' + user.email + '!'
       done null, user
     if !user
       console.log 'COULD NOT REGISTER'
-      req.session.error = 'That username is already in use, please try a different one.'
-      #inform user could not log them in
+      req.session.error = 'That email is already in use, please try a different one.'
       done null, user
     return
   ).fail (err) ->

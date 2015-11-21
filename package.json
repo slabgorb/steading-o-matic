@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/slabgorb/steading-o-matic#readme",
   "dependencies": {
+    "async": "^1.5.0",
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.14.1",
     "bower": "^1.6.5",
@@ -47,6 +48,7 @@
     "method-override": "^2.3.5",
     "mongoose": "^4.2.5",
     "morgan": "^1.6.1",
+    "nodemailer": "^1.10.0",
     "nodemon": "^1.8.1",
     "passport": "^0.3.2",
     "passport-facebook": "^2.0.0",

@@ -5,13 +5,15 @@ bcrypt = require 'bcryptjs'
 SALT_WORK_FACTOR = 10
 
 UserSchema = new Schema
-  username:
+  email:
     type: String
     required: true
     index: unique: true
   password:
     type: String
     required: true
+  resetPasswordToken: String
+  resetPasswordExpires: Date
 
 UserSchema.pre 'save', (next) ->
   user = this

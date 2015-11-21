@@ -3,36 +3,36 @@ Q = require('q')
 mongoose = require 'mongoose'
 User = require('./models/user')
 
-exports.localReg = (username, password) ->
+exports.localReg = (email, password) ->
+  console.log "Attempting to register #{email}"
   deferred = Q.defer()
   # check if username is already assigned in our database
-  User.findOne {username: username}, (err, result) ->
+  User.findOne {email: email}, (err, result) ->
     console.log 'found user?', result
     if err
       console.log err
       deferred.resolve false
     unless result
-      User.create {username: username, password: password}, (err, user) ->
+      User.create {email: email, password: password}, (err, user) ->
         console.log 'created user'
         if err
           deferred.reject new Error(err)
         deferred.resolve(user)
   deferred.promise
 
-exports.localAuth = (username, password) ->
-  console.log "logging in #{username}"
+exports.localAuth = (email, password) ->
+  console.log "logging in #{email}"
   deferred = Q.defer()
-  User.findOne {username: username}, (err, user) ->
+  User.findOne {email: email}, (err, user) ->
     unless user
       console.log 'COULD NOT FIND USER IN DB FOR SIGNIN'
       deferred.resolve false
-
-    console.log 'FOUND USER'
-    user.comparePassword password, (err, isMatch) ->
-      if err
-        deferred.reject new Error(err)
-      unless isMatch
-        deferred.resolve false
-      else
-        deferred.resolve user
+    else
+      user.comparePassword password, (err, isMatch) ->
+        if err
+          deferred.reject new Error(err)
+        unless isMatch
+          deferred.resolve false
+        else
+          deferred.resolve user
   deferred.promise
