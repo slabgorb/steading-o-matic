@@ -36,7 +36,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     subtypeData = SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype]
     type: type
     subtype: subtype
-    name: @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.adjectives,  subtypeData.prefixes)
+    name: @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.start_nouns, subtypeData.adjectives,  subtypeData.prefixes)
     impulse: subtypeData.impulse
     description: ''
     doom: @randomDoom(type)
@@ -59,9 +59,11 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   #
   # selects a random name
   #
-  randomName: (patterns, nouns, adjectives,  prefixes) ->
+  randomName: (patterns, nouns, start_nouns, adjectives,  prefixes) ->
+
     patterns ?= SteadingOMatic.Models.Front.patterns
     nouns ?= SteadingOMatic.Models.Front.nouns
+    start_nouns ?= nouns
     adjectives ?= SteadingOMatic.Models.Front.adjectives
     prefixes ?= SteadingOMatic.Models.Front.prefixes
     pattern = _.sample(patterns)
@@ -104,8 +106,34 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               impulse: 'to do what is “right” no matter the cost'
             'Thieves Guild':
               impulse: 'to take by subterfuge'
+              start_nouns: [
+                'syndicate', 'association', 'cartel', 'gang', 'mob',
+                'organization', 'ring', 'union', 'board', 'bunch',
+                'chamber', 'committee', 'company', 'council', 'crew',
+                'group', 'outfit', 'partnership',
+              ]
+              nouns: [
+                'blade', 'fence', 'pilferers', 'peculation',
+                'misappropriation', 'withdrawal',
+                'pinchers', 'theif', 'poach', 'poacher', 'purloiner',
+                'pirate', 'burglar', 'larceny'
+              ]
+              adjectives: [
+                'petty', 'involuntary', 'quick', 'hidden', 'peculiar',
+                'old', 'new', 'larcenous', 'deft', 'adroit', 'apt',
+                'neat', 'prompt', 'dexterous', 'criminal'
+              ]
+              patterns: [
+                'the <start_noun> of <adjective> <noun>'
+                '<adjective> <start_noun> of <noun>'
+                '<adjective> <start_noun>'
+                '<plural_noun> <start_noun>'
+                '<plural_noun> <adjective> <start_noun>'
+              ]
+
             'Cult':
               impulse: 'to infest from within'
+
             'Religious Organization':
               impulse: 'to establish and follow doctrine'
             'Corrupt Government':
@@ -135,8 +163,50 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               impulse: 'to gather worshippers'
             'Demon Prince':
               impulse: 'to open the gates of Hell'
+              start_nouns: [
+                'emperor', 'star', 'monarch', 'star', 'sultan',
+                'baron', 'caliph', 'khan', 'magnate', 'maharajah',
+                'majesty', 'mogul', 'overlord', 'pasha', 'potentate',
+                'prince', 'rajah', 'rex', 'shah', 'sovereign',
+                'tycoon', 'imperator', 'baron', 'count', 'duke',
+                'earl', 'king', 'marquis', 'monarch', 'overlord',
+                'potentate', 'prince', 'ruler', 'sovereign',
+                'viscount'
+              ]
+              nouns: [
+                'hell', 'deadland', 'afterworld', 'inferno',
+                'nightmare', 'abyss', 'grave', 'limbo', 'underworld',
+                'pit'
+              ]
+              patterns: [
+                '<start_noun> of the <adjective> <noun>'
+                '<prefix>-<start_noun> of the <plural_noun>'
+                '<noun> <start_noun>'
+                '<adjective> <start_noun> of the <noun>'
+                '<adjective> <start_noun> of the <plural_noun>'
+              ]
             'Elemental Lord':
               impulse: 'to tear down creation to its component parts'
+              start_nouns: [
+                'emperor', 'star', 'monarch', 'star', 'sultan',
+                'baron', 'caliph', 'khan', 'magnate', 'maharajah',
+                'majesty', 'mogul', 'overlord', 'pasha', 'potentate',
+                'prince', 'rajah', 'rex', 'shah', 'sovereign',
+                'tycoon', 'imperator', 'baron', 'count', 'duke',
+                'earl', 'king', 'marquis', 'monarch', 'overlord',
+                'potentate', 'prince', 'ruler', 'sovereign',
+                'viscount'
+              ]
+              nouns: [
+                'air', 'alchemy', 'breath','drowning', 'dust',
+                'earth', 'enchantment', 'fire', 'flame', 'inferno',
+                'magnetism', 'matter', 'power','stone', 'water',
+                'wave', 'wind'
+              ]
+              patterns: [
+                '<start_noun> of the <adjective> <noun>'
+                '<prefix>-<start_noun> of the <plural_noun>'
+              ]
             'Force of Chaos':
               impulse: 'to destroy all semblance of order'
             'Choir of Angels':
@@ -161,6 +231,21 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
           subtypes:
             'Lord of the Undead':
               impulse: 'to seek true immortality'
+              start_nouns: [
+                'emperor', 'star', 'monarch', 'star', 'sultan',
+                'baron', 'caliph', 'khan', 'magnate', 'maharajah',
+                'majesty', 'mogul', 'overlord', 'pasha', 'potentate',
+                'prince', 'rajah', 'rex', 'shah', 'sovereign',
+                'tycoon', 'imperator', 'baron', 'count', 'duke',
+                'earl', 'king', 'marquis', 'monarch', 'overlord',
+                'potentate', 'prince', 'ruler', 'sovereign',
+                'viscount'
+              ]
+              patterns: [
+                '<start_noun> of the <adjective> <noun>'
+                '<prefix>-<start_noun> of the <plural_noun>'
+              ]
+
             'Power-mad Wizard':
               impulse: 'to seek magical power'
             'Sentient Artifact':
