@@ -14,7 +14,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
       baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(baseAttributes.dangers)))
       baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(baseAttributes.dangers)))
       baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName(options.type)))
-      baseAttributes.name = @randomName(options.type)
+      baseAttributes.name = @randomName()
       @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
 
@@ -33,13 +33,14 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   randomDanger: ->
     type = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types))
     subtype = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes))
+    subtypeData = SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype]
     type: type
     subtype: subtype
-    name: @randomName()
-    impulse: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].impulse
+    name: @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.adjectives,  subtypeData.prefixes)
+    impulse: subtypeData.impulse
     description: ''
     doom: @randomDoom(type)
-    moves: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].moves
+    moves: subtypeData.moves
     icon: @randomIcon()
     colors: @randomColorSet()
 
@@ -58,23 +59,23 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   #
   # selects a random name
   #
-  randomName: ->
-    phrase = ""
-    phrase = phrase + @randomClause()
-    if Math.random() < 0.2 then phrase = phrase + @randomClause('of')
-    return phrase
+  randomName: (patterns, nouns, adjectives,  prefixes) ->
+    patterns ?= SteadingOMatic.Models.Front.patterns
+    nouns ?= SteadingOMatic.Models.Front.nouns
+    adjectives ?= SteadingOMatic.Models.Front.adjectives
+    prefixes ?= SteadingOMatic.Models.Front.prefixes
+    pattern = _.sample(patterns)
 
-  addThe: ->
-    if Math.random() < 0.3 then 'the ' else ''
-
-  addPrefix: ->
-    if Math.random() < 0.2 then _.sample(SteadingOMatic.Models.Front.prefixes) else ''
-
-  randomClause: (preposition) ->
-    clause = " #{@addThe()}#{@addPrefix()}#{@addAdjective()} #{@addNoun()}"
-    if preposition?
-      clause = " #{preposition}#{clause}"
-    return _.titleize(clause)
+    tokens = _.map pattern.split(' '), (token) ->
+      switch token
+        when "<plural_noun>" then _.pluralize(_.sample(nouns))
+        when "<noun>" then _.sample(nouns)
+        when "<adjective>" then _.sample(adjectives)
+        when "<general_noun>" then _.sample(SteadingOMatic.Models.Front.nouns)
+        when "<general_adjective>" then _.sample(SteadingOMatic.Models.Front.adjectives)
+        when "<plural_general_noun>" then _.pluralize(_.sample(SteadingOMatic.Models.Front.nouns))
+        else token
+    _.titleize tokens.join(' ')
 
   randomDescription: (type) ->
     "A randomly generated  #{type}"
@@ -85,6 +86,15 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   addNoun: ->
     _.sample(SteadingOMatic.Models.Front.nouns)
 
+  @patterns = [
+    "the <plural_noun> of the <general_adjective> <noun>"
+    "the <plural_noun>"
+    "the <general_adjective> <plural_noun>"
+    "<noun> of the <noun>"
+    "<prefix><noun> of the <plural_noun>"
+    "<noun> of the <plural_noun>"
+    "<plural_noun> of the <noun>"
+  ]
   @enums =
     dangers:
       types:
@@ -211,7 +221,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix><noun> of the <plural_noun>"
+                "<prefix>-<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "the <noun>"
                 "<plural_noun> of the <noun>"
@@ -247,7 +257,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix><noun> of the <plural_noun>"
+                "<prefix>-<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "the <noun>"
                 "<plural_noun> of the <noun>"
@@ -283,7 +293,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix><noun> of the <plural_noun>"
+                "<prefix>-<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "the <noun>"
                 "<plural_noun> of the <noun>"
@@ -359,7 +369,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "<noun> of <general_adjective> <general_noun>"
                 "the <general_adjective> <noun>"
                 "<noun> of the <general_noun>"
-                "<prefix><noun> of the <general_noun>"
+                "<prefix>-<noun> of the <general_noun>"
                 "<general_adjective> <noun> of the <plural_noun>"
               ]
             'Unholy Ground':
@@ -402,13 +412,13 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               ]
             'Elemental Vortex':
               impulse: 'to grow, to tear apart reality'
-              # nouns: [
-              #   'air', 'alchemy', 'breath', 'country', 'demesne',
-              #   'domain', 'dominion', 'drowning', 'dust', 'earth',
-              #   'enchantment', 'enclave', 'fire', 'flame', 'inferno',
-              #   'magnetism', 'matter', 'power', 'realm', 'sphere',
-              #   'stone', 'water', 'wave', 'wind'
-              # ]
+              nouns: [
+                'air', 'alchemy', 'breath', 'country', 'demesne',
+                'domain', 'dominion', 'drowning', 'dust', 'earth',
+                'enchantment', 'enclave', 'fire', 'flame', 'inferno',
+                'magnetism', 'matter', 'power', 'realm', 'sphere',
+                'stone', 'water', 'wave', 'wind'
+              ]
               patterns: [
                 "the <<general_adjective>> <noun> of the <general_adjective> <general_noun>"
                 "<noun> of <general_adjective> <general_noun>"
@@ -443,9 +453,9 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
             (d) -> "What will fulfill the curse?"
           ]
 
-  @prefixes = ["after-", "arch-", "dozen-", "ecto-", "ever-", "many-",
-             "necro-", "neo-", "never-", "one-", "over-", "three-", "two-",
-             "ultra-", "un-", "under-"]
+  @prefixes = ["after", "arch", "dozen", "ecto", "ever", "many",
+             "necro", "neo", "never", "one", "over", "three", "two",
+             "ultra", "un", "under"]
 
   @adjectives = ["abated", "absolute", "abysmal", "abyssal",
                 "accidental", "ace", "aching", "acrid", "admired", "adorable",
