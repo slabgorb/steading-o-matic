@@ -17,7 +17,7 @@ class SteadingOMatic.Logger
       msg =
       console.groupCollapsed("%c" + title, "color:#{@color}; background-color:#{@bgcolor}", _.last(new Date().toJSON().split("T")).replace('Z',''), @traceline())
       _.each messages, (message) ->
-        console.log(message)
+        console.log(message[0])
       if @trace
         console.groupCollapsed('Trace')
         _.each @traceLines(), (line) -> console.log line

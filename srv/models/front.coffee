@@ -10,10 +10,12 @@ FrontSchema = new Schema
     [
       {
         type: {type: String, enum: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']}
+        subtype: String
         doom: String
         name: String
         impulse: String
         description: String
+        moves: [String]
         icon:
           type: String
           enum: _.values(iconList)

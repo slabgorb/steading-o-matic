@@ -52,34 +52,6 @@ class SteadingOMatic.Models.Base extends Backbone.Model
       i++
     rgb
 
-  #
-  # titlecase a phrase
-  #
-  titleCase: (title) ->
-    small = '(a|an|and|as|at|but|by|en|for|if|in|of|on|or|the|to|v[.]?|via|vs[.]?)'
-    punct = '([!"#$%&\'()*+,./:;<=>?@[\\\\\\]^_`{|}~-]*)'
-    lower = (word) ->
-      word.toLowerCase()
-    upper = (word) ->
-      word.substr(0, 1).toUpperCase() + word.substr(1)
-    parts = []
-    split = /[:.;?!] |(?: |^)["Ò]/g
-    index = 0
-    loop
-      m = split.exec(title)
-      parts.push title.substring(index, if m then m.index else title.length).replace(/\b([A-Za-z][a-z.'Õ]*)\b/g, (all) ->
-        if /[A-Za-z]\.[A-Za-z]/.test(all) then all else upper(all)
-      ).replace(RegExp('\\b' + small + '\\b', 'ig'), lower).replace(RegExp('^' + punct + small + '\\b', 'ig'), (all, punct, word) ->
-        punct + upper(word)
-      ).replace(RegExp('\\b' + small + punct + '$', 'ig'), upper)
-      index = split.lastIndex
-      if m
-        parts.push m[0]
-      else
-        break
-    result = parts.join('').replace(RegExp(' V(s?)\\. ', 'gi'), ' v$1. ').replace(/(['Õ])S\b/ig, '$1s')
-    result.substr(0, 1).toUpperCase() + result.substr(1)
-
 
   @colorList = {
     Black:"#000000",

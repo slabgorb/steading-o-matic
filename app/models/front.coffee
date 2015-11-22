@@ -11,8 +11,8 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         when 'campaign' then @defaultsForCampaign()
       baseAttributes.description = @randomDescription(options.type)
       baseAttributes.dangers = _.uniq(_.times(_.random(1,4), => @randomDanger(options.type)))
-      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(options.type)))
-      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(options.type)))
+      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(baseAttributes.dangers)))
+      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(baseAttributes.dangers)))
       baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName(options.type)))
       baseAttributes.name = @randomName(options.type)
       @set(baseAttributes)
@@ -31,22 +31,29 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     type: 'Campaign'
 
   randomDanger: ->
-    type = _.sample(SteadingOMatic.Models.Front.enums.dangers.type)
+    type = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types))
+    subtype = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes))
     type: type
+    subtype: subtype
     name: @randomName()
-    impulse: @randomImpulse(type)
+    impulse: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].impulse
     description: ''
     doom: @randomDoom(type)
+    moves: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].moves
     icon: @randomIcon()
     colors: @randomColorSet()
 
-  randomImpulse: (type)-> _.sample(SteadingOMatic.Models.Front.enums.dangers.impulses[type])
+  randomImpulse: (type)-> _.sample(SteadingOMatic.Models.Front.enums.dangers.types[type])
 
-  randomDoom: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.dooms[type])
+  randomDoom: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.types[type].dooms)
 
-  randomPortent: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.portents[type])
+  randomPortent: (dangers) ->
+    danger = _.sample(dangers)
+    _.sample(SteadingOMatic.Models.Front.enums.dangers.types[danger.type].portents)
 
-  randomStake: (type) -> _.sample(SteadingOMatic.Models.Front.enums.dangers.stakes[type])
+  randomStake: (dangers) ->
+    danger = _.sample(dangers)
+    _.sample(SteadingOMatic.Models.Front.enums.dangers.types[danger.type].stakes)(danger)
 
   #
   # selects a random name
@@ -67,7 +74,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     clause = " #{@addThe()}#{@addPrefix()}#{@addAdjective()} #{@addNoun()}"
     if preposition?
       clause = " #{preposition}#{clause}"
-    return @titleCase(clause)
+    return _.titleize(clause)
 
   randomDescription: (type) ->
     "A randomly generated  #{type}"
@@ -80,34 +87,361 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
   @enums =
     dangers:
-      type: ['Ambitious Organizations','Planar Forces','Arcane Enemies','Hordes','Cursed Places']
-      impulses:
-        'Ambitious Organizations': ['To take over the world.', 'To invade.', 'To crush their rivals.']
-        'Planar Forces': ['To change the environment.', 'To invade.', 'To gain converts.']
-        'Arcane Enemies': ['To collect souls.']
-        'Hordes': ['To drive foreigners away from their lands', 'To cleanse the land', 'To war']
-        'Cursed Places': ['To extend the curse.', 'To fulfill the curse', 'To corrupt', 'To cleanse']
-      dooms:
-        'Ambitious Organizations': ['Tyranny', 'Usurpation', 'Impoverishment']
-        'Planar Forces': ['Tyranny', 'Destruction', 'Rampant Chaos']
-        'Arcane Enemies': ['Destruction', 'Pestilence']
-        'Hordes': ['Destruction', 'Rampant Chaos']
-        'Cursed Places': ['Pestilence', 'Destruction', 'Rampant Chaos']
-      portents:
-        'Ambitious Organizations': ['Refugees appear','Diplomacy breaks down']
-        'Planar Forces':['Dimensional portals appear', 'A rift opens to another plane', 'The weather gets hotter and hotter','The weather gets colder and colder', 'Tornados appear randomly','Snakes everywhere','Frogs everywhere']
-        'Arcane Enemies':['Magical emanations', 'Mutant animals']
-        'Hordes':['Refugees appear', 'Scouts are sighted', 'The rumors of war']
-        'Cursed Places':['A gloom upon the land', 'Children disappear']
-      stakes:
-        'Ambitious Organizations': ['Who will be the new leader?','Who will rival this organization?']
-        'Planar Forces':['Who will close the rift?']
-        'Arcane Enemies':['What will stop this?']
-        'Hordes':['Who will lead the battle against the horde?', 'Is there a way to redirect the Horde?']
-        'Cursed Places':['What will be sacrificed to stop the curse?', 'What will fulfill the curse?']
+      types:
+        'Ambitious Organizations':
+          subtypes:
+            'Misguided Good':
+              impulse: 'to do what is “right” no matter the cost'
+            'Thieves Guild':
+              impulse: 'to take by subterfuge'
+            'Cult':
+              impulse: 'to infest from within'
+            'Religious Organization':
+              impulse: 'to establish and follow doctrine'
+            'Corrupt Government':
+              impulse: 'to maintain the status quo'
+            'Cabal':
+              impulse: 'to absorb those in power, to grow'
+          moves: [
+            'Attack someone by stealthy means (kidnapping, etc.)'
+            'Attack someone directly (with a gang or single assailant)'
+            'Absorb or buy out someone important (an ally, perhaps)'
+            'Influence a powerful institution (change a law, manipulate doctrine)'
+            'Establish a new rule (within the organization)'
+            'Claim territory or resources'
+            'Negotiate a deal'
+            'Observe a potential foe in great detail'
+          ]
+          dooms: ['Tyranny', 'Usurpation', 'Impoverishment']
+          portents: ['Refugees appear','Diplomacy breaks down']
+          stakes: [
+            (d) -> "Who will be the new leader of #{d.name}"
+            (d) -> "What organization will rival #{d.name}?"
+          ]
 
+        'Planar Forces':
+          subtypes:
+            'God':
+              impulse: 'to gather worshippers'
+            'Demon Prince':
+              impulse: 'to open the gates of Hell'
+            'Elemental Lord':
+              impulse: 'to tear down creation to its component parts'
+            'Force of Chaos':
+              impulse: 'to destroy all semblance of order'
+            'Choir of Angels':
+              impulse: 'to pass judgement'
+            'Construct of Law':
+              impulse: 'to eliminate perceived disorder'
+          moves: [
+            'Turn an organization (corrupt or infiltrate with influence)'
+            'Give dreams of prophecy'
+            'Lay a Curse on a foe'
+            'Extract a promise in exchange for a boon'
+            'Attack indirectly, through intermediaries'
+            'Rarely, when the stars are right, attack directly'
+          ]
+          dooms: ['Tyranny', 'Destruction', 'Rampant Chaos']
+          portents: ['Dimensional portals appear', 'A rift opens to another plane', 'The weather gets hotter and hotter','The weather gets colder and colder', 'Tornados appear randomly','Snakes everywhere','Frogs everywhere']
+          stakes: [
+            (d) -> "Who will close the rift that was opened by #{d.name}"
+          ]
 
+        'Arcane Enemies':
+          subtypes:
+            'Lord of the Undead':
+              impulse: 'to seek true immortality'
+            'Power-mad Wizard':
+              impulse: 'to seek magical power'
+            'Sentient Artifact':
+              impulse: 'to find a worthy wielder'
+            'Ancient Curse':
+              impulse: 'to ensnare'
+            'Chosen One':
+              impulse: 'to fulfill or resent their destiny'
+            'Dragon':
+              impulse: 'to hoard gold and jewels, to protect the clutch'
+          moves: [
+            'Foster rivalries with other, similar powers'
+            'Expose someone to a Truth, wanted or otherwise'
+            'Learn forbidden knowledge'
+            'Cast a spell over time and space'
+            'Attack a foe with magic, directly or otherwise'
+            'Spy on someone with a scrying spell'
+            'Recruit a follower or toady'
+            'Tempt someone with promises'
+            'Demand a sacrifice'
+          ]
+          dooms: ['Destruction', 'Pestilence']
+          portents: ['Magical emanations', 'Mutant animals']
+          stakes: [
+            (d) -> "What will stop the plans for #{d.name}?"
+          ]
 
+        'Hordes':
+          subtypes:
+            'Wandering Barbarians':
+              impulse: 'to grow strong, to drive their enemies before them'
+              nouns: [
+                'avalanche', 'affliction', 'attack', 'avalanche',
+                'barbarity', 'band', 'beast', 'bitterness',
+                'blackness', 'blight', 'blood', 'bone', 'brigand',
+                'calamity', 'camp', 'carnage', 'champion', 'clan'
+                'conflagration', 'conqueror', 'crusher', 'darkness',
+                'despair', 'destroyer', 'disemboweler',
+                'disembowlement', 'destruction', 'dragon', 'sune',
+                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'executioner', 'fierceness', 'flayer', 'fortune',
+                'freedom', 'frenzy', 'gang', 'hammer', 'harshness',
+                'hate', 'hatred', 'hell', 'hunger', 'hurricane',
+                'immortal', 'inferno', 'insanity', 'iron', 'justice',
+                'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
+                'mortification', 'nation', 'pack', 'passion',
+                'plague', 'proliferation', 'prophet', 'purity',
+                'purge', 'rampage', 'ravager', 'rider', 'savage',
+                'savagery', 'scum', 'shriek', 'society', 'soldier',
+                'steppe', 'tempest', 'thirst', 'threat', 'torment',
+                'tornado', 'tribe', 'tundra', 'typhoon', 'vandal',
+                'vermin', 'violator', 'violence', 'volcano',
+                'wanderer', 'warrior', 'wave', 'waste', 'wheel',
+                'whip', 'world', 'zealot'
+              ]
+              patterns: [
+                "the <plural_noun> of the <general_adjective> <noun>"
+                "the <plural_noun>"
+                "the <general_adjective> <plural_noun>"
+                "<noun> of the <noun>"
+                "<prefix><noun> of the <plural_noun>"
+                "<noun> of the <plural_noun>"
+                "the <noun>"
+                "<plural_noun> of the <noun>"
+              ]
+            'Humanoid Vermin':
+              impulse: 'to breed, to multiply and consume'
+              nouns: [
+                'avalanche', 'affliction', 'attack', 'avalanche',
+                'barbarity', 'band', 'beast', 'bitterness', 'butcher'
+                'blackness', 'blight', 'blood', 'bone', 'brigand',
+                'calamity', 'carnage', 'champion', 'creep', 'carnage'
+                'conflagration', 'conqueror', 'crusher', 'darkness',
+                'despair', 'destroyer', 'disemboweler', 'dungeon'
+                'disembowlement', 'destruction', 'dragon', 'dune',
+                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'executioner', 'fierceness', 'flayer', 'fortune',
+                'frenzy', 'gang', 'hammer', 'harshness',
+                'hate', 'hatred', 'hell', 'hunger', 'hurricane',
+                'immortal', 'inferno', 'insanity', 'iron', 'justice',
+                'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
+                'mortification', 'nation', 'pack', 'passion',
+                'plague', 'proliferation', 'prophet', 'purity',
+                'purge', 'rampage', 'ravager', 'rider', 'savage',
+                'savagery', 'scum', 'shriek', 'society', 'soldier',
+                'tempest', 'thirst', 'threat', 'torment',
+                'tornado', 'tribe', 'typhoon', 'vandal',
+                'vermin', 'violator', 'violence', 'volcano',
+                'wanderer', 'warrior', 'wave', 'waste', 'wheel',
+                'whip', 'world', 'zealot'
+              ]
+              patterns: [
+                "the <plural_noun> of the <general_adjective> <noun>"
+                "the <plural_noun>"
+                "the <general_adjective> <plural_noun>"
+                "<noun> of the <noun>"
+                "<prefix><noun> of the <plural_noun>"
+                "<noun> of the <plural_noun>"
+                "the <noun>"
+                "<plural_noun> of the <noun>"
+              ]
+            'Underground Dwellers':
+              impulse: 'to defend the complex from outsiders'
+              nouns: [
+                'avalanche', 'affliction', 'attack', 'avalanche',
+                'barbarity', 'band', 'beast', 'bitterness', 'butcher'
+                'blackness', 'blight', 'blood', 'bone', 'brigand',
+                'calamity', 'carnage', 'champion', 'creep', 'carnage'
+                'conflagration', 'conqueror', 'crusher', 'darkness',
+                'despair', 'destroyer', 'disemboweler', 'dungeon'
+                'disembowlement', 'destruction', 'cave'
+                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'executioner', 'fierceness', 'flayer', 'fortune',
+                'frenzy', 'gang', 'hammer', 'harshness',
+                'hate', 'hatred', 'hell', 'hunger', 'hurricane',
+                'immortal', 'inferno', 'insanity', 'iron', 'justice',
+                'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
+                'mortification', 'nation', 'pack', 'passion',
+                'plague', 'proliferation', 'prophet', 'purity',
+                'purge', 'rampage', 'ravager', 'rider', 'savage',
+                'savagery', 'scum', 'shriek', 'society', 'soldier',
+                'tempest', 'thirst', 'threat', 'torment',
+                'tornado', 'tribe', 'typhoon', 'vandal',
+                'vermin', 'violator', 'violence', 'volcano',
+                'wanderer', 'warrior', 'wave', 'waste', 'wheel',
+                'whip', 'world', 'zealot'
+              ]
+              patterns: [
+                "the <plural_noun> of the <general_adjective> <noun>"
+                "the <plural_noun>"
+                "the <general_adjective> <plural_noun>"
+                "<noun> of the <noun>"
+                "<prefix><noun> of the <plural_noun>"
+                "<noun> of the <plural_noun>"
+                "the <noun>"
+                "<plural_noun> of the <noun>"
+              ]
+
+            'Plague of the Undead':
+              impulse: 'to spread'
+              nouns: [
+                'affliction', 'attack', 'avalanche', 'avalanche',
+                'band', 'barbarity', 'beast', 'bitterness', 'blackness'
+                'blight', 'blood', 'bone', 'brigand', 'butcher',
+                'calamity', 'carnage', 'carnage', 'conflagration', 'conqueror'
+                'creep', 'crusher', 'darkness', 'demon',
+                'despair', 'destroyer', 'destruction', 'disemboweler'
+                'disembowlement', 'doom', 'dragon', 'dungeon',
+                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'executioner', 'fierceness', 'flayer', 'fortune',
+                'frenzy', 'gang', 'hammer', 'harshness',
+                'hate', 'hatred', 'hell', 'hunger', 'hurricane',
+                'immortal', 'inferno', 'insanity', 'iron', 'justice',
+                'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
+                'mortification', 'nation', 'pack', 'passion',
+                'plague', 'proliferation', 'prophet', 'purge',
+                'purity', 'rampage', 'ravager', 'rider', 'savage',
+                'savagery', 'scum', 'shriek', 'society', 'soldier',
+                'tempest', 'thirst', 'threat', 'torment',
+                'tornado', 'tribe', 'typhoon', 'vandal',
+                'vermin', 'violator', 'violence', 'volcano',
+                'wanderer', 'warrior', 'waste', 'wave', 'wheel',
+                'whip', 'world', 'zealot'
+              ]
+              patterns: [
+                "the <plural_noun> of the <general_adjective> <noun>"
+                "the <plural_noun>"
+                "the <general_adjective> <plural_noun>"
+                "<noun> of the <noun>"
+                "<prefix><noun> of the <plural_noun>"
+                "<noun> of the <plural_noun>"
+                "the <noun>"
+                "<plural_noun> of the <noun>"
+              ]
+          moves: [
+            'Assault a bastion of civilization'
+            'Embrace internal chaos'
+            'Change direction suddenly'
+            'Overwhelm a weaker force'
+            'Perform a show of dominance'
+            'Abandon an old home, find a new one'
+            'Grow in size by breeding or conquest'
+            'Appoint a champion'
+            'Declare war and act upon that declaration without hesitation or deliberation'
+          ]
+          dooms: ['Destruction', 'Rampant Chaos']
+          portents: ['Refugees appear', 'Scouts are sighted', 'The rumors of war']
+          stakes: [
+            (d) -> "Who will lead the battle against #{d.name}?"
+            (d) -> "Is there a way to redirect #{d.name}?"
+          ]
+
+        'Cursed Places':
+          subtypes:
+            'Abandoned Tower':
+              impulse: 'to draw in the weak-willed'
+              nouns: [
+                'abbey', 'apex', 'church', 'belfry', 'castle',
+                'citadel', 'column', 'fort', 'fortification',
+                'fortress', 'keep', 'lookout', 'mast', 'minaret',
+                'monolith', 'obelisk', 'pillar', 'refuge', 'spire',
+                'steeple', 'stronghold', 'turret'
+              ]
+              patterns: [
+                "the <noun> of the <general_adjective> <general_noun>"
+                "<noun> of <general_adjective> <general_noun>"
+                "the <general_adjective> <noun>"
+                "<noun> of the <general_noun>"
+                "<prefix><noun> of the <general_noun>"
+                "<general_adjective> <noun> of the <plural_noun>"
+              ]
+            'Unholy Ground':
+              impulse: 'to spawn evil'
+              nouns: [
+                'catacomb', 'cemetery', 'charnel', 'charnel house', 'city'
+                'churchyard', 'city of the dead', 'clump', 'coppice',
+                'copse', 'crypt', 'garden', 'grave', 'graveyard',
+                'grove', 'growth', 'jungle', 'meadow', 'mortuary',
+                'necropolis', 'ossuary', 'pasture', 'polyandrium',
+                'resting place', 'sepulcher', 'stand', 'steppe',
+                'thicket', 'tomb', 'town', 'vault', 'village', 'weald', 'wood'
+              ]
+              adjectives: [
+                'angry', 'atrocious', 'baneful', 'base', 'base',
+                'beastly', 'blameful', 'calamitous', 'corrupt',
+                'culpable', 'damnable', 'depraved', 'destructive',
+                'disastrous', 'dishonest', 'evil', 'execrable',
+                'flagitious', 'foul', 'godless', 'guilty', 'harmful',
+                'hateful', 'heinous', 'hideous', 'immoral', 'impious',
+                'iniquitous', 'injurious', 'irreligious',
+                'irreverent', 'irreverential', 'loathsome', 'low',
+                'maleficent', 'malevolent', 'malicious', 'malignant',
+                'nefarious', 'obscene', 'offensive', 'pernicious',
+                'poison', 'profane', 'rancorous', 'reprobate',
+                'repugnant', 'repulsive', 'revolting', 'sinful',
+                'spiteful', 'stinking', 'ugly', 'ungodly',
+                'unhallowed', 'unpleasant', 'unpropitious',
+                'unsanctified', 'vicious', 'vile', 'villainous',
+                'wicked', 'wrathful', 'wrong',
+              ]
+              patterns: [
+                "the <adjective> <noun> of the <general_adjective> <general_noun>"
+                "<noun> of <general_adjective> <general_noun>"
+                "the <adjective> <noun>"
+                "<prefix><adjective> <noun>"
+                "<adjective> <noun> of the <general_noun>"
+                "<prefix><adjective> <noun> of the <general_noun>"
+                "<general_adjective> <noun> of the <general_noun>"
+              ]
+            'Elemental Vortex':
+              impulse: 'to grow, to tear apart reality'
+              # nouns: [
+              #   'air', 'alchemy', 'breath', 'country', 'demesne',
+              #   'domain', 'dominion', 'drowning', 'dust', 'earth',
+              #   'enchantment', 'enclave', 'fire', 'flame', 'inferno',
+              #   'magnetism', 'matter', 'power', 'realm', 'sphere',
+              #   'stone', 'water', 'wave', 'wind'
+              # ]
+              patterns: [
+                "the <<general_adjective>> <noun> of the <general_adjective> <general_noun>"
+                "<noun> of <general_adjective> <general_noun>"
+                "the <general_adjective> <noun>"
+                "<prefix><general_adjective> <noun>"
+                "<adjective> <noun> of the <general_noun>"
+                "<prefix><general_adjective> <noun> of the <general_noun>"
+                "<general_adjective> <noun> of the <general_noun>"
+              ]
+            'Dark Portal':
+              impulse: 'to disgorge demons'
+            'Shadowland':
+              impulse: 'to corrupt or consume the living'
+            'Place of Power':
+              impulse: 'to be controlled or tamed'
+          moves: [
+            'Vomit forth a lesser monster'
+            'Spread to an adjacent place'
+            'Lure someone in'
+            'Grow in intensity or depth'
+            'Leave a lingering effect on an inhabitant or visitor'
+            'Hide something from sight'
+            'Offer power'
+            'Dampen magic or increase its effects'
+            'Confuse or obfuscate truth or direction'
+            'Corrupt a natural law'
+          ]
+          dooms: ['Pestilence', 'Destruction', 'Rampant Chaos']
+          portents: ['A gloom upon the land', 'Children disappear']
+          stakes: [
+            (d) -> "What will be sacrificed to stop the curse?"
+            (d) -> "What will fulfill the curse?"
+          ]
 
   @prefixes = ["after-", "arch-", "dozen-", "ecto-", "ever-", "many-",
              "necro-", "neo-", "never-", "one-", "over-", "three-", "two-",
@@ -253,6 +587,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "wilted", "windy", "wispy", "withered", "wondrous", "wooden", "wordy",
                 "worried", "worshipful", "worthless", "worthy", "wretched", "yawning",
                 "yellow", "young", "youthful"]
+
 
   @nouns = ["abatement", "abbey", "abyss", "accident", "ace", "ache",
         "act", "action", "admiration", "admirer", "adoration", "adulation",

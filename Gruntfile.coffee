@@ -29,6 +29,7 @@ module.exports = (grunt) ->
           'bower_components/jquery/dist/jquery.min.js'
           'bower_components/jquery-ui/jquery-ui.min.js'
           'bower_components/underscore/underscore-min.js'
+          'bower_components/underscore.inflection/lib/underscore.inflection.js'
           'bower_components/backbone/backbone.js'
           'bower_components/backbone-modal/backbone.modal-min.js'
           'bower_components/elasticsearch/elasticsearch.min.js'

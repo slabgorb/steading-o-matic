@@ -1,17 +1,17 @@
 <div class="container" id="item-<%= _id %>">
+  <div class="col-md-2 pull-right">
+    <div class="btn-group pull-right">
+      <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
+      <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
+      <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
+    </div>
+  </div>
   <h3>
     <%= name %>
     <small><%= type %></small>
   </h3>
   <p><%= description %></p>
   <div class="front-details">
-    <div class="col-md-2 pull-right">
-      <div class="btn-group pull-right">
-        <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
-        <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
-        <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
-      </div>
-    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         <div class="panel-title">
