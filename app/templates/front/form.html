@@ -1,5 +1,65 @@
 <div class="container" id="item-<%= _id %>">
   <form>
-
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input class="form-control" name="name" value="<%=name%>">
+    </div>
+    <% _.each(dangers, function(danger, index) { %>
+    <div class="container">
+      <div class="media">
+        <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
+        </div>
+        <div class="media-body">
+          <div class="form-group">
+            <label for="danger-name">Name</label>
+            <input class="form-control" name="dangers[<%= index %>][name]" value="<%= danger.name %>">
+          </div>
+          <div class="form-group">
+            <label for="danger-name">Type</label>
+            <input class="form-control" name="dangers[<%= index %>][type]" value="<%= danger.type %>">
+          </div>
+          <div class="form-group">
+            <label for="danger-name">Subtype</label>
+            <input class="form-control" name="dangers[<%= index %>][subtype]" value="<%= danger.subtype %>">
+          </div>
+          <div class="form-group">
+            <label for="danger-name">Impulse</label>
+            <input class="form-control" name="dangers[<%= index %>][impulse]" value="<%= danger.impulse %>">
+          </div>
+          <div class="form-group">
+            <label for="danger-name">Doom</label>
+            <input class="form-control" name="dangers[<%= index %>][doom]" value="<%= danger.doom %>">
+          </div>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+    <div class="form-group">
+      <label for="portent-list">Grim Portents</label>
+      <div class="portent-list">
+        <% _.each(portents, function(portent, index) {  %>
+        <input class="form-control" name="portents[<%= index %>" value="<%= portent %>">
+        <% }); %>
+      </div>
+      <span class="add-portent glyphicon glyphicon-add"></span>
+    </div>
+    <div class="form-group">
+      <label for="stake-list">Stakes</label>
+      <div class="stake-list">
+        <% _.each(stakes, function(stake, index) {  %>
+        <input class="form-control" name="stakes[<%= index %>" value="<%= stake %>">
+        <% }); %>
+      </div>
+      <span class="add-stake glyphicon glyphicon-add"></span>
+    </div>
+    <div class="form-group">
+      <label for="cast-list">Cast</label>
+      <div class="cast-list">
+        <% _.each(stakes, function(castMember, index) {  %>
+        <input class="form-control" name="cast[<%= index %>" value="<%= castMember %> ">
+        <% }); %>
+      </div>
+      <span class="add-castMember glyphicon glyphicon-add"></span>
+    </div>
   </form>
 </div>
