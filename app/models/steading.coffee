@@ -70,60 +70,74 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
       tag: 'Guild', details: ''
       tag: 'Market', details: ''
 
-
-
-  #
-  # selects a random name
-  #
-  randomName: ->
-    _.sample( SteadingOMatic.Models.Steading.namesList )
-
   randomDescription: (type) ->
     "A randomly generated  #{type}"
 
-
-
-
-
-  @namesList = [
-    "Graybark"
-    "Nook\'s Crossing"
-    "Tanner\'s Ford"
-    "Goldenfield"
-    "Barrowbridge"
-    "Rum River"
-    "Brindenburg"
-    "Shambles"
-    "Covaner"
-    "Enfield"
-    "Crystal Falls"
-    "Castle Daunting"
-    "Nulty\'s Harbor"
-    "Castonshire"
-    "Cornwood"
-    "Irongate"
-    "Mayhill"
-    "Pigton"
-    "Crosses"
-    "Battlemoore"
-    "Torsea"
-    "Curland"
-    "Snowcalm"
-    "Seawall"
-    "Varlosh"
-    "Terminum"
-    "Avonia"
-    "Bucksburg"
-    "Settledown"
-    "Goblinjaw"
-    "Hammerford"
-    "Pit"
-    "The Gray Fast"
-    "Ennet Bend"
-    "Harrison\'s Hold"
-    "Fortress Andwynne"
-    "Blackstone"
+  @patterns = [
+    "<prefix>|<suffix>"
+    "<prefix> <noun>|<suffix>"
+    "<adjective>|<noun>|<suffix>"
+    "<noun>|<suffix>"
+    "<adjective>|<suffix>"
   ]
+
+  @suffixes = [
+    'town'
+    'town'
+    'burg'
+    'ville'
+    'ford'
+    'ton'
+    'ton'
+    'borough'
+    'wood'
+    'river'
+    'hold'
+    'bridge'
+    'hill'
+    'field'
+    'moor'
+    'gate'
+    'land'
+    'green'
+    'yard'
+    'burn'
+    'more'
+    'cross'
+    'stone'
+    'ington'
+    'thorpe'
+    'dale'
+    'lin'
+  ]
+
+  @prefixes = [
+    'south'
+    'north'
+    'east'
+    'west'
+    'upper'
+    'lower'
+    'old'
+    'new'
+
+  ]
+
+  @endNouns = [
+    'crossing'
+    'field'
+    'bend'
+    'road'
+    'town'
+    'town'
+    'city'
+    'city'
+    'green'
+    'yard'
+    'head'
+   ]
+
+
 
   @enums =
     prosperity : [
