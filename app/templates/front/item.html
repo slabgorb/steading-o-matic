@@ -29,11 +29,13 @@
                   <small><%= danger.subtype %></small>
                 </h5>
               </div>
-              <dl class="dl-horizontal">
-                <dt>Impulse</dt><dd><%= danger.impulse %></dd>
-                <dt>Impending Doom</dt><dd><%= danger.doom %></dd>
-              </dl>
-              <p><%= danger.description %></p>
+              <div class="container">
+                <dl class="dl-horizontal">
+                  <dt>Impulse</dt><dd><%= danger.impulse %></dd>
+                  <dt>Impending Doom</dt><dd><%= danger.doom %></dd>
+                </dl>
+                <p><%= danger.description %></p>
+              </div>
             </div>
           </div>
           <% }) %>

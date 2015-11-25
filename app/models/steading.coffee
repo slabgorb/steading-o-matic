@@ -21,7 +21,6 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     @set('colorList', SteadingOMatic.Models.Base.colorList)
 
 
-
   #
   # sets defaults for a new village
   #
@@ -82,33 +81,39 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   ]
 
   @suffixes = [
-    'town'
-    'town'
-    'burg'
-    'ville'
-    'ford'
-    'ton'
-    'ton'
     'borough'
-    'wood'
-    'river'
-    'hold'
     'bridge'
-    'hill'
-    'field'
-    'moor'
-    'gate'
-    'land'
-    'green'
-    'yard'
+    'burg'
     'burn'
-    'more'
     'cross'
-    'stone'
-    'ington'
-    'thorpe'
     'dale'
+    'end'
+    'ey'
+    'field'
+    'ford'
+    'gate'
+    'green'
+    'ham'
+    'hill'
+    'hold'
+    'ingley'
+    'ington'
+    'land'
     'lin'
+    'moor'
+    'more'
+    'river'
+    'stone'
+    'sty'
+    'thorpe'
+    'ton'
+    'ton'
+    'town'
+    'town'
+      'ville'
+    'wick'
+    'wood'
+    'yard'
   ]
 
   @prefixes = [

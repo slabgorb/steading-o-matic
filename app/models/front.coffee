@@ -38,7 +38,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     subtype: subtype
     name: @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.start_nouns, subtypeData.adjectives,  subtypeData.prefixes)
     impulse: subtypeData.impulse
-    description: ''
+    description: @randomDescription(subtype)
     doom: @randomDoom(type)
     moves: subtypeData.moves
     icon: @randomIcon()

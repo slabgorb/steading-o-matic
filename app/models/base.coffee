@@ -24,7 +24,7 @@ class SteadingOMatic.Models.Base extends Backbone.Model
         when "<suffix>" then _.sample suffixes
         when "<plural_noun>" then _.pluralize(_.sample(nouns))
         when "<noun>" then _.sample(nouns)
-        when "<start_noun>" then _.sample start_nouns
+        when "<start_noun>" then _.sample startNouns
         when "<adjective>" then _.sample adjectives
         when "<general_noun>" then _.sample @constructor.nouns
         when "<general_adjective>" then _.sample @constructor.adjectives
