@@ -68,17 +68,18 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     prefixes ?= SteadingOMatic.Models.Front.prefixes
     pattern = _.sample(patterns)
 
-    tokens = _.map pattern.split(/\s|\-/), (token) ->
+    tokens = _.map pattern.split(/([ !@$%^&*\-\(\)\[\]|{}?,.;':"~`])/), (token) ->
       switch token
+        when "<prefix>" then _.sample prefixes
         when "<plural_noun>" then _.pluralize(_.sample(nouns))
         when "<noun>" then _.sample(nouns)
-        when "<start_noun>" then _.sample(start_nouns)
-        when "<adjective>" then _.sample(adjectives)
-        when "<general_noun>" then _.sample(SteadingOMatic.Models.Front.nouns)
-        when "<general_adjective>" then _.sample(SteadingOMatic.Models.Front.adjectives)
+        when "<start_noun>" then _.sample start_nouns
+        when "<adjective>" then _.sample adjectives
+        when "<general_noun>" then _.sample SteadingOMatic.Models.Front.nouns
+        when "<general_adjective>" then _.sample SteadingOMatic.Models.Front.adjectives
         when "<plural_general_noun>" then _.pluralize(_.sample(SteadingOMatic.Models.Front.nouns))
         else token
-    _.titleize tokens.join(' ')
+    _.titleize tokens.join('')
 
   randomDescription: (type) ->
     "A randomly generated  #{type}"
