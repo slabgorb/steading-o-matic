@@ -10,10 +10,10 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
         when 'adventure' then @defaultsForAdventure()
         when 'campaign' then @defaultsForCampaign()
       baseAttributes.description = @randomDescription(options.type)
-      baseAttributes.dangers = _.uniq(_.times(_.random(1,4), => @randomDanger(options.type)))
+      baseAttributes.dangers = _.uniq(_.times(_.random(1,3), => @randomDanger(options.type)))
       baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(baseAttributes.dangers)))
       baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(baseAttributes.dangers)))
-      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName(options.type)))
+      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
       baseAttributes.name = @randomName()
       @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
@@ -68,10 +68,11 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     prefixes ?= SteadingOMatic.Models.Front.prefixes
     pattern = _.sample(patterns)
 
-    tokens = _.map pattern.split(' '), (token) ->
+    tokens = _.map pattern.split(/\s|\-/), (token) ->
       switch token
         when "<plural_noun>" then _.pluralize(_.sample(nouns))
         when "<noun>" then _.sample(nouns)
+        when "<start_noun>" then _.sample(start_nouns)
         when "<adjective>" then _.sample(adjectives)
         when "<general_noun>" then _.sample(SteadingOMatic.Models.Front.nouns)
         when "<general_adjective>" then _.sample(SteadingOMatic.Models.Front.adjectives)
@@ -92,9 +93,9 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     "the <plural_noun> of the <general_adjective> <noun>"
     "the <plural_noun>"
     "the <general_adjective> <plural_noun>"
-    "<noun> of the <noun>"
-    "<prefix><noun> of the <plural_noun>"
-    "<noun> of the <plural_noun>"
+    "<start_noun> of the <noun>"
+    "<prefix>-<start_noun> of the <plural_noun>"
+    "<start_noun> of the <plural_noun>"
     "<plural_noun> of the <noun>"
   ]
   @enums =
@@ -133,13 +134,81 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
             'Cult':
               impulse: 'to infest from within'
+              adjectives: [
+                'serene', 'calm', 'frenzied'
+              ]
+              start_nouns: [
+                'band', 'church', 'clan', 'clique', 'denomination',
+                'faith', 'religion', 'sect', 'body', 'creed',
+                'faction', 'following', 'party', 'persuasion',
+                'school', 'chapel', 'mosque', 'parish', 'sanctuary',
+                'shrine', 'synagogue', 'temple', 'abbey', 'basilica',
+                'bethel', 'cathedral', 'chancel', 'chantry', 'fold',
+                'minster', 'mission', 'oratory', 'tabernacle', 'shrine'
+              ]
+              adjectives: [
+                'divine', 'hallowed', 'humble', 'pure', 'revered',
+                'righteous', 'spiritual', 'sublime', 'believing',
+                'clean', 'devotional', 'faithful', 'good', 'innocent',
+                'moral', 'perfect', 'upright', 'angelic', 'blessed',
+                'chaste', 'consecrated', 'dedicated', 'devoted',
+                'devout', 'faultless', 'glorified', 'god-fearing',
+                'godlike', 'godly', 'immaculate', 'just', 'messianic',
+                'pietistic', 'pious', 'prayerful', 'reverent',
+                'sacrosanct', 'sainted', 'saintlike', 'saintly',
+                'sanctified', 'seraphic', 'spotless', 'uncorrupt',
+                'undefiled', 'untainted', 'unworldly', 'venerable',
+                'venerated', 'virtuous', 'righteous'
+              ]
 
             'Religious Organization':
               impulse: 'to establish and follow doctrine'
+              start_nouns: [
+                'band', 'church', 'clan', 'clique', 'denomination',
+                'faith', 'religion', 'sect', 'body', 'creed',
+                'faction', 'following', 'party', 'persuasion',
+                'school', 'chapel', 'mosque', 'parish', 'sanctuary',
+                'shrine', 'synagogue', 'temple', 'abbey', 'basilica',
+                'bethel', 'cathedral', 'chancel', 'chantry', 'fold',
+                'minster', 'mission', 'oratory', 'tabernacle', 'shrine'
+              ]
+              adjectives: [
+                'divine', 'hallowed', 'humble', 'pure', 'revered',
+                'righteous', 'spiritual', 'sublime', 'believing',
+                'clean', 'devotional', 'faithful', 'good', 'innocent',
+                'moral', 'perfect', 'upright', 'angelic', 'blessed',
+                'chaste', 'consecrated', 'dedicated', 'devoted',
+                'devout', 'faultless', 'glorified', 'god-fearing',
+                'godlike', 'godly', 'immaculate', 'just', 'messianic',
+                'pietistic', 'pious', 'prayerful', 'reverent',
+                'sacrosanct', 'sainted', 'saintlike', 'saintly',
+                'sanctified', 'seraphic', 'spotless', 'uncorrupt',
+                'undefiled', 'untainted', 'unworldly', 'venerable',
+                'venerated', 'virtuous', 'righteous'
+              ]
+
             'Corrupt Government':
               impulse: 'to maintain the status quo'
+              start_nouns: [
+                'kingdom', 'commonwealth', 'country', 'county',
+                'crown', 'division', 'domain', 'dominion', 'dynasty',
+                'empire', 'field', 'lands', 'monarchy', 'nation',
+                'possessions', 'principality', 'province', 'realm',
+                'reign', 'rule', 'scepter', 'sovereignty', 'sphere',
+                'state', 'suzerainty', 'sway', 'territory', 'throne',
+                'tract'
+              ]
+
             'Cabal':
               impulse: 'to absorb those in power, to grow'
+              start_nouns: [
+                'conspiracy', 'intrigue', 'scheme', 'assembly',
+                'association', 'cartel', 'conglomerate', 'gang',
+                'mob', 'organization', 'ring', 'union', 'board',
+                'bunch', 'cabinet', 'chain', 'chamber', 'combine',
+                'committee', 'company', 'council', 'crew', 'group',
+                'outfit'
+              ]
           moves: [
             'Attack someone by stealthy means (kidnapping, etc.)'
             'Attack someone directly (with a gang or single assailant)'
@@ -164,14 +233,12 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
             'Demon Prince':
               impulse: 'to open the gates of Hell'
               start_nouns: [
-                'emperor', 'star', 'monarch', 'star', 'sultan',
-                'baron', 'caliph', 'khan', 'magnate', 'maharajah',
-                'majesty', 'mogul', 'overlord', 'pasha', 'potentate',
-                'prince', 'rajah', 'rex', 'shah', 'sovereign',
-                'tycoon', 'imperator', 'baron', 'count', 'duke',
-                'earl', 'king', 'marquis', 'monarch', 'overlord',
-                'potentate', 'prince', 'ruler', 'sovereign',
-                'viscount'
+                'emperor', 'star', 'monarch', 'sultan', 'baron',
+                'caliph', 'khan', 'magnate', 'maharajah', 'majesty',
+                'mogul', 'overlord', 'pasha', 'prince',
+                'rajah', 'rex', 'shah', 'sovereign', 'tycoon',
+                'imperator', 'king', 'overlord', 'potentate',
+                'prince', 'ruler', 'sovereign', 'god', 'deity', 'patron'
               ]
               nouns: [
                 'hell', 'deadland', 'afterworld', 'inferno',
@@ -250,12 +317,34 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               impulse: 'to seek magical power'
             'Sentient Artifact':
               impulse: 'to find a worthy wielder'
+              start_nouns: [
+                'sword', 'knife', 'blade', 'dagger', 'saber',
+                'broadsword', 'claymore', 'cutlass', 'dirk', 'epee',
+                'falchion', 'kris', 'rapier', 'sabre', 'scimitar',
+                'glaive', 'orb', 'rod', 'wand', 'baton', 'scepter',
+                'staff', 'baton', 'bowl', 'bow', 'necklace', 'ring',
+                'brooch', 'chariot', 'saddle', 'horn', 'lyre', 'harp',
+                'pipe', 'cup', 'goblet', 'chalice', 'cauldron',
+                'throne'
+              ]
+              patterns: [
+                '<start_noun> of the <noun>'
+                '<adjective> <start_noun> of the <noun>'
+                '<adjective> <start_noun>'
+                '<prefix>-<adjective> <start_noun>'
+                '<start_noun>, the <noun> of <noun>'
+                '<noun> <start_noun>'
+              ]
+
             'Ancient Curse':
               impulse: 'to ensnare'
             'Chosen One':
               impulse: 'to fulfill or resent their destiny'
             'Dragon':
               impulse: 'to hoard gold and jewels, to protect the clutch'
+              start_noun: [
+                'wyrm', 'dragon', 'snake', 'serpent', 'demon'
+              ]
           moves: [
             'Foster rivalries with other, similar powers'
             'Expose someone to a Truth, wanted or otherwise'
@@ -308,7 +397,6 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "<noun> of the <noun>"
                 "<prefix>-<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
-                "the <noun>"
                 "<plural_noun> of the <noun>"
               ]
             'Humanoid Vermin':
@@ -357,7 +445,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 'conflagration', 'conqueror', 'crusher', 'darkness',
                 'despair', 'destroyer', 'disemboweler', 'dungeon'
                 'disembowlement', 'destruction', 'cave'
-                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'emptiness', 'epidemic', 'eviscerator',
                 'executioner', 'fierceness', 'flayer', 'fortune',
                 'frenzy', 'gang', 'hammer', 'harshness',
                 'hate', 'hatred', 'hell', 'hunger', 'hurricane',
@@ -394,14 +482,14 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 'creep', 'crusher', 'darkness', 'demon',
                 'despair', 'destroyer', 'destruction', 'disemboweler'
                 'disembowlement', 'doom', 'dragon', 'dungeon',
-                'eagle', 'emptiness', 'epidemic', 'eviscerator',
+                'emptiness', 'epidemic', 'eviscerator',
                 'executioner', 'fierceness', 'flayer', 'fortune',
                 'frenzy', 'gang', 'hammer', 'harshness',
                 'hate', 'hatred', 'hell', 'hunger', 'hurricane',
                 'immortal', 'inferno', 'insanity', 'iron', 'justice',
                 'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
                 'mortification', 'nation', 'pack', 'passion',
-                'plague', 'proliferation', 'prophet', 'purge',
+                'plague', 'proliferation',  'purge',
                 'purity', 'rampage', 'ravager', 'rider', 'savage',
                 'savagery', 'scum', 'shriek', 'society', 'soldier',
                 'tempest', 'thirst', 'threat', 'torment',
@@ -515,6 +603,12 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               ]
             'Dark Portal':
               impulse: 'to disgorge demons'
+              nouns: [
+                'door', 'doorway', 'exit', 'fence', 'port', 'access',
+                'conduit', 'egress', 'gateway', 'issue', 'lock',
+                'opening', 'passage', 'portal', 'portcullis',
+                'ingress', 'vent', 'turnstile', 'way', 'weir'
+              ]
             'Shadowland':
               impulse: 'to corrupt or consume the living'
             'Place of Power':
