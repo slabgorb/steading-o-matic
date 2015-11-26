@@ -1,65 +1,58 @@
 <div class="container" id="item-<%= _id %>">
   <form>
-    <div class="form-group">
-      <label for="name">Name</label>
-      <input class="form-control" name="name" value="<%=name%>">
-    </div>
-    <% _.each(dangers, function(danger, index) { %>
     <div class="container">
-      <div class="media">
-        <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input class="form-control" name="name" value="<%=name%>">
+      </div>
+      <% _.each(dangers, function(danger, index) { %>
+      <div class="container">
+        <div class="media">
+          <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
+          </div>
+          <div class="media-body">
+            <div class="form-group">
+              <label for="icon">Icon</label>
+              <select id="iconList" name="dangers[<%= index %>][icon]" class="selectpicker form-control">
+                <% _.each(iconList, function(i, char) { %>
+                <option <%= danger.icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
+                <% }); %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="colors.background">Background Color</label>
+              <input type="color" id="colors.background" name="dangers[<%= index %>][colors][background]" value="<%= danger.colors.background %>">
+              <label for="colors.icon">Icon Color</label>
+              <input type="color" id="colors.icon" name="dangers[<%= index %>][colors][icon]" value="<%= danger.colors.icon %>">
+            </div>
+            <% _.each(['name', 'type', 'subtype', 'impulse', 'doom'], function(type) { %>
+            <div class="form-group">
+              <label for="danger-<%= type %>" class="text-capitalize"><%= type %></label>
+              <input class="form-control" name="dangers[<%= index %>][<%= type %>]" value="<%= danger[type] %>">
+            </div>
+            <% }) %>
+          </div>
         </div>
-        <div class="media-body">
-          <div class="form-group">
-            <label for="danger-name">Name</label>
-            <input class="form-control" name="dangers[<%= index %>][name]" value="<%= danger.name %>">
-          </div>
-          <div class="form-group">
-            <label for="danger-name">Type</label>
-            <input class="form-control" name="dangers[<%= index %>][type]" value="<%= danger.type %>">
-          </div>
-          <div class="form-group">
-            <label for="danger-name">Subtype</label>
-            <input class="form-control" name="dangers[<%= index %>][subtype]" value="<%= danger.subtype %>">
-          </div>
-          <div class="form-group">
-            <label for="danger-name">Impulse</label>
-            <input class="form-control" name="dangers[<%= index %>][impulse]" value="<%= danger.impulse %>">
-          </div>
-          <div class="form-group">
-            <label for="danger-name">Doom</label>
-            <input class="form-control" name="dangers[<%= index %>][doom]" value="<%= danger.doom %>">
+        <% }); %>
+        <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
+        <div class="form-group">
+          <label for="<%= section.name %>-list">
+            <span class="add-<%= section.name %> glyphicon glyphicon-plus"></span>
+            <%= section.label %>
+          </label>
+          <div class="<%= section.name %>-list">
+            <% _.each(section.object, function(item, index) {  %>
+            <div class="input-group">
+              <span class="input-group-addon up glyphicon glyphicon-arrow-up"></span>
+              <input class="form-control" name="<%= section.plural %>[<%= index %>" value="<%= item %>">
+              <span class="input-group-addon down glyphicon glyphicon-arrow-down"></span>
+            </div>
+            <% }); %>
           </div>
         </div>
+        <% }) %>
+        <button class="btn btn-default action-done">Done</button>
       </div>
-    </div>
-    <% }); %>
-    <div class="form-group">
-      <label for="portent-list">Grim Portents</label>
-      <div class="portent-list">
-        <% _.each(portents, function(portent, index) {  %>
-        <input class="form-control" name="portents[<%= index %>" value="<%= portent %>">
-        <% }); %>
-      </div>
-      <span class="add-portent glyphicon glyphicon-add"></span>
-    </div>
-    <div class="form-group">
-      <label for="stake-list">Stakes</label>
-      <div class="stake-list">
-        <% _.each(stakes, function(stake, index) {  %>
-        <input class="form-control" name="stakes[<%= index %>" value="<%= stake %>">
-        <% }); %>
-      </div>
-      <span class="add-stake glyphicon glyphicon-add"></span>
-    </div>
-    <div class="form-group">
-      <label for="cast-list">Cast</label>
-      <div class="cast-list">
-        <% _.each(stakes, function(castMember, index) {  %>
-        <input class="form-control" name="cast[<%= index %>" value="<%= castMember %> ">
-        <% }); %>
-      </div>
-      <span class="add-castMember glyphicon glyphicon-add"></span>
     </div>
   </form>
 </div>

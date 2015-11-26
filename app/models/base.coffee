@@ -3,6 +3,9 @@ class SteadingOMatic.Models.Base extends Backbone.Model
 
   initialize: (attributes, options) ->
     @logger = new SteadingOMatic.Logger('info', true)
+    @set('iconList', @constructor.iconList)
+    @set('enums', @constructor.enums)
+    @set('colorList', @constructor.colorList)
     super(attributes, options)
 
   #

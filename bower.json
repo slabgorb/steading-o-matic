@@ -2,7 +2,7 @@
   "name": "steading-o-matic",
   "dependencies": {
     "backbone": "~1.1.2",
-    "bootstrap": "~3.3.5",
+    "bootstrap": "~4.0.0",
     "jquery": "~2.1.4",
     "underscore": "~1.8.2",
     "bootstrap-select": "~1.7.4",

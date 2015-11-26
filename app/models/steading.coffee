@@ -16,9 +16,7 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
       baseAttributes.description = @randomDescription(options.type)
       baseAttributes.name = @randomName()
       @set(baseAttributes)
-    @set('iconList', SteadingOMatic.Models.Base.iconList)
-    @set('enums', SteadingOMatic.Models.Steading.enums)
-    @set('colorList', SteadingOMatic.Models.Base.colorList)
+
 
 
   #
