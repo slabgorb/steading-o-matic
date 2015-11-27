@@ -1,20 +1,10 @@
-$font_header: questa_granderegular, georgia, serif;
-$font_body: questa_granderegular, georgia, serif;
-
-$color_1: #002F2F;
-$color_2: #046380;
-$color_3: #A7A37E;
-$color_4: #E6E2AF;
-$color_5: #EFECCA;
-
-$background_color: $color_5;
-$navbar_background_color: $color_3;
-
-$heraldry-css-prefix: icon;
+// Variables
+// --------------------------
 
 $fa-font-path:        "../fonts" !default;
 $fa-font-size-base:   14px !default;
 $fa-line-height-base: 1 !default;
+//$fa-font-path:        "//netdna.bootstrapcdn.com/font-awesome/4.5.0/fonts" !default; // for referencing Bootstrap CDN font files directly
 $fa-css-prefix:       fa !default;
 $fa-version:          "4.5.0" !default;
 $fa-border-color:     #eee !default;
@@ -715,3 +705,4 @@ $fa-var-yen: "\f157";
 $fa-var-youtube: "\f167";
 $fa-var-youtube-play: "\f16a";
 $fa-var-youtube-square: "\f166";
+
