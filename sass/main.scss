@@ -1,5 +1,5 @@
-@import 'fonts';
 @import "variables";
+@import 'fonts';
 @import "mixins";
 @import "path";
 @import "core";
@@ -74,52 +74,49 @@ html, body {
     display: inline;
   }
 
+  .btn-primary {
+    background-color: $color_3;
+    color: $color_1;
+    &:hover {
+      background-color: $color_4;
+    }
+
+  }
   .navbar {
     background-color: $navbar_background_color;
     border: 0px;
     border-bottom: 1px solid $color_2;
     border-radius: 0px;
     margin-bottom: -10px;
+    .nav-item {
+      &.active {
+        font-weight: bold;
+      }
+    }
     a {
-      color: $color_2;
-    }
-    &.navbar-fixed-bottom {
-      border-top: 1px solid $color_3;
-      .container {
-        padding-top: 5px;
-      }
-    }
-
-    .navbar-nav {
-      border-bottom: 0;
-      > li {
-        &.active {
-          > a, a:focus, a:hover {
-                          background-color: $color_1;
-                          color: $color_5;
-                          border-top-color: $color_1;
-                          border-left-color: $color_1;
-                          border-right-color: $color_1;
-
-                        }
-        }
-      }
-
+      color: $color_1;
     }
   }
   .navbar-brand {
     font-family: $font-header;
   }
   .steading-icon-list {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    border: 1px solid $color_2;
+    float: left;
+    margin: 5px;
     &:before {
-      width: 64px;
-      height: 64px;
-      font-size: 64px;
-      position: relative;
-      top: 20px;
-      left: 5px;
+      font-size: 46px;
+      line-height: 48px;
     }
   }
+
+  .card {
+    border-color: $color_1;
+  }
+
   .danger-icon-list {
     &:before {
       width: 32px;

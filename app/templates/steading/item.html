@@ -1,46 +1,34 @@
-<div class="media" id="item-<%= _id %>">
-  <div class="media-left media-top steading-icon-list icon-<%= icon %>" style="color: <%= colors.icon %>; background-color: <%= colors.background %>;">
-  </div>
-  <div class="media-body">
-    <div class="media-heading">
-      <div class="col-md-2 pull-right">
-        <div class="btn-group pull-right">
-          <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
-          <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
-          <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
-        </div>
+<div class="col-md-6" id="item-<%= _id %>">
+  <div class="card">
+    <div class="card-block">
+      <div class="btn-group pull-right">
+        <button class="action-edit btn btn-primary fa fa-pencil-square-o"></button>
+        <button class="action-duplicate btn btn-primary fa fa-files-o"></button>
+        <button class="action-delete btn btn-danger fa fa-remove"></button>
       </div>
-      <h3>
+      <div class="steading-icon-list icon-<%= icon %>"  style="color: <%= colors.icon %>; background-color: <%= colors.background %>;"></div>
+      <h2 class="card-title">
         <%= name %>
-        <small><%= size %></small>
-      </h3>
-    </div>
-    <div class="pull-left">
-      <dl class="dl-horizontal">
-        <dt>Population</dt>
-        <dd>
-          <%= population %>
-          <p><%= _.find(enums.population, function(e) { return e.key == population }).description %></p>
-        </dd>
-        <dt>Prosperity</dt>
-        <dd>
-          <%= prosperity %>
-          <p><%= _.find(enums.prosperity, function(e) { return e.key == prosperity }).description %></p>
-        </dd>
-        <dt>Defenses</dt>
-        <dd>
-          <%= defenses %>
-          <p><%= _.find(enums.defenses, function(e) { return e.key == defenses }).description %></p>
-        </dd>
-        <% _.each(tags, function(tag) { %>
-        <dt><%= tag.tag %></dt>
-        <dd>
-          <%= tag.details %>
-          <p><%= _.find(enums.tags, function(e) { return e.key == tag.tag }).details %></p>
-        </dd>
-        <% }); %>
-      </dl>
-      <div class="well"><%= description %></div>
+      </h2>
+      <h5 class="card-subtitle muted-text" >
+        <%= size %>
+      </h5>
+      <p><%= description %></p>
+      <% _.each({'population': population, 'prosperity': prosperity, 'defenses': defenses}, function(object, type) { %>
+      <h6><%= _.titleize(type) %></h6>
+      <p>
+        <%= object %>
+        <%= _.find(enums[type], function(e) { return e.key == object }).description %>
+      </p>
+      <% }) %>
+      <% _.each(tags, function(tag) { %>
+      <h6><%= tag.tag %></h6>
+      <p>
+        <%= tag.details %>
+        <%= _.find(enums.tags, function(e) { return e.key == tag.tag }).details %>
+      </p>
+      <% }); %>
+
     </div>
   </div>
 </div>
