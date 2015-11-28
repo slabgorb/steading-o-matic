@@ -25,6 +25,7 @@ exports.register_routes = (app) ->
         icon: req.body.icon
         tags: req.body.tags
         description: req.body.description
+        order: req.body.order
         (err, data) ->
           res.status(500).send err if err
           res.send data
@@ -56,6 +57,7 @@ exports.register_routes = (app) ->
         icon: req.body.icon
         tags: req.body.tags
         description: req.body.description
+        order: req.body.order
         (err, steading) ->
           res.status(500).send err if err
           if steading

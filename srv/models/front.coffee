@@ -28,5 +28,6 @@ FrontSchema = new Schema
   stakes: [String]
   cast: [String]
   description: String
+  order: Number
 
 module.exports = mongoose.model 'Front', FrontSchema

@@ -23,6 +23,7 @@ exports.register_routes = (app) ->
         cast: req.body.cast
         stakes: req.body.stakes
         description: req.body.description
+        order: req.body.order
         (err, data) ->
           res.status(500).send err if err
           res.send data
@@ -52,6 +53,7 @@ exports.register_routes = (app) ->
         cast: req.body.cast
         stakes: req.body.stakes
         description: req.body.description
+        order: req.body.order
         (err, front) ->
           res.status(500).send err if err
           if front

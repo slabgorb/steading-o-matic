@@ -26,5 +26,6 @@ SteadingSchema = new Schema
     background: String
     icon: String
   description: String
+  order: Number
 
 module.exports = mongoose.model 'Steading', SteadingSchema

@@ -36,6 +36,7 @@ module.exports = (grunt) ->
           'bower_components/bootstrap/dist/js/bootstrap.min.js'
           'bower_components/jquery-serialize-object/dist/jquery.serialize-object.min.js'
           'bower_components/bootstrap-select/dist/js/bootstrap-select.min.js'
+          'bower_components/jquery-ui/jquery-ui.min.js'
         ]
       vendor_css:
         files: 'public/stylesheets/vendor.css': [

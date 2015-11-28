@@ -19,16 +19,28 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
     @collection.fetch()
     @
 
+  postRender: ->
+    _.defer => @setSortable()
+
+  setSortable: ->
+    @$('.list').sortable
+      containment: '.app'
+      cursor: 'move'
+      cursorAt:
+        left: 5
+      tolerance: 'touch'
+
 
   addOne: (model) ->
     view = new SteadingOMatic.Views[@itemView]({ model: model })
     @childViews[model.cid] = view
-    @$el.append(view.render().el)
+    @$('.list').append(view.render().el)
+    @setSortable()
 
   addNew: (model) ->
     view new SteadingOMatic.Views[@formView]({ model: model })
     @childViews[model.cid] = view
-    @$el.append(view.render().el)
+    @$('.list').append(view.render().el)
 
   editOne: (model) ->
     view = new SteadingOMatic.Views[@formView]({ model: model })

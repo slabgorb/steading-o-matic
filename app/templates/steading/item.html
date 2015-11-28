@@ -1,4 +1,4 @@
-<div class="col-md-6" id="item-<%= _id %>">
+<div class="col-md-6 item" id="item-<%= _id %>">
   <div class="card">
     <div class="card-block">
       <div class="btn-group pull-right">
@@ -7,12 +7,12 @@
         <button class="action-delete btn btn-danger fa fa-remove"></button>
       </div>
       <div class="steading-icon-list icon-<%= icon %>"  style="color: <%= colors.icon %>; background-color: <%= colors.background %>;"></div>
-      <h2 class="card-title">
+      <h5 class="card-title">
         <%= name %>
-      </h2>
-      <h5 class="card-subtitle muted-text" >
-        <%= size %>
       </h5>
+      <h6 class="card-subtitle muted-text" >
+        <%= size %>
+      </h6>
       <p><%= description %></p>
       <% _.each({'population': population, 'prosperity': prosperity, 'defenses': defenses}, function(object, type) { %>
       <h6><%= _.titleize(type) %></h6>
