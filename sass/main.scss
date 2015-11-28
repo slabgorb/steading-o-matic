@@ -47,15 +47,9 @@ html, body {
     }
   }
   .navbar-default {
-    .navbar-collapse {
-      border: 0;
-    }
     .navbar-toggle {
       border-color: $color_1;
       background-color: $color_4;
-      .icon-bar {
-        background-color: $color_1;
-      }
       &:hover {
         background-color: $color_5;
       }
@@ -85,7 +79,6 @@ html, body {
     border: 0px;
     border-bottom: 1px solid $color_2;
     border-radius: 0px;
-    margin-bottom: -10px;
     .nav-item {
       &.active {
         font-weight: bold;
@@ -98,7 +91,7 @@ html, body {
   .navbar-brand {
     font-family: $font-header;
   }
-  .steading-icon-list {
+  .display-icon {
     width: 48px;
     height: 48px;
     display: inline-block;

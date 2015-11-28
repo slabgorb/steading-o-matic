@@ -1,89 +1,47 @@
-<div class="container item" id="item-<%= _id %>">
-  <div class="col-md-2 pull-right">
-    <div class="btn-group pull-right">
-      <button class="action-edit btn btn-default glyphicon glyphicon-pencil"></button>
-      <button class="action-duplicate btn btn-default glyphicon glyphicon-duplicate"></button>
-      <button class="action-delete btn btn-danger glyphicon glyphicon-remove"></button>
-    </div>
-  </div>
-  <h3>
-    <%= name %>
-    <small><%= type %></small>
-  </h3>
-  <p><%= description %></p>
-  <div class="front-details">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h4>Dangers</h4>
-        </div>
-        <div class="panel-body">
-          <% _.each(dangers, function(danger) { %>
-          <div class="media">
-            <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
-            </div>
-            <div class="media-body">
-              <div class="media-heading">
-                <h5>
-                  <%= danger.name %>
-                  <small><%= danger.subtype %></small>
-                </h5>
-              </div>
-              <div class="container">
-                <dl class="dl-horizontal">
-                  <dt>Impulse</dt><dd><%= danger.impulse %></dd>
-                  <dt>Impending Doom</dt><dd><%= danger.doom %></dd>
-                </dl>
-                <p><%= danger.description %></p>
-              </div>
-            </div>
-          </div>
-          <% }) %>
-        </div>
+<div class="col-md-6 item" id="item-<%= _id %>">
+  <div class="card">
+    <div class="card-block">
+      <div class="btn-group pull-right">
+        <button class="action-edit btn btn-primary fa fa-pencil-square-o"></button>
+        <button class="action-duplicate btn btn-primary fa fa-files-o"></button>
+        <button class="action-delete btn btn-danger fa fa-remove"></button>
       </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h4>Portents</h4>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% _.each(portents, function(portent) { %>
-            <li class="list-group-item"><%= portent %></li>
-            <% }) %>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h4>Stakes</h4>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% _.each(stakes, function(stake) { %>
-            <li class="list-group-item"><%= stake %></li>
-            <% }) %>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <div class="panel-title">
-          <h4>Cast</h4>
-        </div>
-        <div class="panel-body">
-          <ul class="list-group">
-            <% _.each(cast, function(castMember) { %>
-            <li class="list-group-item"><%= castMember %></li>
-            <% }) %>
-          </ul>
-        </div>
-      </div>
-    </div>
+      <h5 class="card-title">
+        <%= name %>
+      </h5>
+      <h6 class="card-subtitle text-muted" >
+        <%= type %>
+      </h6>
+      <p><%= description %></p>
 
+      <% _.each(dangers, function(danger) { %>
+      <div class="card">
+        <%= JST['app/templates/includes/icon_display.html']({icon: danger.icon, colors: danger.colors}) %>
+        <h5 class="card-title">
+          <%= danger.name %>
+        </h5>
+        <h6 class="card-subtitle text-muted">
+          <%= danger.subtype %>
+        </h6>
+        <div class="card-block">
+          <dl class="dl-horizontal">
+            <dt class="col-sm-4">Impulse</dt>
+            <dd class="col-sm-7"><%= danger.impulse %></dd>
+            <dt class="col-sm-4">Impending Doom</dt>
+            <dd class="col-sm-7"><%= danger.doom %></dd>
+          </dl>
+          <p><%= danger.description %></p>
+        </div>
+      </div>
+      <% }) %>
+      <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
+      <h4><%= _.titleize(section.plural) %></h4>
+      <ul class="list-group">
+        <% _.each(section.object, function(item) { %>
+        <li class="list-group-item"><%= item %></li>
+        <% }) %>
+      </ul>
+      <% }) %>
+    </div>
   </div>
 </div>
