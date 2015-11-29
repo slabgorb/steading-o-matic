@@ -1,4 +1,5 @@
 Steading = require('../models/steading')
+_ = require 'underscore'
 
 exports.register_routes = (app) ->
   app.get '/steadings', (req, res) ->
@@ -20,7 +21,7 @@ exports.register_routes = (app) ->
         res.send data
     .put (req, res) ->
       err = null
-      _.each req.params.steadings, (steading) ->
+      _.each req.body,  (steading) ->
         Steading.findOneAndUpdate {_id: steading._id}, steading, (e, s) ->
           err ?= e
       res.status(500).send err if err

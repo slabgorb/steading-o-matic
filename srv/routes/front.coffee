@@ -21,7 +21,7 @@ exports.register_routes = (app) ->
         res.send data
     .put (req, res) ->
       err = null
-      _.each req.front, (front) ->
+      _.each req.body, (front) ->
         Front.findOneAndUpdate {_id: front.id }, front, (e, f) ->
           err ?= e
         res.status(500).send err if err
