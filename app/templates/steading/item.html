@@ -6,7 +6,7 @@
         <button class="action-duplicate btn btn-primary fa fa-files-o"></button>
         <button class="action-delete btn btn-danger fa fa-remove"></button>
       </div>
-      <div class="display-icon icon-<%= icon %>"  style="color: <%= colors.icon %>; background-color: <%= colors.background %>;"></div>
+      <%= JST['app/templates/includes/icon_display.html']({icon: icon, colors: colors, title: name, subtitle: size}) %>
       <h5 class="card-title">
         <%= name %>
       </h5>
