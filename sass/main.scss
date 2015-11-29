@@ -130,7 +130,12 @@ html, body {
   .card {
     border-color: $color_1;
     background-color: $background_color;
+    .card-subtitle {
+      margin-top: -1.375rem;
+      margin-bottom: 0;
+    }
   }
+
 
   .danger-icon-list {
     &:before {

@@ -1,16 +1,41 @@
 @font-face {
-    font-family: 'questa_granderegular';
-    src: url('/fonts/2-questa_grande_regular_31-webfont.eot');
-    src: url('/fonts/2-questa_grande_regular_31-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/fonts/2-questa_grande_regular_31-webfont.woff2') format('woff2'),
-         url('/fonts/2-questa_grande_regular_31-webfont.woff') format('woff'),
-         url('/fonts/2-questa_grande_regular_31-webfont.ttf') format('truetype'),
-         url('/fonts/2-questa_grande_regular_31-webfont.svg#questa_granderegular') format('svg');
-    font-weight: normal;
+    font-family: 'baskerville';
+    src: url('/fonts/librebaskerville-bold-webfont.eot');
+    src: url('/fonts/librebaskerville-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/librebaskerville-bold-webfont.woff2') format('woff2'),
+         url('/fonts/librebaskerville-bold-webfont.woff') format('woff'),
+         url('/fonts/librebaskerville-bold-webfont.ttf') format('truetype'),
+         url('/fonts/librebaskerville-bold-webfont.svg#libre_baskervillebold') format('svg');
+    font-weight: bold;
     font-style: normal;
 
 }
 
+@font-face {
+    font-family: 'baskerville';
+    src: url('/fonts/librebaskerville-italic-webfont.eot');
+    src: url('/fonts/librebaskerville-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/librebaskerville-italic-webfont.woff2') format('woff2'),
+         url('/fonts/librebaskerville-italic-webfont.woff') format('woff'),
+         url('/fonts/librebaskerville-italic-webfont.ttf') format('truetype'),
+         url('/fonts/librebaskerville-italic-webfont.svg#libre_baskervilleitalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'baskerville';
+    src: url('/fonts/librebaskerville-regular-webfont.eot');
+    src: url('/fonts/librebaskerville-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/fonts/librebaskerville-regular-webfont.woff2') format('woff2'),
+         url('/fonts/librebaskerville-regular-webfont.woff') format('woff'),
+         url('/fonts/librebaskerville-regular-webfont.ttf') format('truetype'),
+         url('/fonts/librebaskerville-regular-webfont.svg#libre_baskervilleregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 @font-face {
   font-family: "steadingomatic";

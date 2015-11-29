@@ -16,13 +16,7 @@
 
       <% _.each(dangers, function(danger) { %>
       <div class="card">
-        <%= JST['app/templates/includes/icon_display.html']({icon: danger.icon, colors: danger.colors}) %>
-        <h5 class="card-title">
-          <%= danger.name %>
-        </h5>
-        <h6 class="card-subtitle text-muted">
-          <%= danger.subtype %>
-        </h6>
+        <%= JST['app/templates/includes/icon_display.html']({icon: danger.icon, colors: danger.colors, title: danger.name, subtitle: danger.subtype }) %>
         <div class="card-block">
           <dl class="dl-horizontal">
             <dt class="col-sm-4">Impulse</dt>
