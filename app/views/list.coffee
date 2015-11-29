@@ -29,7 +29,18 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
       cursorAt:
         left: 5
       tolerance: 'touch'
+      update: _.bind(@sortStop, @)
 
+  refreshSortable: ->
+    @$('.list').sortable('refresh')
+
+  events: ->
+    _.extend super(),
+      'update': 'sortStop'
+
+
+  sortStop: (event, ui) ->
+    @collection.updateSort(_.map $('.item'), (item) -> $(item).attr('data-id'))
 
   addOne: (model) ->
     view = new SteadingOMatic.Views[@itemView]({ model: model })

@@ -1,4 +1,5 @@
 mongoose = require 'mongoose'
+patcher = require 'mongoose-json-patch'
 iconList = require '../icon_list'
 _ = require 'underscore'
 
@@ -28,6 +29,8 @@ FrontSchema = new Schema
   stakes: [String]
   cast: [String]
   description: String
-  order: Number
+  ordinal: Number
+
+FrontSchema.plugin patcher
 
 module.exports = mongoose.model 'Front', FrontSchema

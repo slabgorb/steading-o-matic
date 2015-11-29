@@ -1,4 +1,5 @@
 mongoose = require 'mongoose'
+patcher = require 'mongoose-json-patch'
 iconList = require '../icon_list'
 _ = require 'underscore'
 
@@ -26,6 +27,9 @@ SteadingSchema = new Schema
     background: String
     icon: String
   description: String
-  order: Number
+  ordinal: Number
+
+
+SteadingSchema.plugin patcher
 
 module.exports = mongoose.model 'Steading', SteadingSchema

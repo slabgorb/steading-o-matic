@@ -7,7 +7,8 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
     @listenTo @, 'actionDelete', @delete
     @listenTo @, 'addNew', @addNew
 
-  comparator: 'name'
+  comparator: (model) ->
+    model.get('ordinal')
 
   duplicate: (model) ->
     duplicate = new @model(model.toJSON())
@@ -25,3 +26,12 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
     model.save()
     model.fetch().done =>
       _.defer => @add model
+
+  updateSort: (ids) ->
+    _.each ids, (id, index) =>
+      @logger.debug id, @models
+      @findWhere('_id': id).set('ordinal', index)
+    @save()
+
+  save: (options) ->
+    Backbone.sync('update', @, options)
