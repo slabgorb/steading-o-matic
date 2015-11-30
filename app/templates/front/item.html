@@ -1,11 +1,7 @@
 <div class="col-md-6 item" id="item-<%= _id %>" data-id="<%= _id %>">
   <div class="card">
     <div class="card-block">
-      <div class="btn-group pull-right">
-        <button class="action-edit btn btn-primary fa fa-pencil-square-o"></button>
-        <button class="action-duplicate btn btn-primary fa fa-files-o"></button>
-        <button class="action-delete btn btn-danger fa fa-remove"></button>
-      </div>
+      <%= JST['app/templates/includes/action_bar.html'] %>
       <h5 class="card-title">
         <%= name %>
       </h5>
@@ -29,7 +25,7 @@
       </div>
       <% }) %>
       <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
-      <h4><%= _.titleize(section.plural) %></h4>
+      <h6><%= _.titleize(section.plural) %></h6>
       <ul class="list-group">
         <% _.each(section.object, function(item) { %>
         <li class="list-group-item"><%= item %></li>
