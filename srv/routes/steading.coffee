@@ -28,7 +28,7 @@ exports.register_routes = (app) ->
       res.json {success: true} unless err
 
     .get (req, res) ->
-      Steading.find {}, (err, steadings) ->
+      Steading.find {}, null, { sort: { ordinal: 1 } }, (err, steadings) ->
         res.status(500).send err if err
         res.json steadings
     .delete (req, res) ->

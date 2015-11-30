@@ -34,4 +34,8 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
     @save()
 
   save: (options) ->
-    Backbone.sync('update', @, options)
+    $.ajax @url,
+      type: 'PUT'
+      data: @toJSON()
+
+    #Backbone.sync('update', @, options)

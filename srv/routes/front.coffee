@@ -22,18 +22,18 @@ exports.register_routes = (app) ->
     .put (req, res) ->
       err = null
       _.each req.body, (front) ->
-        Front.findOneAndUpdate {_id: front.id }, front, (e, f) ->
+        Front.findOneAndUpdate {_id: front._id }, front, (e, f) ->
           err ?= e
-        res.status(500).send err if err
+        res.send err if err
         res.json {success: true} unless err
 
     .get (req, res) ->
-      Front.find {}, (err, fronts) ->
+      Front.find {}, null, { sort: { ordinal: 1 } }, (err, fronts) ->
         res.status(500).send err if err
         res.json fronts
     .delete (req, res) ->
       Front.remove {}, (err) ->
-        res.status(500).send err if err
+        res.send err if err
         res.json {success: true} unless err
 
   app.route('/api/fronts/:id')
@@ -44,11 +44,6 @@ exports.register_routes = (app) ->
           res.json front
         else
           res.status(404)
-    .patch (req, res) ->
-      Front.findById req.params.id, (err, front) ->
-        front.patch(req.patch)
-        res.json front
-
     .put (req, res) ->
       Front.findOneAndUpdate {_id: req.params.id }, req.body, (err, front) ->
         res.status(500).send err if err
