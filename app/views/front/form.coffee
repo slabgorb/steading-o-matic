@@ -11,6 +11,7 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
       'click .add-castMember': 'eventAddCastMember'
       'click .up': 'eventClickUp'
       'click .down': 'eventClickDown'
+      'click .tag-checkbox': 'eventClickTagCheckbox'
 
   addAnother: (type) ->
     count = @$(".#{type}-list input").count
@@ -70,3 +71,5 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
 
   # add cast member event
   eventAddCastMember: -> @addAnother('cast')
+
+  eventClickTagCheckbox: (event) -> $(event.target).parent().find('.tag-description').removeClass('collapse')
