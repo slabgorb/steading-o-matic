@@ -9,7 +9,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
   randomize: ->
     promise = $.Deferred()
-    baseAttributes = switch options.type
+    baseAttributes = switch @type
       when 'adventure' then @defaultsForAdventure()
       when 'campaign' then @defaultsForCampaign()
     baseAttributes.description = @randomDescription(@type)
@@ -20,8 +20,8 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     baseAttributes.name = @randomName()
     @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
-    @save().done() =>
-      @fetch().done() =>
+    @save().done =>
+      @fetch().done =>
         promise.resolve(@)
 
     promise

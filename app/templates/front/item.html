@@ -8,30 +8,32 @@
       <h6 class="card-subtitle text-muted" >
         <%= type %>
       </h6>
-      <p><%= description %></p>
+      <div class="collapse more-info">
+        <p><%= description %></p>
 
-      <% _.each(dangers, function(danger) { %>
-      <div class="card">
-        <%= JST['app/templates/includes/icon_display.html']({icon: danger.icon, colors: danger.colors, title: danger.name, subtitle: danger.subtype }) %>
-        <div class="card-block">
-          <dl class="dl-horizontal">
-            <dt class="col-sm-4">Impulse</dt>
-            <dd class="col-sm-7"><%= danger.impulse %></dd>
-            <dt class="col-sm-4">Impending Doom</dt>
-            <dd class="col-sm-7"><%= danger.doom %></dd>
-          </dl>
-          <p><%= danger.description %></p>
+        <% _.each(dangers, function(danger) { %>
+        <div class="card">
+          <%= JST['app/templates/includes/icon_display.html']({icon: danger.icon, colors: danger.colors, title: danger.name, subtitle: danger.subtype }) %>
+          <div class="card-block">
+            <dl class="dl-horizontal">
+              <dt class="col-sm-4">Impulse</dt>
+              <dd class="col-sm-7"><%= danger.impulse %></dd>
+              <dt class="col-sm-4">Impending Doom</dt>
+              <dd class="col-sm-7"><%= danger.doom %></dd>
+            </dl>
+            <p><%= danger.description %></p>
+          </div>
         </div>
-      </div>
-      <% }) %>
-      <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
-      <h6><%= _.titleize(section.plural) %></h6>
-      <ul class="list-group">
-        <% _.each(section.object, function(item) { %>
-        <li class="list-group-item"><%= item %></li>
         <% }) %>
-      </ul>
-      <% }) %>
+        <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
+        <h6><%= _.titleize(section.plural) %></h6>
+        <ul class="list-group">
+          <% _.each(section.object, function(item) { %>
+          <li class="list-group-item"><%= item %></li>
+          <% }) %>
+        </ul>
+        <% }) %>
+      </div>
     </div>
   </div>
 </div>

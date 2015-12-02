@@ -3,26 +3,28 @@
     <div class="card-block">
       <%= JST['app/templates/includes/action_bar.html']() %>
       <%= JST['app/templates/includes/icon_display.html']({icon: icon, colors: colors, title: name, subtitle: size}) %>
-      <p><%= description %></p>
-      <dl class="clearfix">
-        <% _.each({'population': population, 'prosperity': prosperity, 'defenses': defenses}, function(object, type) { %>
-        <dt class="col-sm-4 text-right">
-          <%= _.titleize(type) %>
-        </dt>
-        <dd class="col-sm-8">
-          <%= object %>
-          <br/>
-          <small><%= _.find(enums[type], function(e) { return e.key == object }).description %></small>
-        </dd>
-        <% }) %>
-        <% _.each(tags, function(tag) { %>
-        <dt class="col-sm-4 text-right"><%= tag.tag %></dt>
-        <dd class="col-sm-8">
-          <%= tag.details %>
-          <%= _.find(enums.tags, function(e) { return e.key == tag.tag }).details %>
-        </dd>
-        <% }); %>
-      </dl>
+      <div class="collapse more-info">
+        <p><%= description %></p>
+        <dl class="clearfix">
+          <% _.each({'population': population, 'prosperity': prosperity, 'defenses': defenses}, function(object, type) { %>
+          <dt class="col-sm-4 text-right">
+            <%= _.titleize(type) %>
+          </dt>
+          <dd class="col-sm-8">
+            <%= object %>
+            <br/>
+            <small><%= _.find(enums[type], function(e) { return e.key == object }).description %></small>
+          </dd>
+          <% }) %>
+          <% _.each(tags, function(tag) { %>
+          <dt class="col-sm-4 text-right"><%= tag.tag %></dt>
+          <dd class="col-sm-8">
+            <%= tag.details %>
+            <%= _.find(enums.tags, function(e) { return e.key == tag.tag }).details %>
+          </dd>
+          <% }); %>
+        </dl>
+      </div>
     </div>
   </div>
 </div>
