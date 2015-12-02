@@ -23,9 +23,8 @@ class SteadingOMatic.Collections.Base extends Backbone.Collection
 
   addNew: (type) ->
     model = new @model({}, {type: type})
-    model.save()
-    model.fetch().done =>
-      _.defer => @add model
+    model.randomize().done (m) =>
+      _.defer => @add m
 
   updateSort: (ids) ->
     _.each ids, (id, index) =>

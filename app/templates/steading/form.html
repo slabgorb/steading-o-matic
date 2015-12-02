@@ -38,12 +38,12 @@
           <% selectedTag = _.find(tags, function(t) { return t.tag == tag.key }) %>
           <div role="tab" class="tag-panel" id="panel<%= tag.key %>">
             <label for="<%= tag.key %>">
-              <input type="checkbox" <%= selectedTag ? 'checked' : '' %> name="tags[<%= index %>][tag]" value="<%= tag.key %>">
+              <input class="tag-checkbox" type="checkbox" <%= selectedTag ? 'checked' : '' %> name="tags[<%= index %>][tag]" value="<%= tag.key %>">
               <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= index %>"> <%= tag.key %></a>
             </label>
-            <div class="<%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
+            <div class="tag-description <%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
               <p><%= tag.description %></p>
-              <textarea class="form-control" name="tags[<%= index %>][details]" placeholder="details"><%= selectedTag ? selectedTag.details : '' %></textarea>
+              <textarea class="form-control tag-details" name="tags[<%= index %>][details]" placeholder="details"><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>
           <% }); %>

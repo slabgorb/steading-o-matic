@@ -1,5 +1,6 @@
 mongoose = require 'mongoose'
 patcher = require 'mongoose-json-patch'
+random = require 'mongoose-random'
 iconList = require '../icon_list'
 _ = require 'underscore'
 
@@ -29,7 +30,7 @@ SteadingSchema = new Schema
   description: String
   ordinal: Number
 
-
+SteadingSchema.plugin random, { path: 'r' }
 SteadingSchema.plugin patcher
 
 module.exports = mongoose.model 'Steading', SteadingSchema

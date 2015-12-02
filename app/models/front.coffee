@@ -4,19 +4,27 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
   initialize: (attributes, options = {}) ->
     options.type ?= 'adventure'
+    @type = options.type
     super(attributes, options)
-    unless attributes._id?
-      baseAttributes = switch options.type
-        when 'adventure' then @defaultsForAdventure()
-        when 'campaign' then @defaultsForCampaign()
-      baseAttributes.description = @randomDescription(options.type)
-      baseAttributes.dangers = _.uniq(_.times(_.random(1,3), => @randomDanger(options.type)))
-      baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(baseAttributes.dangers)))
-      baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(baseAttributes.dangers)))
-      baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
-      baseAttributes.name = @randomName()
-      @set(baseAttributes)
+
+  randomize: ->
+    promise = $.Deferred()
+    baseAttributes = switch options.type
+      when 'adventure' then @defaultsForAdventure()
+      when 'campaign' then @defaultsForCampaign()
+    baseAttributes.description = @randomDescription(@type)
+    baseAttributes.dangers = _.uniq(_.times(_.random(1,3), => @randomDanger(@type)))
+    baseAttributes.portents = _.uniq(_.times(_.random(3,5), => @randomPortent(baseAttributes.dangers)))
+    baseAttributes.stakes = _.uniq(_.times(_.random(2,4), => @randomStake(baseAttributes.dangers)))
+    baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
+    baseAttributes.name = @randomName()
+    @set(baseAttributes)
     @set('enums', SteadingOMatic.Models.Front.enums)
+    @save().done() =>
+      @fetch().done() =>
+        promise.resolve(@)
+
+    promise
 
   #
   # sets defaults for a new adventure front
