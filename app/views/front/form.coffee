@@ -13,9 +13,22 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
       'click .down': 'eventClickDown'
       'click .tag-checkbox': 'eventClickTagCheckbox'
 
+  postRender: (options) ->
+    @$(".selectpicker").selectpicker()
+    @$(".input-list").sortable
+      items: '> li'
+      handle: '.handle'
+      update: _.bind(@sortStop, @)
+    return @
+
+  sortStop: (event, ui) ->
+    $list = $(event.target)
+    _.each $list.find('input'), (input, index) ->
+      $(input).attr('name', "#{$list.attr('data-list')}[#{index}]")
+
   addAnother: (type) ->
     count = @$(".#{type}-list input").count
-    @$(".#{type}-list").prepend("<input class='form-control' name='#{type}[#{count}]' value=''>")
+    @$(".#{type}-list").append("<input class='form-control' name='#{type}[#{count}]' value=''>")
 
   #
   # Finds the index number of an input group

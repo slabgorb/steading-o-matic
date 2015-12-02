@@ -104,6 +104,10 @@ html, body {
     }
   }
 
+  .fa.input-group-addon {
+    display: table-cell;
+  }
+
   .btn-toolbar {
     background-color: $color_4;
     color: $color_1;

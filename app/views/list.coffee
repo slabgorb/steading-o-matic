@@ -24,6 +24,7 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
 
   setSortable: ->
     @$('.list').sortable
+      items: '.list-item'
       containment: '.app'
       cursor: 'move'
       cursorAt:
