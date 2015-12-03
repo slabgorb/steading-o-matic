@@ -5,9 +5,13 @@
         <% if (typeof _id !=='undefined') { %>
         <input type="hidden" name="id" value="<%= _id %>"/>
         <% } %>
+
         <div class="form-group">
           <label for="name">Name</label>
-          <input class="form-control" name="name" value="<%=name %>">
+          <div class="input-group">
+            <input class="form-control" name="name" value="<%=name%>">
+            <span class="fa fa-question input-group-addon random"></span>
+          </div>
         </div>
         <% _.each( {population: population, prosperity: prosperity, defenses: defenses}, function(value, key) { %>
         <div class="form-group">

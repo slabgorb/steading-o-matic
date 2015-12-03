@@ -32,8 +32,10 @@ class SteadingOMatic.Models.Base extends Backbone.Model
         when "<general_noun>" then _.sample @constructor.nouns
         when "<general_adjective>" then _.sample @constructor.adjectives
         when "<plural_general_noun>" then _.pluralize(_.sample(@constructor.nouns))
+        when "<short_adjective>" then _.sample(_.filter(adjectives, (adjective) -> adjective.length < 7))
+        when "<short_noun>" then _.sample(_.filter(nouns, (noun) -> noun.length < 7))
         else token
-    _.titleize tokens.join('').replace(/\|/g, '')
+    _.titleize tokens.join('').replace(/(.)\1{2,}/, ($0, $1) -> $1 + $1 ).replace(/\|/g, '')
 
   #
   # selects a random icon
@@ -655,8 +657,8 @@ class SteadingOMatic.Models.Base extends Backbone.Model
         "muffin", "mule", "murder", "murk", "muscle", "mush", "mushroom",
         "music", "mystery", "myth", "nadir", "nail", "name", "nation",
         "nature", "naughtiness", "negator", "nest", "net", "nettle",
-        "neutrality", "neutralization", "newt", "night", "nightmare", "noble",
-        "noiselessness", "noose", "nose", "notch", "nourishment", "number",
+        "neutrality", "newt", "night", "nightmare", "noble",
+        "noose", "nose", "notch", "number",
         "nut", "oak", "oar", "oat", "obeisance", "oblivion", "obscenity",
         "obscurity", "obstacle", "ocean", "odor", "oil", "olive", "omen",
         "one", "onion", "onslaught", "ooze", "oracle", "orange", "orb",

@@ -8,6 +8,7 @@ class SteadingOMatic.Views.SteadingForm extends SteadingOMatic.Views.Form
     _.extend super(),
       'keyup .tag-details': 'eventKeyupTagDetails'
       'click .tag-checkbox': 'eventClickTagCheckbox'
+      'click .random': 'eventClickRandom'
 
 
   eventKeyupTagDetails: (event) ->
@@ -21,3 +22,11 @@ class SteadingOMatic.Views.SteadingForm extends SteadingOMatic.Views.Form
   cleanup: (formData) ->
     formData.tags = _.filter(formData.tags, (tag) -> tag.tag?)
     formData
+
+
+  eventClickRandom: (event) ->
+    $target = $(event.target)
+    $target.addClass('active', 50)
+    $input = $target.parent().find('input')
+    $input.val(@model.randomName())
+    $target.removeClass('active', 50)

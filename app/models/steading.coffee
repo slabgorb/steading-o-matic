@@ -90,9 +90,12 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   @patterns = [
     "<prefix>|<suffix>"
     "<prefix> <noun>|<suffix>"
-    "<adjective>|<noun>|<suffix>"
+    "<short_adjective>|<short_noun>|<suffix>"
+    "<prefix> <short_adjective>|<short_noun>"
     "<noun>|<suffix>"
     "<adjective>|<suffix>"
+    "<short_adjective>|<suffix>"
+
   ]
 
   @suffixes = [
@@ -125,13 +128,21 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     'ton'
     'town'
     'town'
-      'ville'
+    'ville'
     'wick'
     'wood'
     'yard'
+    'ing'
+    'leagh'
+    'lea'
+    'worth'
   ]
 
   @prefixes = [
+    'south'
+    'north'
+    'east'
+    'west'
     'south'
     'north'
     'east'
@@ -140,7 +151,10 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     'lower'
     'old'
     'new'
-
+    'northeast'
+    'northwest'
+    'southeast'
+    'southwest'
   ]
 
   @endNouns = [
