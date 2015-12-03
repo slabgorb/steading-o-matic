@@ -16,3 +16,6 @@ class SteadingOMatic.Views.Item extends SteadingOMatic.Views.Base
   actionDuplicate: -> @model.trigger 'actionDuplicate', @model
 
   actionExpand: (event) -> @$('.more-info').toggleClass('collapse')
+
+  remove: () ->
+    @$el.remove()

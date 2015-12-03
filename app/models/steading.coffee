@@ -13,10 +13,10 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     @randomSteadings(5).done =>
       @logger.debug 'random steadings', @randomSteadingList
       baseAttributes = switch @type
-        when 'village' then @defaultsForVillage(@randomSteadingList)
-        when 'town' then @defaultsForTown(@randomSteadingList)
-        when 'city' then @defaultsForCity(@randomSteadingList)
-        when 'keep' then @defaultsForKeep(@randomSteadingList)
+        when 'village' then @defaultsForVillage()
+        when 'town' then @defaultsForTown()
+        when 'city' then @defaultsForCity()
+        when 'keep' then @defaultsForKeep()
       baseAttributes.icon = @randomIcon()
       baseAttributes.colors = @randomColorSet()
       baseAttributes.description = @randomDescription(@type)
@@ -33,56 +33,60 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
       url: "/api/random/steading/#{count}"
       method: 'GET'
       success: (resp) =>
-        @randomSteadingList = _.map resp, (steadingData) -> new SteadingOMatic.Models.Steading(steadingData)
+        @randomSteadingList = _.map resp, (steadingData) -> new SteadingOMatic.Models.Steading(steadingData) or []
+
+  randomSteadingName:(count = 1) ->
+    @logger.debug "s", @randomSteadingList
+    _.map((_.sample @randomSteadingList, count), (s) -> s.get('name')).join(', ')
 
   #
   # sets defaults for a new village
   #
-  defaultsForVillage: (randomSteadings) ->
+  defaultsForVillage:  ->
     size: 'Village'
     prosperity: 'Poor'
     population: 'Steady'
     defenses: 'Militia'
     tags:
       tag: 'Resource', details: ''
-      tag: 'Oath', details: (_.sample randomSteadings).get('name')
+      tag: 'Oath', details: @randomSteadingName()
 
   #
   # sets defaults for a new town
   #
-  defaultsForTown: (randomSteadings) ->
+  defaultsForTown:  ->
     size: 'Town'
     prosperity: 'Moderate'
     population: 'Steady'
     defenses: 'Watch'
     tags:
-      tag: 'Trade', details: _.times(_.random(1,5), -> (_.sample randomSteadings).get('name')).join(', ')
+      tag: 'Trade', details: @randomSteadingName(_.random(1,5))
 
   #
   # sets defaults for a new keep
   #
-  defaultsForKeep: (randomSteadings) ->
+  defaultsForKeep:  ->
     size: 'Keep'
     prosperity: 'Poor'
     population: 'Shrinking'
     defenses: 'Guard'
     tags:
-      tag: 'Trade', details: _.times(_.random(1,5), -> (_.sample randomSteadings).get('name')).join(', ')
-      tag: 'Oath', details: (_.sample randomSteadings).get('name')
+      tag: 'Trade', details: @randomSteadingName(_.random(1,5))
+      tag: 'Oath', details: @randomSteadingName()
 
   #
   # sets defaults for a new city
   #
-  defaultsForCity: (randomSteadings)  ->
+  defaultsForCity:   ->
     size: 'City'
     prosperity: 'Moderate'
     population: 'Steady'
     defenses: 'Guard'
     tags:
-      tag: 'Oath', details: (_.sample randomSteadings).get('name')
+      tag: 'Oath', details: @randomSteadingName()
       tag: 'Guild', details: ''
       tag: 'Market', details: ''
-      tag: 'Trade', details: _.times(_.random(1,5), -> (_.sample randomSteadings).get('name')).join(', ')
+      tag: 'Trade', details: @randomSteadingName(_.random(1,5))
 
   randomDescription: (type) ->
     "A randomly generated  #{type}"

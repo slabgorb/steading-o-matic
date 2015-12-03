@@ -3,7 +3,10 @@
     <div class="container">
       <div class="form-group">
         <label for="name">Name</label>
-        <input class="form-control" name="name" value="<%=name%>">
+        <div class="input-group">
+          <input class="form-control" name="name" value="<%=name%>">
+          <span class="fa fa-question input-group-addon random"></span>
+        </div>
       </div>
       <% _.each(dangers, function(danger, index) { %>
       <div class="media">
@@ -23,6 +26,13 @@
             <input type="color" id="colors.background" name="dangers[<%= index %>][colors][background]" value="<%= danger.colors.background %>">
             <label for="colors.icon">Icon Color</label>
             <input type="color" id="colors.icon" name="dangers[<%= index %>][colors][icon]" value="<%= danger.colors.icon %>">
+          </div>
+          <div class="form-group">
+            <label for="danger-name" class="text-capitalize">Name</label>
+            <div class="input-group">
+              <input class="form-control" name="dangers[<%= index %>][name]" value="<%= danger['name'] %>">
+              <span class="fa fa-question input-group-addon random" data-field="danger_name"></span>
+            </div>
           </div>
           <% _.each(['name', 'type', 'subtype', 'impulse', 'doom'], function(type) { %>
           <div class="form-group">

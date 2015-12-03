@@ -74,6 +74,4 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
   removeOne: (model) ->
     view = _.find(@childViews, (child) -> child.model = model)
     @logger.debug 'removing view', view
-    delete @childViews[model.cid]
-    @$("item-#{model.get('_id')}").remove()
     view.remove()
