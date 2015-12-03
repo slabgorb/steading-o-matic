@@ -38,17 +38,22 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
   defaultsForCampaign: ->
     type: 'Campaign'
 
+  randomDangerName: (type, subtype) ->
+    subtypeData = SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype]
+    @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.start_nouns, subtypeData.adjectives,  subtypeData.prefixes)
+
+
   randomDanger: ->
     type = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types))
     subtype = _.sample(_.keys(SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes))
     subtypeData = SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype]
     type: type
     subtype: subtype
-    name: @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.start_nouns, subtypeData.adjectives,  subtypeData.prefixes)
-    impulse: subtypeData.impulse
+    name: @randomDangerName(type, subtype)
+    impulse: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].impulse
     description: @randomDescription(subtype)
     doom: @randomDoom(type)
-    moves: subtypeData.moves
+    moves: SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype].moves
     icon: @randomIcon()
     colors: @randomColorSet()
 

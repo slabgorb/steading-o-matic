@@ -9,6 +9,7 @@ class SteadingOMatic.Views.SteadingForm extends SteadingOMatic.Views.Form
       'keyup .tag-details': 'eventKeyupTagDetails'
       'click .tag-checkbox': 'eventClickTagCheckbox'
 
+
   eventKeyupTagDetails: (event) ->
     $target = $(event.target)
     $target.parent().parent().find('.tag-checkbox').prop('checked', true) if $target.val().length > 0

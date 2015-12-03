@@ -34,7 +34,7 @@
               <span class="fa fa-question input-group-addon random" data-field="danger_name"></span>
             </div>
           </div>
-          <% _.each(['name', 'type', 'subtype', 'impulse', 'doom'], function(type) { %>
+          <% _.each(['type', 'subtype', 'impulse', 'doom'], function(type) { %>
           <div class="form-group">
             <label for="danger-<%= type %>" class="text-capitalize"><%= type %></label>
             <input class="form-control" name="dangers[<%= index %>][<%= type %>]" value="<%= danger[type] %>">

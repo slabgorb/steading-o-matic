@@ -12,6 +12,9 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
       'click .up': 'eventClickUp'
       'click .down': 'eventClickDown'
       'click .tag-checkbox': 'eventClickTagCheckbox'
+      'click .random': 'eventClickRandom'
+
+
 
   postRender: (options) ->
     @$(".selectpicker").selectpicker()
@@ -86,3 +89,18 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
   eventAddCastMember: -> @addAnother('cast')
 
   eventClickTagCheckbox: (event) -> $(event.target).parent().find('.tag-description').removeClass('collapse')
+
+
+  eventClickRandom: (event) ->
+    $target = $(event.target)
+    $target.addClass('active', 50)
+    $input = $target.parent().find('input')
+    field = $input.attr('name')
+    if field == 'name'
+      random = @model.randomName()
+    else
+      danger = @model.get('dangers')[+field.match(/dangers\[(\d+)\]\[name\]/)[1]]
+      console.log danger
+      random = @model.randomDangerName(danger.type, danger.subtype)
+    $input.val(random)
+    $target.removeClass('active', 50)

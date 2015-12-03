@@ -140,6 +140,16 @@ html, body {
     }
   }
 
+  form {
+    .input-group-addon {
+      background-color: $color_4;
+      &.random {
+        &.active {
+          background-color: $color_3;
+        }
+      }
+    }
+  }
 
   .danger-icon-list {
     &:before {
