@@ -100,7 +100,6 @@ class SteadingOMatic.Views.FrontForm extends SteadingOMatic.Views.Form
       random = @model.randomName()
     else
       danger = @model.get('dangers')[+field.match(/dangers\[(\d+)\]\[name\]/)[1]]
-      console.log danger
       random = @model.randomDangerName(danger.type, danger.subtype)
     $input.val(random)
     $target.removeClass('active', 50)
