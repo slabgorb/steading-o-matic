@@ -72,6 +72,6 @@ class SteadingOMatic.Views.List extends SteadingOMatic.Views.Base
     oldChild.remove()
 
   removeOne: (model) ->
-    view = _.find(@childViews, (child) -> child.model = model)
+    view = _.find(@childViews, (child) -> child.model == model)
     @logger.debug 'removing view', view
     view.remove()

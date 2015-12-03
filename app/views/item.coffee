@@ -18,4 +18,5 @@ class SteadingOMatic.Views.Item extends SteadingOMatic.Views.Base
   actionExpand: (event) -> @$('.more-info').toggleClass('collapse')
 
   remove: () ->
+    @logger.debug 'removing el', @$el
     @$el.remove()

@@ -11,7 +11,6 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   randomize: ->
     promise = $.Deferred()
     @randomSteadings(5).done =>
-      @logger.debug 'random steadings', @randomSteadingList
       baseAttributes = switch @type
         when 'village' then @defaultsForVillage()
         when 'town' then @defaultsForTown()
@@ -28,16 +27,13 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     promise
 
   randomSteadings: (count = 1) ->
-    @logger.debug 'called random steadings'
     $.ajax
       url: "/api/random/steading/#{count}"
       method: 'GET'
       success: (resp) =>
         @randomSteadingList = _.map resp, (steadingData) -> new SteadingOMatic.Models.Steading(steadingData) or []
 
-  randomSteadingName:(count = 1) ->
-    @logger.debug "s", @randomSteadingList
-    _.map((_.sample @randomSteadingList, count), (s) -> s.get('name')).join(', ')
+  randomSteadingName:(count = 1) -> _.map((_.sample @randomSteadingList, count), (s) -> s.get('name')).join(', ')
 
   #
   # sets defaults for a new village
