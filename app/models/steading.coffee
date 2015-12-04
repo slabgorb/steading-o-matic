@@ -95,6 +95,8 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     "<noun>|<suffix>"
     "<adjective>|<suffix>"
     "<short_adjective>|<suffix>"
+    "<noun> <end_noun>"
+    "<adjective> <end_noun>"
 
   ]
 
@@ -112,14 +114,19 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     'gate'
     'green'
     'ham'
+    'harbor'
     'hill'
     'hold'
+    'ing'
     'ingley'
     'ington'
     'land'
+    'lea'
+    'leagh'
     'lin'
     'moor'
     'more'
+    'port'
     'river'
     'stone'
     'sty'
@@ -129,13 +136,11 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     'town'
     'town'
     'ville'
+    'ville'
     'wick'
     'wood'
-    'yard'
-    'ing'
-    'leagh'
-    'lea'
     'worth'
+    'yard'
   ]
 
   @prefixes = [
@@ -169,6 +174,8 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     'green'
     'yard'
     'head'
+    'harbor'
+    'port'
    ]
 
 

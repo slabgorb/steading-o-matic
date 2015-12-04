@@ -40,7 +40,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
 
   randomDangerName: (type, subtype) ->
     subtypeData = SteadingOMatic.Models.Front.enums.dangers.types[type].subtypes[subtype]
-    @randomName(subtypeData.patterns, subtypeData.nouns, subtypeData.start_nouns, subtypeData.adjectives,  subtypeData.prefixes)
+    @randomName(subtypeData)
 
 
   randomDanger: ->

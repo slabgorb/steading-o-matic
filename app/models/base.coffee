@@ -11,29 +11,31 @@ class SteadingOMatic.Models.Base extends Backbone.Model
   #
   # selects a random name
   #
-  randomName: (patterns, nouns, startNouns, adjectives,  prefixes, suffixes) ->
+  randomName: (words = {}) ->
 
-    patterns ?= @constructor.patterns
-    nouns ?= @constructor.nouns
-    startNouns ?= @constructor.startNouns or nouns
-    adjectives ?= @constructor.adjectives
-    prefixes ?= @constructor.prefixes
-    suffixes ?= @constructor.suffixes
-    pattern = _.sample(patterns)
+    words.patterns ?= @constructor.patterns
+    words.nouns ?= @constructor.nouns
+    words.startNouns ?= @constructor.startNouns or words.nouns
+    words.adjectives ?= @constructor.adjectives
+    words.prefixes ?= @constructor.prefixes
+    words.suffixes ?= @constructor.suffixes
+    words.endNouns ?= @constructor.endNouns or words.nouns
+    pattern = _.sample(words.patterns)
 
     tokens = _.map pattern.split(/([ !@$%^&*\-\(\)\[\]|{}?,.;':"~`])/), (token) ->
       switch token
-        when "<prefix>" then _.sample prefixes
-        when "<suffix>" then _.sample suffixes
-        when "<plural_noun>" then _.pluralize(_.sample(nouns))
-        when "<noun>" then _.sample(nouns)
-        when "<start_noun>" then _.sample startNouns
-        when "<adjective>" then _.sample adjectives
+        when "<prefix>" then _.sample words.prefixes
+        when "<suffix>" then _.sample words.suffixes
+        when "<plural_noun>" then _.pluralize(_.sample(words.nouns))
+        when "<noun>" then _.sample(words.nouns)
+        when "<start_noun>" then _.sample words.startNouns
+        when "<adjective>" then _.sample words.adjectives
         when "<general_noun>" then _.sample @constructor.nouns
         when "<general_adjective>" then _.sample @constructor.adjectives
         when "<plural_general_noun>" then _.pluralize(_.sample(@constructor.nouns))
-        when "<short_adjective>" then _.sample(_.filter(adjectives, (adjective) -> adjective.length < 7))
-        when "<short_noun>" then _.sample(_.filter(nouns, (noun) -> noun.length < 7))
+        when "<short_adjective>" then _.sample(_.filter(words.adjectives, (adjective) -> adjective.length < 7))
+        when "<short_noun>" then _.sample(_.filter(words.nouns, (noun) -> noun.length < 7))
+        when "<end_noun>" then _.sample words.endNouns
         else token
     _.titleize tokens.join('').replace(/(.)\1{2,}/, ($0, $1) -> $1 + $1 ).replace(/\|/g, '')
 
