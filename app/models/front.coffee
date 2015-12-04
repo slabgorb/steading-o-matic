@@ -19,7 +19,6 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
     baseAttributes.cast = _.uniq(_.times(_.random(1,5), => @randomName()))
     baseAttributes.name = @randomName()
     @set(baseAttributes)
-    @set('enums', SteadingOMatic.Models.Front.enums)
     @save().done =>
       @fetch().done =>
         promise.resolve(@)

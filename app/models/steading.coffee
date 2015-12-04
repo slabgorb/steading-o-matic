@@ -5,6 +5,7 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
   initialize: (attributes, options = {}) ->
     options.type ?= 'village'
     @type = options.type
+    @set('enums', @constructor.enums)
     super(attributes, options)
 
 
