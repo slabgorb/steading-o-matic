@@ -33,9 +33,9 @@
         </div>
         <div class="form-group">
           <label for="colors.background">Background Color</label>
-          <input type="color" id="colors.background" name="colors.background" value="<%= colors.background %>">
+          <input type="color" id="colors.background" name="colors[background]" value="<%= colors.background %>">
           <label for="colors.icon">Icon Color</label>
-          <input type="color" id="colors.icon" name="colors.icon" value="<%= colors.icon %>">
+          <input type="color" id="colors.icon" name="colors[icon]" value="<%= colors.icon %>">
         </div>
         <div class="form-group" id="tag-list">
           <% _.each(enums.tags, function(tag, index) { %>
