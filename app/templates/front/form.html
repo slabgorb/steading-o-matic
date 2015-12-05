@@ -1,5 +1,6 @@
 <div class="container" id="item-<%= _id %>">
   <form>
+    <button class="btn btn-default action-done">Done</button>
     <div class="container">
       <div class="form-group">
         <label for="name">Name</label>
@@ -7,6 +8,10 @@
           <input class="form-control" name="name" value="<%=name%>">
           <span class="fa fa-question input-group-addon random"></span>
         </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea class="form-control" name="description"><%= description %></textarea>
       </div>
       <% _.each(dangers, function(danger, index) { %>
       <div class="media">
