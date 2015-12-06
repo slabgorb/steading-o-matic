@@ -14,39 +14,34 @@
         <textarea class="form-control" name="description"><%= description %></textarea>
       </div>
       <% _.each(dangers, function(danger, index) { %>
-      <div class="media">
-        <div class="media-left media-top danger-icon-list icon-<%= danger.icon %>" style="color: <%= danger.colors.icon %>; background-color: <%= danger.colors.background %>;">
-        </div>
-        <div class="media-body">
-          <div class="form-group">
-            <label for="icon">Icon</label>
-            <select id="iconList" name="dangers[<%= index %>][icon]" class="selectpicker form-control">
-              <% _.each(iconList, function(i, char) { %>
-              <option <%= danger.icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
-              <% }); %>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="colors.background">Background Color</label>
-            <input type="color" id="colors.background" name="dangers[<%= index %>][colors][background]" value="<%= danger.colors.background %>">
-            <label for="colors.icon">Icon Color</label>
-            <input type="color" id="colors.icon" name="dangers[<%= index %>][colors][icon]" value="<%= danger.colors.icon %>">
-          </div>
-          <div class="form-group">
-            <label for="danger-name" class="text-capitalize">Name</label>
-            <div class="input-group">
-              <input class="form-control" name="dangers[<%= index %>][name]" value="<%= danger['name'] %>">
-              <span class="fa fa-question input-group-addon random" data-field="danger_name"></span>
-            </div>
-          </div>
-          <% _.each(['type', 'subtype', 'impulse', 'doom'], function(type) { %>
-          <div class="form-group">
-            <label for="danger-<%= type %>" class="text-capitalize"><%= type %></label>
-            <input class="form-control" name="dangers[<%= index %>][<%= type %>]" value="<%= danger[type] %>">
-          </div>
-          <% }) %>
+      <div class="form-group">
+        <%= JST['app/templates/includes/icon_display.html']( {icon: danger[index].icon, colors: danger[index].colors } ) %>
+        <label for="icon">Icon</label>
+        <select id="iconList" name="dangers[<%= index %>][icon]" class="selectpicker form-control">
+          <% _.each(iconList, function(i, char) { %>
+          <option <%= danger.icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
+          <% }); %>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="colors.background">Background Color</label>
+        <input type="color" id="colors.background" name="dangers[<%= index %>][colors][background]" value="<%= danger.colors.background %>">
+        <label for="colors.icon">Icon Color</label>
+        <input type="color" id="colors.icon" name="dangers[<%= index %>][colors][icon]" value="<%= danger.colors.icon %>">
+      </div>
+      <div class="form-group">
+        <label for="danger-name" class="text-capitalize">Name</label>
+        <div class="input-group">
+          <input class="form-control" name="dangers[<%= index %>][name]" value="<%= danger['name'] %>">
+          <span class="fa fa-question input-group-addon random" data-field="danger_name"></span>
         </div>
       </div>
+      <% _.each(['type', 'subtype', 'impulse', 'doom'], function(type) { %>
+      <div class="form-group">
+        <label for="danger-<%= type %>" class="text-capitalize"><%= type %></label>
+        <input class="form-control" name="dangers[<%= index %>][<%= type %>]" value="<%= danger[type] %>">
+      </div>
+      <% }) %>
       <% }); %>
       <% _.each([{name: 'portent', object: portents, plural: 'portents', label:'Grim Portents'}, {name: 'stake', object: stakes, plural: 'stakes', label: 'Stakes'}, {name: 'castMember', object: cast, plural: 'cast', label: 'Cast'}], function(section) { %>
       <div class="form-group">

@@ -28,18 +28,14 @@
         </div>
         <% }) %>
         <div class="form-group">
-          <label for="icon">Icon</label>
-          <select id="iconList" name="icon" class="selectpicker form-control">
+          <%= JST['app/templates/includes/icon_display.html']({icon: icon, colors: colors, title: name, subtitle: size}) %>
+          <input type="color" id="colors-icon" name="colors[icon]" value="<%= colors.icon %>">
+          <input type="color" id="colors-background" name="colors[background]" value="<%= colors.background %>">
+          <select id="iconList" name="icon" class="selectpicker col-md-9">
             <% _.each(iconList, function(i, char) { %>
             <option <%= icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
             <% }); %>
           </select>
-        </div>
-        <div class="form-group">
-          <label for="colors.background">Background Color</label>
-          <input type="color" id="colors.background" name="colors[background]" value="<%= colors.background %>">
-          <label for="colors.icon">Icon Color</label>
-          <input type="color" id="colors.icon" name="colors[icon]" value="<%= colors.icon %>">
         </div>
         <div class="form-group" id="tag-list">
           <% _.each(enums.tags, function(tag, index) { %>
@@ -50,7 +46,7 @@
               <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= index %>"> <%= tag.key %></a>
             </label>
             <div class="tag-description <%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
-              <p><%= tag.description %></p>
+              <small><%= tag.description %></small>
               <textarea class="form-control tag-details" name="tags[<%= index %>][details]" placeholder="details"><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>

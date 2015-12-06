@@ -9,7 +9,19 @@ class SteadingOMatic.Views.SteadingForm extends SteadingOMatic.Views.Form
       'keyup .tag-details': 'eventKeyupTagDetails'
       'click .tag-checkbox': 'eventClickTagCheckbox'
       'click .random': 'eventClickRandom'
+      'change #colors-background': 'eventChangeBackgroundColor'
+      'change #colors-icon': 'eventChangeIconColor'
+      'change #iconList': 'eventChangeIcon'
 
+  eventChangeBackgroundColor: (event) ->
+    console.log 'ereiamjh'
+    @$('.display-icon').css('background-color', $(event.target).val())
+
+  eventChangeIconColor: (event) ->
+    @$('.display-icon').css('color', $(event.target).val())
+
+  eventChangeIcon: (event) ->
+    @$('.display-icon').attr('class', 'display-icon').addClass("icon-#{$(event.target).val()}")
 
   eventKeyupTagDetails: (event) ->
     $target = $(event.target)
