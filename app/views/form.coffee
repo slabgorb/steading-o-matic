@@ -21,6 +21,8 @@ class SteadingOMatic.Views.Form extends SteadingOMatic.Views.Base
     @model.save().done =>
       @model.trigger 'actionEditDone', @model
 
-  actionCancel: (event) -> @model.trigger 'actionCancel', @model
+  actionCancel: (event) ->
+    event.preventDefault()
+    @model.trigger 'actionEditDone', @model
 
   cleanup: (formData) -> formData
