@@ -10,6 +10,7 @@ class SteadingOMatic.Views.Form extends SteadingOMatic.Views.Base
 
   events: ->
     'click .action-done': 'actionEditDone'
+    'click .action-cancel': 'actionCancel'
 
   actionEditDone: (event) ->
     event.preventDefault()
@@ -20,5 +21,6 @@ class SteadingOMatic.Views.Form extends SteadingOMatic.Views.Base
     @model.save().done =>
       @model.trigger 'actionEditDone', @model
 
+  actionCancel: (event) -> @model.trigger 'actionCancel', @model
 
   cleanup: (formData) -> formData

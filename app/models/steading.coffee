@@ -94,8 +94,12 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     "<short_adjective>|<short_noun>|<suffix>"
     "<prefix> <short_adjective>|<short_noun>"
     "<noun>|<suffix>"
+    "<noun>|<suffix>"
+    "<adjective>|<suffix>"
     "<adjective>|<suffix>"
     "<short_adjective>|<suffix>"
+    "<short_adjective>|<suffix>"
+    "<adjective> <end_noun>"
     "<noun> <end_noun>"
     "<adjective> <end_noun>"
 
