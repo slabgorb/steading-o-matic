@@ -1,10 +1,10 @@
-<div class="list-item col-md-6 item" id="item-<%= _id %>" data-id="<%= _id %>">
+<div class="list-item col-md-12 item" id="item-<%= _id %>" data-id="<%= _id %>">
   <div class="card">
     <div class="card-block">
       <%= JST['app/templates/includes/action_bar.html']() %>
       <%= JST['app/templates/includes/title.html']({icon: icon, colors: colors, title: name, subtitle: size}) %>
+      <p><%= description %></p>
       <div class="collapse more-info">
-        <p><%= description %></p>
         <dl class="clearfix">
           <% _.each({'population': population, 'prosperity': prosperity, 'defenses': defenses}, function(object, type) { %>
           <dt class="col-sm-4 text-right">
