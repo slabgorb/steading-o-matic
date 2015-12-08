@@ -298,7 +298,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
               ]
               patterns: [
                 '<start_noun> of the <adjective> <noun>'
-                '<prefix>-<start_noun> of the <plural_noun>'
+                '<prefix>|<start_noun> of the <plural_noun>'
               ]
 
             'Power-mad Wizard':
@@ -319,7 +319,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 '<start_noun> of the <noun>'
                 '<adjective> <start_noun> of the <noun>'
                 '<adjective> <start_noun>'
-                '<prefix>-<adjective> <start_noun>'
+                '<prefix>|<adjective> <start_noun>'
                 '<start_noun>, the <noun> of <noun>'
                 '<noun> <start_noun>'
               ]
@@ -383,7 +383,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix>-<noun> of the <plural_noun>"
+                "<prefix>|<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "<plural_noun> of the <noun>"
               ]
@@ -418,7 +418,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix>-<noun> of the <plural_noun>"
+                "<prefix>|<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "the <noun>"
                 "<plural_noun> of the <noun>"
@@ -439,7 +439,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 'hate', 'hatred', 'hell', 'hunger', 'hurricane',
                 'immortal', 'inferno', 'insanity', 'iron', 'justice',
                 'killer', 'lash', 'leader', 'legend', 'minion', 'mob',
-                'mortification', 'nation', 'pack', 'passion',
+                  'mortification', 'nation', 'pack', 'passion',
                 'plague', 'proliferation', 'prophet', 'purity',
                 'purge', 'rampage', 'ravager', 'rider', 'savage',
                 'savagery', 'scum', 'shriek', 'society', 'soldier',
@@ -454,7 +454,7 @@ class SteadingOMatic.Models.Front extends SteadingOMatic.Models.Base
                 "the <plural_noun>"
                 "the <general_adjective> <plural_noun>"
                 "<noun> of the <noun>"
-                "<prefix>-<noun> of the <plural_noun>"
+                "<prefix>|<noun> of the <plural_noun>"
                 "<noun> of the <plural_noun>"
                 "the <noun>"
                 "<plural_noun> of the <noun>"

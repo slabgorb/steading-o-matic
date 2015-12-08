@@ -28,18 +28,17 @@
         </div>
         <% }) %>
         <div class="form-group">
-          <label for="icon">Icon</label>
-          <select id="iconList" name="icon" class="selectpicker form-control">
-            <% _.each(iconList, function(i, char) { %>
-            <option <%= icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
-            <% }); %>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="colors.background">Background Color</label>
-          <input type="color" id="colors.background" name="colors[background]" value="<%= colors.background %>">
-          <label for="colors.icon">Icon Color</label>
-          <input type="color" id="colors.icon" name="colors[icon]" value="<%= colors.icon %>">
+          <div class="input-group">
+            <span class="fa fa-question input-group-addon random-symbol"></span>
+            <%= JST['app/templates/includes/icon_display.html']({icon: icon, colors: colors, title: name, subtitle: size}) %>
+            <input type="color" id="colors-icon" name="colors[icon]" value="<%= colors.icon %>">
+            <input type="color" id="colors-background" name="colors[background]" value="<%= colors.background %>">
+            <select id="iconList" name="icon" class="selectpicker">
+              <% _.each(iconList, function(i, char) { %>
+              <option <%= icon == i ? 'selected' : '' %> data-icon="icon-<%= i %>" value="<%= i %>"><%= i %></option>
+              <% }); %>
+            </select>
+          </div>
         </div>
         <div class="form-group" id="tag-list">
           <% _.each(enums.tags, function(tag, index) { %>
@@ -50,13 +49,13 @@
               <a role="button" class="collapsed"  data-toggle="collapse"  href="#collapse-<%= index %>"> <%= tag.key %></a>
             </label>
             <div class="tag-description <%= selectedTag ? '' : 'collapse' %>" id="collapse-<%= index %>">
-              <p><%= tag.description %></p>
+              <small><%= tag.description %></small>
               <textarea class="form-control tag-details" name="tags[<%= index %>][details]" placeholder="details"><%= selectedTag ? selectedTag.details : '' %></textarea>
             </div>
           </div>
           <% }); %>
         </div>
-        <button class="btn btn-default action-done">Done</button>
+        <button class="btn btn-default action-done">Done</button><button class="btn btn-default action-cancel">Cancel</button>
       </form>
     </div>
   </div>
