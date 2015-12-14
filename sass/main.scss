@@ -47,6 +47,14 @@ html, body {
     }
   }
   .navbar-default {
+    .title-tower {
+      &:before {
+        font-size: 24px;
+      }
+      display: inline-block;
+      margin-right: 10px;
+    }
+
     .navbar-toggle {
       border-color: $color_1;
       background-color: $color_4;
