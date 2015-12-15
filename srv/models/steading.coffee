@@ -6,6 +6,10 @@ _ = require 'underscore'
 
 Schema = mongoose.Schema
 SteadingSchema = new Schema
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  public:
+    type: Boolean
+    default: false
   icon:
     type: String
     enum: _.values(iconList)

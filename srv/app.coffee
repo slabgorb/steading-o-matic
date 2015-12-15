@@ -57,6 +57,9 @@ app.use (req, res, next) ->
   if err then res.locals.error = err
   if msg then res.locals.notice = msg
   if success then res.locals.success = success
+  _.extend req.body, user: req.user
+  console.log req.user
+  console.log req.body
   next()
 
 app.get '/', (req, res) ->

@@ -5,15 +5,6 @@ exports.register_routes = (app) ->
   app.get '/fronts', (req, res) ->
     res.render 'fronts/list', { user: req.user }
 
-  app.get '/fronts/:id', (req, res) ->
-    res.render 'fronts/detail', { user: req.user }
-
-  app.get '/fronts/new', (req, res) ->
-    res.render 'fronts/form', { user: req.user }
-
-  app.get '/fronts/:id/edit', (req, res) ->
-    res.render 'fronts/form', { user: req.user }
-
   app.route('/api/fronts')
     .post (req, res) ->
       Front.create req.body, (err, data) ->
@@ -28,7 +19,7 @@ exports.register_routes = (app) ->
         res.json {success: true} unless err
 
     .get (req, res) ->
-      Front.find {}, null, { sort: { ordinal: 1 } }, (err, fronts) ->
+      Front.find {user: req.user }, null, { sort: { ordinal: 1 } }, (err, fronts) ->
         res.status(500).send err if err
         res.json fronts
     .delete (req, res) ->

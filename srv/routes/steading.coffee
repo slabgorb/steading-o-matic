@@ -6,7 +6,7 @@ exports.register_routes = (app) ->
     res.render 'steadings/list', { user: req.user }
 
   app.get '/api/random/steading/:count', (req, res) ->
-    Steading.findRandom().limit(req.params.count).exec (err, steadings) ->
+    Steading.findRandom({ user: req.user }).limit(req.params.count).exec (err, steadings) ->
       res.json steadings
 
   app.route('/api/steadings')
@@ -21,9 +21,8 @@ exports.register_routes = (app) ->
           err ?= e
       res.status(500).send err if err
       res.json {success: true} unless err
-
     .get (req, res) ->
-      Steading.find {}, null, { sort: { ordinal: 1 } }, (err, steadings) ->
+      Steading.find { user: req.user }, null, { sort: { ordinal: 1 } }, (err, steadings) ->
         res.status(500).send err if err
         res.json steadings
     .delete (req, res) ->
