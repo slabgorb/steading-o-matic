@@ -102,7 +102,6 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     "<adjective> <end_noun>"
     "<noun> <end_noun>"
     "<adjective> <end_noun>"
-
   ]
 
   @suffixes = [
