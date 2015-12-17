@@ -6,6 +6,7 @@ _ = require 'underscore'
 Schema = mongoose.Schema
 FrontSchema = new Schema
   name: String
+  user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
   type: {type: String, enum: ['Adventure', 'Campaign'] }
   dangers:
     [
