@@ -15,15 +15,24 @@ class SteadingOMatic.Describers.Steading
 
   history: ->
     if @steading.hasTag('history')
-
+      @description += historyEvents
       _.noop()
 
 
   tokenizers:
-    historicalSubject: -> _sample
-      "The battle of <steadingName>",
-    historicalAdjective: -> _.sample
+    historicalSubject: -> _.sample [
+      "battle of <steadingName>"
+      "romance between <personName> and <personName>"
+      "myth of the <adjective> <noun>"
+      "tragedy of <personName>"
+      "miracle of the <adjective><noun>"
+    ]
+
+    fancyPhrase: ->
+
+    historicalAdjective: -> _.sample [
       'key'
+      'important'
       'important'
       'trivial'
       'locally famous'
@@ -31,12 +40,25 @@ class SteadingOMatic.Describers.Steading
       'world-renowned'
       'locally infamous'
       'famous'
+      'famous'
+      'obscene'
+      'mystical'
+    ]
+
     steadingName: => @subject.get('name')
+    steadingType: => @subject.get('type')
+    yearsAgo: -> _.sample [
+      "a short time ago"
+      "a long time ago"
+      "hundreds of years ago"
+      "just recently"
+      "in a time nearly forgotten"
+      "during the memories of the oldest inhabitants of <steadingName>"
+      "before <steadingName> was a <steadingType>"
+    ]
 
 
 
-
-  history_events: [
-    "The <historicalAdjective> <historicalSubject> happened here <years> ago.
-
+  historyEvents: -> _.sample [
+    "the <historicalAdjective> <historicalSubject> happened here <yearsAgo>."
   ]
