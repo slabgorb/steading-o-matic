@@ -2,6 +2,7 @@
   <div class="card">
     <div class="card-block">
       <form>
+        <%= JST['app/templates/includes/form_action_bar.html']() %>
         <% if (typeof _id !=='undefined') { %>
         <input type="hidden" name="id" value="<%= _id %>"/>
         <% } %>
@@ -55,7 +56,7 @@
           </div>
           <% }); %>
         </div>
-        <button class="btn btn-default action-done">Done</button><button class="btn btn-default action-cancel">Cancel</button>
+        <%= JST['app/templates/includes/form_action_bar.html']() %>
       </form>
     </div>
   </div>

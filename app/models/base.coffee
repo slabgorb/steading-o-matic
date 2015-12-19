@@ -35,8 +35,7 @@ class SteadingOMatic.Models.Base extends Backbone.Model
         when "<short_noun>" then _.sample(_.filter(words.nouns, (noun) -> noun.length < 7))
         when "<end_noun>" then _.sample words.endNouns
         else token
-      token = token.replace(/(.)\1{2,}/, ($0, $1) -> $1 + $1 ) # remove triple letters caused by joining random words
-    _.titleize tokens.join('').replace(/\|/g, '')
+    _.titleize tokens.join('').replace(/(.)\1{2,}/, ($0, $1) -> $1 + $1 ).replace(/\|/g, '')
 
   #
   # selects a random symbol (icon + colors)
