@@ -8,6 +8,9 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     @set('enums', @constructor.enums)
     super(attributes, options)
 
+  hasTag: (tagName) ->
+    _.find @get('tags'), (tag) ->
+      tag.tag.toLowerCase() == tagName.toLowerCase()
 
   randomize: ->
     promise = $.Deferred()

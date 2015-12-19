@@ -59,6 +59,8 @@ module.exports = (grunt) ->
             'app/views/*.coffee'
             'app/collections/*.coffee'
             'app/routers/base.coffee'
+            'app/describers/base.coffee'
+            'app/describers/**/*.coffee'
             'app/models/**/*.coffee'
             'app/collections/**/*.coffee'
             'app/views/**/*.coffee'
