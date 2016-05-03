@@ -28,8 +28,6 @@ class SteadingOMatic.Describers.Steading
       "miracle of the <adjective><noun>"
     ]
 
-    fancyPhrase: ->
-
     historicalAdjective: -> _.sample [
       'key'
       'important'
@@ -47,7 +45,7 @@ class SteadingOMatic.Describers.Steading
 
     steadingName: => @subject.get('name')
     steadingType: => @subject.get('type')
-    yearsAgo: -> _.sample [
+    timeAgo: -> _.sample [
       "a short time ago"
       "a long time ago"
       "hundreds of years ago"
@@ -55,10 +53,92 @@ class SteadingOMatic.Describers.Steading
       "in a time nearly forgotten"
       "during the memories of the oldest inhabitants of <steadingName>"
       "before <steadingName> was a <steadingType>"
+      "a very long time ago"
+      "in the past"
     ]
 
 
 
   historyEvents: -> _.sample [
-    "the <historicalAdjective> <historicalSubject> happened here <yearsAgo>."
+    "the <historicalAdjective> <historicalSubject> happened here <timeAgo>."
+    "<timeAgo>, the <historicalSubject> happened nearby."
   ]
+
+
+  @suffixes = [
+    'borough'
+    'bridge'
+    'burg'
+    'burn'
+    'cross'
+    'dale'
+    'end'
+    'ey'
+    'field'
+    'ford'
+    'gate'
+    'green'
+    'ham'
+    'harbor'
+    'hill'
+    'hold'
+    'ing'
+    'ingley'
+    'ington'
+    'land'
+    'lea'
+    'leagh'
+    'lin'
+    'moor'
+    'more'
+    'port'
+    'river'
+    'stone'
+    'sty'
+    'thorpe'
+    'ton'
+    'ton'
+    'town'
+    'town'
+    'ville'
+    'ville'
+    'wick'
+    'wood'
+    'worth'
+    'yard'
+  ]
+
+  @prefixes = [
+    'south'
+    'north'
+    'east'
+    'west'
+    'south'
+    'north'
+    'east'
+    'west'
+    'upper'
+    'lower'
+    'old'
+    'new'
+    'northeast'
+    'northwest'
+    'southeast'
+    'southwest'
+  ]
+
+  @endNouns = [
+    'crossing'
+    'field'
+    'bend'
+    'road'
+    'town'
+    'town'
+    'city'
+    'city'
+    'green'
+    'yard'
+    'head'
+    'harbor'
+    'port'
+   ]

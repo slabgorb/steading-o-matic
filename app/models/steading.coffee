@@ -1,5 +1,6 @@
 class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
 
+  className: 'Steading'
   url: -> if @get('_id') then "/api/steadings/#{@get('_id')}" else "/api/steadings"
 
   initialize: (attributes, options = {}) ->
@@ -107,83 +108,6 @@ class SteadingOMatic.Models.Steading extends SteadingOMatic.Models.Base
     "<adjective> <end_noun>"
   ]
 
-  @suffixes = [
-    'borough'
-    'bridge'
-    'burg'
-    'burn'
-    'cross'
-    'dale'
-    'end'
-    'ey'
-    'field'
-    'ford'
-    'gate'
-    'green'
-    'ham'
-    'harbor'
-    'hill'
-    'hold'
-    'ing'
-    'ingley'
-    'ington'
-    'land'
-    'lea'
-    'leagh'
-    'lin'
-    'moor'
-    'more'
-    'port'
-    'river'
-    'stone'
-    'sty'
-    'thorpe'
-    'ton'
-    'ton'
-    'town'
-    'town'
-    'ville'
-    'ville'
-    'wick'
-    'wood'
-    'worth'
-    'yard'
-  ]
-
-  @prefixes = [
-    'south'
-    'north'
-    'east'
-    'west'
-    'south'
-    'north'
-    'east'
-    'west'
-    'upper'
-    'lower'
-    'old'
-    'new'
-    'northeast'
-    'northwest'
-    'southeast'
-    'southwest'
-  ]
-
-  @endNouns = [
-    'crossing'
-    'field'
-    'bend'
-    'road'
-    'town'
-    'town'
-    'city'
-    'city'
-    'green'
-    'yard'
-    'head'
-    'harbor'
-    'port'
-   ]
 
 
 
